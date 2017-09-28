@@ -94,8 +94,8 @@ INSERT INTO apex_objeto_cuadro (objeto_cuadro_proyecto, objeto_cuadro, titulo, s
 	NULL, --columna_descripcion
 	'0', --clave_dbr
 	NULL, --archivos_callbacks
-	'900px', --ancho
-	'0', --ordenar
+	'1000px', --ancho
+	'1', --ordenar
 	'0', --paginar
 	NULL, --tamano_pagina
 	'P', --tipo_paginado
@@ -166,14 +166,14 @@ INSERT INTO apex_objeto_ei_cuadro_columna (objeto_cuadro_proyecto, objeto_cuadro
 	'2000106', --objeto_cuadro
 	'2000074', --objeto_cuadro_col
 	'cuil_cuit', --clave
-	'2', --orden
-	'Cuil cuit', --titulo
+	'3', --orden
+	'Cuil/t', --titulo
 	'ei-cuadro-col-tit', --estilo_titulo
 	'4', --estilo
 	'70', --ancho
 	'1', --formateo
 	NULL, --vinculo_indice
-	'0', --no_ordenar
+	'1', --no_ordenar
 	NULL, --mostrar_xls
 	NULL, --mostrar_pdf
 	NULL, --pdf_propiedades
@@ -197,21 +197,21 @@ INSERT INTO apex_objeto_ei_cuadro_columna (objeto_cuadro_proyecto, objeto_cuadro
 	'2000106', --objeto_cuadro
 	'2000075', --objeto_cuadro_col
 	'tipo_nombre', --clave
-	'3', --orden
+	'2', --orden
 	'Tipo', --titulo
 	'ei-cuadro-col-tit', --estilo_titulo
 	'0', --estilo
 	'120', --ancho
 	'1', --formateo
 	NULL, --vinculo_indice
-	NULL, --no_ordenar
+	'0', --no_ordenar
 	NULL, --mostrar_xls
 	NULL, --mostrar_pdf
 	NULL, --pdf_propiedades
 	NULL, --desabilitado
-	NULL, --total
+	'0', --total
 	NULL, --total_cc
-	NULL, --usar_vinculo
+	'0', --usar_vinculo
 	NULL, --vinculo_carpeta
 	NULL, --vinculo_item
 	NULL, --vinculo_popup
@@ -228,14 +228,14 @@ INSERT INTO apex_objeto_ei_cuadro_columna (objeto_cuadro_proyecto, objeto_cuadro
 	'2000106', --objeto_cuadro
 	'2000076', --objeto_cuadro_col
 	'direccion', --clave
-	'4', --orden
+	'7', --orden
 	'Direccion', --titulo
 	'ei-cuadro-col-tit', --estilo_titulo
 	'4', --estilo
 	'260', --ancho
 	'1', --formateo
 	NULL, --vinculo_indice
-	'0', --no_ordenar
+	'1', --no_ordenar
 	NULL, --mostrar_xls
 	NULL, --mostrar_pdf
 	NULL, --pdf_propiedades
@@ -259,14 +259,14 @@ INSERT INTO apex_objeto_ei_cuadro_columna (objeto_cuadro_proyecto, objeto_cuadro
 	'2000106', --objeto_cuadro
 	'2000077', --objeto_cuadro_col
 	'observacion', --clave
-	'5', --orden
+	'6', --orden
 	'Observacion', --titulo
 	'ei-cuadro-col-tit', --estilo_titulo
 	'4', --estilo
 	'260', --ancho
 	'1', --formateo
 	NULL, --vinculo_indice
-	'0', --no_ordenar
+	'1', --no_ordenar
 	NULL, --mostrar_xls
 	NULL, --mostrar_pdf
 	NULL, --pdf_propiedades
@@ -290,21 +290,21 @@ INSERT INTO apex_objeto_ei_cuadro_columna (objeto_cuadro_proyecto, objeto_cuadro
 	'2000106', --objeto_cuadro
 	'2000093', --objeto_cuadro_col
 	'telefono', --clave
-	'6', --orden
+	'4', --orden
 	'Teléfono', --titulo
 	'ei-cuadro-col-tit', --estilo_titulo
 	'4', --estilo
 	'60', --ancho
 	'1', --formateo
 	NULL, --vinculo_indice
-	NULL, --no_ordenar
+	'1', --no_ordenar
 	NULL, --mostrar_xls
 	NULL, --mostrar_pdf
 	NULL, --pdf_propiedades
 	NULL, --desabilitado
-	NULL, --total
+	'0', --total
 	NULL, --total_cc
-	NULL, --usar_vinculo
+	'0', --usar_vinculo
 	NULL, --vinculo_carpeta
 	NULL, --vinculo_item
 	NULL, --vinculo_popup
@@ -321,21 +321,21 @@ INSERT INTO apex_objeto_ei_cuadro_columna (objeto_cuadro_proyecto, objeto_cuadro
 	'2000106', --objeto_cuadro
 	'2000094', --objeto_cuadro_col
 	'email', --clave
-	'7', --orden
+	'5', --orden
 	'Email', --titulo
 	'ei-cuadro-col-tit', --estilo_titulo
 	'4', --estilo
 	'70', --ancho
 	'1', --formateo
 	NULL, --vinculo_indice
-	NULL, --no_ordenar
+	'1', --no_ordenar
 	NULL, --mostrar_xls
 	NULL, --mostrar_pdf
 	NULL, --pdf_propiedades
 	NULL, --desabilitado
-	NULL, --total
+	'0', --total
 	NULL, --total_cc
-	NULL, --usar_vinculo
+	'0', --usar_vinculo
 	NULL, --vinculo_carpeta
 	NULL, --vinculo_item
 	NULL, --vinculo_popup

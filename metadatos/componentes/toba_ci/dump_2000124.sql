@@ -98,6 +98,18 @@ INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objet
 );
 INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objeto_proveedor, identificador, parametros_a, parametros_b, parametros_c, inicializar, orden) VALUES (
 	'kimelu', --proyecto
+	'2000120', --dep_id
+	'2000124', --objeto_consumidor
+	'2000130', --objeto_proveedor
+	'filtro', --identificador
+	NULL, --parametros_a
+	NULL, --parametros_b
+	NULL, --parametros_c
+	NULL, --inicializar
+	NULL  --orden
+);
+INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objeto_proveedor, identificador, parametros_a, parametros_b, parametros_c, inicializar, orden) VALUES (
+	'kimelu', --proyecto
 	'2000114', --dep_id
 	'2000124', --objeto_consumidor
 	'2000123', --objeto_proveedor
@@ -120,7 +132,7 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	'2000124', --objeto_ci
 	'2000028', --pantalla
 	'pant_edicion', --identificador
-	'1', --orden
+	'2', --orden
 	'Cargar Estudiante', --etiqueta
 	NULL, --descripcion
 	NULL, --tip
@@ -139,7 +151,7 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	'2000124', --objeto_ci
 	'2000029', --pantalla
 	'pant_cuadro', --identificador
-	'2', --orden
+	'1', --orden
 	'Ver Estudiantes', --etiqueta
 	NULL, --descripcion
 	NULL, --tip
@@ -169,6 +181,13 @@ INSERT INTO apex_objetos_pantalla (proyecto, pantalla, objeto_ci, orden, dep_id)
 	'kimelu', --proyecto
 	'2000029', --pantalla
 	'2000124', --objeto_ci
-	'0', --orden
+	'1', --orden
 	'2000113'  --dep_id
+);
+INSERT INTO apex_objetos_pantalla (proyecto, pantalla, objeto_ci, orden, dep_id) VALUES (
+	'kimelu', --proyecto
+	'2000029', --pantalla
+	'2000124', --objeto_ci
+	'0', --orden
+	'2000120'  --dep_id
 );

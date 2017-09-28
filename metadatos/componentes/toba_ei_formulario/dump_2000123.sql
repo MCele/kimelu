@@ -430,8 +430,8 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	NULL, --carga_no_seteado
 	NULL, --carga_no_seteado_ocultar
 	NULL, --edit_tamano
-	'9', --edit_maximo
-	NULL, --edit_mascara
+	'11', --edit_maximo
+	'##.###.###', --edit_mascara
 	NULL, --edit_unidad
 	NULL, --edit_rango
 	NULL, --edit_filas
@@ -440,7 +440,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	NULL, --edit_resaltar
 	NULL, --edit_ajustable
 	NULL, --edit_confirmar_clave
-	NULL, --edit_expreg
+	'/^[0-9]+$/', --edit_expreg
 	NULL, --popup_item
 	NULL, --popup_proyecto
 	NULL, --popup_editable
@@ -477,7 +477,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'cuil', --identificador
 	'ef_editable', --elemento_formulario
 	'cuil', --columnas
-	'0', --obligatorio
+	'1', --obligatorio
 	'0', --oculto_relaja_obligatorio
 	'4', --orden
 	'Cuil', --etiqueta
@@ -510,7 +510,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	NULL, --carga_no_seteado
 	NULL, --carga_no_seteado_ocultar
 	NULL, --edit_tamano
-	NULL, --edit_maximo
+	'13', --edit_maximo
 	'##-########-#', --edit_mascara
 	NULL, --edit_unidad
 	NULL, --edit_rango
@@ -520,7 +520,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	NULL, --edit_resaltar
 	NULL, --edit_ajustable
 	NULL, --edit_confirmar_clave
-	'/^[0-9]{2}-[0-9]{8}-[0-9]$/', --edit_expreg
+	'/^[0-9]{2}-[0-9]{8}-[0-9] || [0-9]{2}[0-9]{8}[0-9]$/', --edit_expreg
 	NULL, --popup_item
 	NULL, --popup_proyecto
 	NULL, --popup_editable
@@ -557,9 +557,9 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'nombre', --identificador
 	'ef_editable', --elemento_formulario
 	'nombre', --columnas
-	'0', --obligatorio
+	'1', --obligatorio
 	'0', --oculto_relaja_obligatorio
-	'1', --orden
+	'2', --orden
 	'Nombre', --etiqueta
 	NULL, --etiqueta_estilo
 	NULL, --descripcion
@@ -637,9 +637,9 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'apellido', --identificador
 	'ef_editable', --elemento_formulario
 	'apellido', --columnas
-	'0', --obligatorio
+	'1', --obligatorio
 	'0', --oculto_relaja_obligatorio
-	'2', --orden
+	'1', --orden
 	'Apellido', --etiqueta
 	NULL, --etiqueta_estilo
 	NULL, --descripcion

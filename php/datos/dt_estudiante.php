@@ -1,8 +1,10 @@
 <?php
 class dt_estudiante extends kimelu_datos_tabla
 {
-	function get_listado()
+	function get_listado($where = null)
 	{
+            if (is_null($where)) {  $where = '';} 
+            else {   $where = ' where ' . $where; }
 		$sql = "SELECT
 			t_e.id_estudiante,
 			t_e.email,
@@ -15,13 +17,15 @@ class dt_estudiante extends kimelu_datos_tabla
 			t_e.domicilio
 		FROM
 			estudiante as t_e
-		ORDER BY nombre";
+                $where 
+		ORDER BY apellido";
 		return toba::db('kimelu')->consultar($sql);
 	}
 
 	function get_descripciones()
 	{
-		$sql = "SELECT id_estudiante, nombre FROM estudiante ORDER BY nombre";
+		$sql = "SELECT id_estudiante, apellido, cuil"
+                        . " FROM estudiante ORDER BY apellido";
 		return toba::db('kimelu')->consultar($sql);
 	}
 

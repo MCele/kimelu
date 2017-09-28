@@ -1,12 +1,14 @@
 <?php
 class dt_actividad extends kimelu_datos_tabla
 {
-	function get_listado($filtro=array())
+	function get_listado($where = null)
 	{
-		$where = array();
-		if (isset($filtro['tipo_actividad'])) {
+		if (is_null($where)) {  $where = '';} 
+                else {   $where = ' where ' . $where; }
+		/*if (isset($filtro['tipo_actividad'])) {
 			$where[] = "tipo_actividad = ".quote($filtro['tipo_actividad']);
-		}
+		}*/
+                
 		$sql = "SELECT
 			t_a.denominacion,
 			t_a.participantes,
@@ -16,7 +18,7 @@ class dt_actividad extends kimelu_datos_tabla
 			t_a.lugar,
 			t_a.id_actividad,
 			t_d.nombre as departamento_nombre,
-			t_ta.tipo as tipo_actividad_nombre,
+			t_ta.tipo as tipo_actividad,
 			t_i.nombre as institucion_nombre,
 			t_a.nombre_corto,
 			t_a.nro_resolucion
@@ -28,10 +30,12 @@ class dt_actividad extends kimelu_datos_tabla
                                        ON (t_a.tipo_actividad = t_ta.id_tipo_actividad)
 			LEFT OUTER JOIN institucion as t_i 
                                        ON (t_a.institucion = t_i.id_institucion)
+                        $where 
 		ORDER BY denominacion";
-		if (count($where)>0) {
-			$sql = sql_concatenar_where($sql, $where);
-		}
+//		if (count($where)>0) {
+//			$sql = sql_concatenar_where($sql, $where);
+//		}
+                //$sql = toba::perfil_de_datos()->filtrar($sql);
 		return toba::db('kimelu')->consultar($sql);
 	}
 
@@ -40,6 +44,29 @@ class dt_actividad extends kimelu_datos_tabla
 		$sql = "SELECT id_actividad, denominacion FROM actividad ORDER BY denominacion";
 		return toba::db('kimelu')->consultar($sql);
 	}
-
+        
+        function get_descripciones_tipo($tipo=null)
+	{ //Datos de actividades para un determinado tipo: 1-->Pasantía, 2-->Curso, 3-->Capacitación, etc
+            if (is_null($tipo)){ 
+                $where = '';} 
+            else {   
+                $where = ' where tipo_actividad = ' . $tipo ." "; 
+            
+            }
+		$sql = "SELECT id_actividad, denominacion FROM actividad "
+                        .$where
+                        . "ORDER BY denominacion";
+		return toba::db('kimelu')->consultar($sql);
+	}
+        
+        function get_descripciones_pasantia()
+	{   //Datos de actividades para un determinado tipo: 1-->Pasantía
+            $tipo =1;
+            $sql = "SELECT id_actividad, denominacion FROM actividad "
+                    ."Where tipo_actividad = " . $tipo ." "
+                        . "ORDER BY denominacion";
+            return toba::db('kimelu')->consultar($sql);
+        }
+        
 }
 ?>
