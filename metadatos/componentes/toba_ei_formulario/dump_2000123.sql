@@ -21,7 +21,7 @@ INSERT INTO apex_objeto (proyecto, objeto, anterior, identificador, reflexivo, c
 	NULL, --objeto_categoria_proyecto
 	NULL, --objeto_categoria
 	'Estudiante - Form', --nombre
-	NULL, --titulo
+	'Cargar Nuevo Estudiante', --titulo
 	'0', --colapsable
 	NULL, --descripcion
 	'kimelu', --fuente_datos_proyecto

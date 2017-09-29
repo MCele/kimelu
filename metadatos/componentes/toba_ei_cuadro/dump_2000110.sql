@@ -21,7 +21,7 @@ INSERT INTO apex_objeto (proyecto, objeto, anterior, identificador, reflexivo, c
 	NULL, --objeto_categoria_proyecto
 	NULL, --objeto_categoria
 	'Carga Actividad - Cuadro.', --nombre
-	'Datos Actividades', --titulo
+	'Datos de Actividades', --titulo
 	'0', --colapsable
 	NULL, --descripcion
 	NULL, --fuente_datos_proyecto
@@ -99,10 +99,10 @@ INSERT INTO apex_objeto_cuadro (objeto_cuadro_proyecto, objeto_cuadro, titulo, s
 	'0', --paginar
 	NULL, --tamano_pagina
 	'P', --tipo_paginado
-	'0', --mostrar_total_registros
+	'1', --mostrar_total_registros
 	'0', --eof_invisible
-	'No hay actividades cargadas', --eof_customizado
-	'0', --siempre_con_titulo
+	'No hay actividades', --eof_customizado
+	'1', --siempre_con_titulo
 	'0', --exportar_paginado
 	'1', --exportar
 	'0', --exportar_rtf

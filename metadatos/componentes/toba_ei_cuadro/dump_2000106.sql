@@ -100,8 +100,8 @@ INSERT INTO apex_objeto_cuadro (objeto_cuadro_proyecto, objeto_cuadro, titulo, s
 	NULL, --tamano_pagina
 	'P', --tipo_paginado
 	'1', --mostrar_total_registros
-	'1', --eof_invisible
-	NULL, --eof_customizado
+	'0', --eof_invisible
+	'No hay actividades cargadas', --eof_customizado
 	'1', --siempre_con_titulo
 	'0', --exportar_paginado
 	'1', --exportar
@@ -118,7 +118,7 @@ INSERT INTO apex_objeto_cuadro (objeto_cuadro_proyecto, objeto_cuadro, titulo, s
 	NULL, --desplegable
 	NULL, --desplegable_activo
 	'1', --scroll
-	'500px', --scroll_alto
+	'400px', --scroll_alto
 	NULL, --cc_modo
 	NULL, --cc_modo_anidado_colap
 	NULL, --cc_modo_anidado_totcol
@@ -201,7 +201,7 @@ INSERT INTO apex_objeto_ei_cuadro_columna (objeto_cuadro_proyecto, objeto_cuadro
 	'Tipo', --titulo
 	'ei-cuadro-col-tit', --estilo_titulo
 	'0', --estilo
-	'120', --ancho
+	'140', --ancho
 	'1', --formateo
 	NULL, --vinculo_indice
 	'0', --no_ordenar
