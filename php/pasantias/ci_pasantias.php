@@ -145,11 +145,11 @@ class ci_pasantias extends abm_ci
          */
         $pasantias=$this->dep('datos')->tabla($this->nombre_tabla)->get_listado_actividad_estudiante($id_actividad,$id_estudiante);
         
-        $dif=[];
+        $dif=array();
         $k=0;
         $meses=0;
         $dias=0;
-        $total=[];
+        $total=array();
         for($i=0;$i< sizeof($pasantias);$i++){//calcula el total de los meses y dias en todas las pasantías
              if((is_null($id_pasantia))||((!is_null($id_pasantia)) && ($id_pasantia != $pasantias[$i]['id_pasantia'])))
               {//para el caso en el que se esté contando la pasantía actual a modificar
