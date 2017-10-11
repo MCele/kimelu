@@ -31,7 +31,7 @@ class dt_estudiante extends kimelu_datos_tabla
                 $where = ' Where id_estudiante = ' . $id_est; 
                 
             }
-		$sql = "SELECT id_estudiante, Concat(apellido,' ', nombre) as apellido_nombre, cuil"
+		$sql = "SELECT id_estudiante, apellido||' '|| nombre as apellido_nombre, cuil"
                         . " FROM estudiante "
                         . $where
                         . " ORDER BY (apellido,nombre)";
@@ -48,7 +48,7 @@ class dt_estudiante extends kimelu_datos_tabla
                 $where = ' where ' . $where; 
                 
             }
-            $sql = "SELECT id_estudiante, Concat(apellido,' ', nombre) as apellido_nombre, cuil"
+            $sql = "SELECT id_estudiante, apellido||' '|| nombre as apellido_nombre, cuil"
                 . " FROM estudiante "
                 .   $where
                 . " ORDER BY (apellido,nombre)";
