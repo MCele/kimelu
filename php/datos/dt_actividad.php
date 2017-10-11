@@ -20,7 +20,6 @@ class dt_actividad extends kimelu_datos_tabla
 			t_d.nombre as departamento_nombre,
 			t_ta.tipo as tipo_actividad,
 			t_i.nombre as institucion_nombre,
-			t_a.nombre_corto,
 			t_a.nro_resolucion
 		FROM
 			actividad as t_a	
@@ -42,6 +41,12 @@ class dt_actividad extends kimelu_datos_tabla
 	function get_descripciones()
 	{
 		$sql = "SELECT id_actividad, denominacion FROM actividad ORDER BY denominacion";
+		return toba::db('kimelu')->consultar($sql);
+	}
+        
+        function get_institucion()
+	{
+		$sql = "SELECT id_actividad, institucion FROM actividad ORDER BY denominacion";
 		return toba::db('kimelu')->consultar($sql);
 	}
         

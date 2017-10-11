@@ -31,7 +31,8 @@ class abm_ci extends toba_ci {
 
     /**
      * Atrapa la interacci�n del usuario con el bot�n asociado
-     * @param array $datos Estado del componente al momento de ejecutar el evento. El formato es el mismo que en la carga de la configuraci�n
+     * @param array $datos Estado del componente al momento de ejecutar el evento. 
+     * El formato es el mismo que en la carga de la configuraci�n
      */
     function evt__filtro__filtrar($datos) {
         $this->s__where = $this->dep('filtro')->get_sql_where();

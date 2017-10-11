@@ -87,7 +87,7 @@ INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, colum
 	'kimelu', --objeto_proyecto
 	'2000084', --objeto
 	'2000127', --col_id
-	'disciplina', --columna
+	'carrera', --columna
 	'C', --tipo
 	'0', --pk
 	'', --secuencia

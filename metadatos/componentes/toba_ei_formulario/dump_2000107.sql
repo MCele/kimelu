@@ -270,8 +270,8 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	NULL, --carga_no_seteado
 	NULL, --carga_no_seteado_ocultar
 	NULL, --edit_tamano
-	NULL, --edit_maximo
-	'##-########-#', --edit_mascara
+	'14', --edit_maximo
+	NULL, --edit_mascara
 	NULL, --edit_unidad
 	NULL, --edit_rango
 	NULL, --edit_filas
@@ -280,7 +280,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	NULL, --edit_resaltar
 	NULL, --edit_ajustable
 	NULL, --edit_confirmar_clave
-	'/^[0-9]{2}-[0-9]{8}-[0-9] || [0-9]{2}[0-9]{8}[0-9]$/', --edit_expreg
+	'/^[0-9]{2}-[0-9]{7}-[0-9] || [0-9]{2}-[0-9]{8}-[0-9] || [0-9]{2}-[0-9]{9}-[0-9] || [0-9]{10} ||[0-9]{11} || [0-9]{12}$/', --edit_expreg
 	NULL, --popup_item
 	NULL, --popup_proyecto
 	NULL, --popup_editable
@@ -317,7 +317,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'tipo', --identificador
 	'ef_combo', --elemento_formulario
 	'tipo', --columnas
-	'0', --obligatorio
+	'1', --obligatorio
 	'0', --oculto_relaja_obligatorio
 	'3', --orden
 	'Tipo', --etiqueta
@@ -346,8 +346,8 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	NULL, --carga_maestros
 	'0', --carga_cascada_relaj
 	'0', --cascada_mantiene_estado
-	'0', --carga_permite_no_seteado
-	'-- Seleccione --', --carga_no_seteado
+	'1', --carga_permite_no_seteado
+	'Seleccione...', --carga_no_seteado
 	'0', --carga_no_seteado_ocultar
 	NULL, --edit_tamano
 	NULL, --edit_maximo

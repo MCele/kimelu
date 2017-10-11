@@ -3,6 +3,23 @@
 class ci_estudiante extends abm_ci
 {
     protected $nombre_tabla='estudiante';
+    
+    function evt__formulario__alta($datos) {
+        /*
+         * todo: el periodo por defecto
+         */
+        $datos['cuil']= str_replace("-", "", $datos['cuil']);
+        $this->dep('datos')->tabla($this->nombre_tabla)->set($datos);
+        $this->dep('datos')->sincronizar();
+        $this->resetear();
+    }
+
+    function evt__formulario__modificacion($datos) {
+        $datos['cuil']= str_replace("-", "", $datos['cuil']);
+        $this->dep('datos')->tabla($this->nombre_tabla)->set($datos);
+        $this->dep('datos')->sincronizar();
+        $this->resetear();
+    }
     /*
 	//---- Cuadro -----------------------------------------------------------------------
 

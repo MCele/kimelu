@@ -105,7 +105,7 @@ INSERT INTO apex_objeto_cuadro (objeto_cuadro_proyecto, objeto_cuadro, titulo, s
 	'1', --siempre_con_titulo
 	'0', --exportar_paginado
 	'1', --exportar
-	'0', --exportar_rtf
+	'1', --exportar_rtf
 	NULL, --pdf_propiedades
 	NULL, --pdf_respetar_paginacion
 	NULL, --asociacion_columnas
@@ -165,9 +165,9 @@ INSERT INTO apex_objeto_ei_cuadro_columna (objeto_cuadro_proyecto, objeto_cuadro
 	'kimelu', --objeto_cuadro_proyecto
 	'2000126', --objeto_cuadro
 	'2000105', --objeto_cuadro_col
-	'disciplina', --clave
+	'carrera', --clave
 	'3', --orden
-	'Disciplina', --titulo
+	'Carrera:', --titulo
 	'ei-cuadro-col-tit', --estilo_titulo
 	'4', --estilo
 	NULL, --ancho
@@ -264,7 +264,7 @@ INSERT INTO apex_objeto_ei_cuadro_columna (objeto_cuadro_proyecto, objeto_cuadro
 	'ei-cuadro-col-tit', --estilo_titulo
 	'0', --estilo
 	NULL, --ancho
-	'7', --formateo
+	'9', --formateo
 	NULL, --vinculo_indice
 	'1', --no_ordenar
 	NULL, --mostrar_xls

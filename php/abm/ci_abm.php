@@ -2,7 +2,25 @@
 class ci_abm extends abm_ci
 {
      protected $nombre_tabla='institucion';
-//ok abm carga de persona
+//carga de Instituciones
+     
+     
+     function evt__formulario__alta($datos) {
+        /*
+         * 
+         */
+         $datos['cuil_cuit']= str_replace("-", "", $datos['cuil_cuit']);
+        $this->dep('datos')->tabla($this->nombre_tabla)->set($datos);
+        $this->dep('datos')->sincronizar();
+        $this->resetear();
+    }
+
+    function evt__formulario__modificacion($datos) {
+        $datos['cuil_cuit']= str_replace("-", "", $datos['cuil_cuit']);
+        $this->dep('datos')->tabla($this->nombre_tabla)->set($datos);
+        $this->dep('datos')->sincronizar();
+        $this->resetear();
+    }
 /*
     //---- Cuadro -----------------------------------------------------------------------
 
