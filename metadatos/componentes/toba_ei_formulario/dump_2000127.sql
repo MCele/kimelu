@@ -596,7 +596,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	NULL, --edit_tamano
 	NULL, --edit_maximo
 	NULL, --edit_mascara
-	'por día.', --edit_unidad
+	'por día', --edit_unidad
 	'[0..6.5]', --edit_rango
 	NULL, --edit_filas
 	NULL, --edit_columnas
@@ -644,7 +644,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'0', --obligatorio
 	'0', --oculto_relaja_obligatorio
 	'6', --orden
-	'Cantidad días en la Semana:', --etiqueta
+	'Cantidad días:', --etiqueta
 	NULL, --etiqueta_estilo
 	NULL, --descripcion
 	'0', --colapsado
@@ -676,7 +676,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	NULL, --edit_tamano
 	NULL, --edit_maximo
 	NULL, --edit_mascara
-	NULL, --edit_unidad
+	'por semana', --edit_unidad
 	'[0..5]', --edit_rango
 	NULL, --edit_filas
 	NULL, --edit_columnas
@@ -804,7 +804,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'0', --obligatorio
 	'0', --oculto_relaja_obligatorio
 	'8', --orden
-	'Docente:', --etiqueta
+	'Docente Guía:', --etiqueta
 	NULL, --etiqueta_estilo
 	NULL, --descripcion
 	'0', --colapsado
@@ -817,7 +817,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	NULL, --estado_defecto
 	'0', --solo_lectura
 	'0', --solo_lectura_modificacion
-	'get_descripciones', --carga_metodo
+	'get_descripciones_ua', --carga_metodo
 	NULL, --carga_clase
 	NULL, --carga_include
 	'2000082', --carga_dt
@@ -826,12 +826,12 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'kimelu', --carga_fuente
 	NULL, --carga_lista
 	'id_docente', --carga_col_clave
-	'apellido', --carga_col_desc
+	'apellido_nombre', --carga_col_desc
 	NULL, --carga_maestros
 	'0', --carga_cascada_relaj
 	'0', --cascada_mantiene_estado
-	'0', --carga_permite_no_seteado
-	'-- Seleccione --', --carga_no_seteado
+	'1', --carga_permite_no_seteado
+	'Seleccione...', --carga_no_seteado
 	'0', --carga_no_seteado_ocultar
 	NULL, --edit_tamano
 	NULL, --edit_maximo
@@ -1070,8 +1070,8 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	NULL, --carga_maestros
 	'0', --carga_cascada_relaj
 	'0', --cascada_mantiene_estado
-	'0', --carga_permite_no_seteado
-	'-- Seleccione --', --carga_no_seteado
+	'1', --carga_permite_no_seteado
+	'Seleccione...', --carga_no_seteado
 	'0', --carga_no_seteado_ocultar
 	NULL, --edit_tamano
 	NULL, --edit_maximo

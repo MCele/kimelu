@@ -269,9 +269,9 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'0', --carga_permite_no_seteado
 	NULL, --carga_no_seteado
 	NULL, --carga_no_seteado_ocultar
-	NULL, --edit_tamano
-	'14', --edit_maximo
-	NULL, --edit_mascara
+	'13', --edit_tamano
+	'13', --edit_maximo
+	'##-########-#', --edit_mascara
 	NULL, --edit_unidad
 	NULL, --edit_rango
 	NULL, --edit_filas
@@ -280,7 +280,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	NULL, --edit_resaltar
 	NULL, --edit_ajustable
 	NULL, --edit_confirmar_clave
-	'/^[0-9]{2}-[0-9]{7}-[0-9] || [0-9]{2}-[0-9]{8}-[0-9] || [0-9]{2}-[0-9]{9}-[0-9] || [0-9]{10} ||[0-9]{11} || [0-9]{12}$/', --edit_expreg
+	'/^[0-9]{11}$/', --edit_expreg
 	NULL, --popup_item
 	NULL, --popup_proyecto
 	NULL, --popup_editable

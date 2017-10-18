@@ -8,6 +8,7 @@ class abm_ci extends toba_ci {
     protected $s__datos_filtro=null;
 
     function conf__cuadro(toba_ei_cuadro $cuadro) {
+        $this->dep('datos')->resetear(); 
         if (!is_null($this->s__where)) {
             $datos = $this->dep('datos')->tabla($this->nombre_tabla)->get_listado($this->s__where);
         } else {
@@ -43,7 +44,10 @@ class abm_ci extends toba_ci {
      * Atrapa la interacci�n del usuario con el bot�n asociado
      */
     function evt__filtro__cancelar() {
-        
+        //completar
+        //$this->dep('filtro')->limpiar_interface();
+        $this->s__datos_filtro = array();
+        $this->evt__filtro__filtrar($this->s__datos_filtro);
     }
 
     function evt__nuevo($datos) {
@@ -85,8 +89,7 @@ class abm_ci extends toba_ci {
     }
 
     function evt__formulario__cancelar() {
-        $this->resetear();
-        
+        $this->resetear();     
     }
 
     function resetear() {

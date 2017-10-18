@@ -1,15 +1,17 @@
 <?php
 class ci_abm extends abm_ci
-{
+{//carga de Instituciones
      protected $nombre_tabla='institucion';
-//carga de Instituciones
+     protected $u_a='FAEA';
+    //se debería cambiar por una variable que la provea el usuario que esté logueado
      
      
      function evt__formulario__alta($datos) {
         /*
          * 
          */
-         $datos['cuil_cuit']= str_replace("-", "", $datos['cuil_cuit']);
+        $datos['cuil_cuit']= str_replace("-", "", $datos['cuil_cuit']);
+        $datos['id_ua']= $this->u_a;
         $this->dep('datos')->tabla($this->nombre_tabla)->set($datos);
         $this->dep('datos')->sincronizar();
         $this->resetear();
@@ -21,7 +23,8 @@ class ci_abm extends abm_ci
         $this->dep('datos')->sincronizar();
         $this->resetear();
     }
-/*
+
+    /*
     //---- Cuadro -----------------------------------------------------------------------
 
 	function conf__cuadro(toba_ei_cuadro $cuadro)

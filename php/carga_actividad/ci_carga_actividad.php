@@ -2,6 +2,25 @@
 class ci_carga_actividad extends abm_ci
 {   
     protected $nombre_tabla='actividad';
+    protected $u_a='FAEA';
+    //se debería cambiar por una variable que la provea el usuario que esté logueado
+    
+    function evt__formulario__alta($datos) {
+        /*
+         * todo: el periodo por defecto
+         */
+        $datos['id_ua']= $this->u_a;
+        $this->dep('datos')->tabla($this->nombre_tabla)->set($datos);
+        $this->dep('datos')->sincronizar();
+        $this->resetear();
+    }
+    function evt__formulario__baja() {
+        //falta revisar que no se quiera eliminar una actividad que tenga pasantías asociadas
+        $this->dep('datos')->eliminar_todo();
+        toba::notificacion()->agregar('El registro se ha eliminado correctamente', 'info');
+        $this->resetear();
+    }
+    
     /*
 	protected $s__datos_filtro;
 

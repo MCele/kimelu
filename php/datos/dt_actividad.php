@@ -1,10 +1,17 @@
 <?php
 class dt_actividad extends kimelu_datos_tabla
 {
+    protected $u_a='FAEA';
+    //se debería cambiar por una variable que la provea el usuario que esté logueado
 	function get_listado($where = null)
 	{
-		if (is_null($where)) {  $where = '';} 
-                else {   $where = ' where ' . $where; }
+		if (is_null($where)) {  
+                    $where = '';
+                    
+                } 
+                else {   
+                    $where = ' and ' . $where;
+                }
 		/*if (isset($filtro['tipo_actividad'])) {
 			$where[] = "tipo_actividad = ".quote($filtro['tipo_actividad']);
 		}*/
@@ -29,7 +36,7 @@ class dt_actividad extends kimelu_datos_tabla
                                        ON (t_a.tipo_actividad = t_ta.id_tipo_actividad)
 			LEFT OUTER JOIN institucion as t_i 
                                        ON (t_a.institucion = t_i.id_institucion)
-                        $where 
+                        WHERE t_a.id_ua = '$this->u_a' $where
 		ORDER BY denominacion";
 //		if (count($where)>0) {
 //			$sql = sql_concatenar_where($sql, $where);
@@ -40,13 +47,17 @@ class dt_actividad extends kimelu_datos_tabla
 
 	function get_descripciones()
 	{
-		$sql = "SELECT id_actividad, denominacion FROM actividad ORDER BY denominacion";
+		$sql = "SELECT id_actividad, denominacion "
+                        ." FROM actividad WHERE id_ua = '$this->u_a' "
+                        ." ORDER BY denominacion";
 		return toba::db('kimelu')->consultar($sql);
 	}
         
         function get_institucion()
 	{
-		$sql = "SELECT id_actividad, institucion FROM actividad ORDER BY denominacion";
+		$sql = "SELECT id_actividad, institucion FROM actividad "
+                        ." WHERE id_ua = '$this->u_a' " 
+                        . "ORDER BY denominacion";
 		return toba::db('kimelu')->consultar($sql);
 	}
         
@@ -55,11 +66,11 @@ class dt_actividad extends kimelu_datos_tabla
             if (is_null($tipo)){ 
                 $where = '';} 
             else {   
-                $where = ' where tipo_actividad = ' . $tipo ." "; 
+                $where = ' and tipo_actividad = ' . $tipo ." "; 
             
             }
 		$sql = "SELECT id_actividad, denominacion FROM actividad "
-                        .$where
+                        . " WHERE id_ua = '$this->u_a' $where"
                         . "ORDER BY denominacion";
 		return toba::db('kimelu')->consultar($sql);
 	}
@@ -69,6 +80,7 @@ class dt_actividad extends kimelu_datos_tabla
             $tipo =1;
             $sql = "SELECT id_actividad, denominacion FROM actividad "
                     ."Where tipo_actividad = " . $tipo ." "
+                    ." and id_ua = '$this->u_a' "
                         . "ORDER BY denominacion";
             return toba::db('kimelu')->consultar($sql);
         }

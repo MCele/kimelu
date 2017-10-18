@@ -6,6 +6,7 @@ class ci_pasantias extends abm_ci
     //---- Cuadro -----------------------------------------------------------------------
     function conf__cuadro(toba_ei_cuadro $cuadro) 
     {               //redefino el método heredado de abm_ci para mostrado "estado" como cadena (no como número)
+        $this->dep('datos')->resetear();
         if (!is_null($this->s__where)) {
             $datos = $this->dep('datos')->tabla($this->nombre_tabla)->get_listado($this->s__where);
         } else {
@@ -73,10 +74,8 @@ class ci_pasantias extends abm_ci
          /*
          * métodos redeinidos para chequear datos al momento de modificar pasantía
          */
-        //print_r($datos);
         $hs_sem=$datos['horas_diarias']*$datos['dias_semana'];
         if($hs_sem<=20){
-            
             if($this->menor_18meses($datos['inicio_convenio'], $datos['fin_convenio'],$datos['id_estudiante'],$datos['id_actividad'],$datos['id_pasantia'])){
                 if ($this->estado_vigente($datos['fin_convenio'])) {
                     //compara la fecha de hoy para cambiar el estado de la pasantía

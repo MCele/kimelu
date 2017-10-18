@@ -1,10 +1,15 @@
 <?php
 class dt_estudiante extends kimelu_datos_tabla
 {
+    protected $u_a='FAEA';
+    //se debería cambiar por una variable que la provea el usuario que esté logueado
 	function get_listado($where = null)
 	{
-            if (is_null($where)) {  $where = '';} 
-            else {   $where = ' where ' . $where; }
+            if (is_null($where)){  
+                $where = '';
+                
+             } 
+            else {   $where = ' and ' . $where; }
 		$sql = "SELECT
 			t_e.id_estudiante,
 			t_e.email,
@@ -17,7 +22,7 @@ class dt_estudiante extends kimelu_datos_tabla
 			t_e.domicilio
 		FROM
 			estudiante as t_e
-                $where 
+                WHERE t_e.id_ua = '$this->u_a' $where 
 		ORDER BY apellido";
 		return toba::db('kimelu')->consultar($sql);
 	}
@@ -28,12 +33,12 @@ class dt_estudiante extends kimelu_datos_tabla
                 $where = '';
             } 
             else {  
-                $where = ' Where id_estudiante = ' . $id_est; 
+                $where = ' and id_estudiante = ' . $id_est; 
                 
             }
 		$sql = "SELECT id_estudiante, apellido||' '|| nombre as apellido_nombre, cuil"
                         . " FROM estudiante "
-                        . $where
+                        . " WHERE id_ua = '$this->u_a'". $where 
                         . " ORDER BY (apellido,nombre)";
 		return toba::db('kimelu')->consultar($sql);
 	}
@@ -45,12 +50,12 @@ class dt_estudiante extends kimelu_datos_tabla
                 
             } 
             else {   
-                $where = ' where ' . $where; 
+                $where = ' and ' . $where; 
                 
             }
             $sql = "SELECT id_estudiante, apellido||' '|| nombre as apellido_nombre, cuil"
                 . " FROM estudiante "
-                .   $where
+                . " WHERE id_ua = '$this->u_a'". $where 
                 . " ORDER BY (apellido,nombre)";
                 
             return toba::db('kimelu')->consultar($sql);
@@ -62,15 +67,50 @@ class dt_estudiante extends kimelu_datos_tabla
                 $where = '';
             } 
             else {  
-                $where = ' Where id_estudiante = ' . $id; 
+                $where = ' and id_estudiante = ' . $id; 
                 
             }
 		$sql = "SELECT id_estudiante, cuil"
                         . " FROM estudiante "
-                        . $where;
+                        . " WHERE t_e.id_ua = '$this->u_a'". $where ;
 		return toba::db('kimelu')->consultar($sql);
 	}
-
+        
+        function get_alumno_cuil($cuil=NULL,$id_estudiante=NULL)
+	{
+            if (is_null($cuil)) { 
+                $where = '';
+            } 
+            else {  
+                $where = " and cuil = '$cuil' "; 
+                
+            }
+            if (!is_null($id_estudiante)) { 
+                $where = "$where and id_estudiante = $id_estudiante "; 
+            } 
+		$sql = "SELECT id_estudiante, cuil, dni"
+                        . " FROM estudiante "
+                        . " WHERE id_ua = '$this->u_a'". $where ;
+		return toba::db('kimelu')->consultar($sql);
+	}
+        
+        function get_alumno_dni($dni=NULL,$id_estudiante=NULL)
+	{
+            if (is_null($dni)) { 
+                $where = '';
+            } 
+            else {  
+                $where = " and dni =  '$dni' "; 
+                
+            }
+             if (!is_null($id_estudiante)) { 
+                $where = "$where and id_estudiante = $id_estudiante "; 
+            }
+		$sql = "SELECT id_estudiante, cuil,dni "
+                        . " FROM estudiante "
+                        . " WHERE id_ua = '$this->u_a'". $where ;
+		return toba::db('kimelu')->consultar($sql);
+	}
 
 }
 ?>

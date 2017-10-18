@@ -1,10 +1,12 @@
 <?php
 class dt_pasantia extends kimelu_datos_tabla
 {
+    protected $u_a='FAEA';
+    //se debería cambiar por una variable que la provea el usuario que esté logueado
 	function get_listado($where=null)
 	{
             if (is_null($where)) {  $where = '';} 
-            else {   $where = ' where ' . $where; }
+            else {   $where = ' and ' . $where; }
 		$sql = "SELECT
 			t_e.nombre as estudiante_nombre,
                         t_e.apellido as estudiante_apellido,
@@ -24,7 +26,7 @@ class dt_pasantia extends kimelu_datos_tabla
 			LEFT OUTER JOIN docente_guia as t_dg ON (t_p.docente = t_dg.id_docente)
 			LEFT OUTER JOIN actividad as t_a ON (t_p.id_actividad = t_a.id_actividad)
 			LEFT OUTER JOIN convenio as t_c ON (t_p.id_convenio = t_c.id_convenio)
-                        $where 
+                        WHERE t_a.id_ua = '$this->u_a' $where 
 		ORDER BY carrera";
 		return toba::db('kimelu')->consultar($sql);
 	}
@@ -32,7 +34,7 @@ class dt_pasantia extends kimelu_datos_tabla
         function get_listado_estado($where=null)
 	{
             if (is_null($where)) {  $where = '';} 
-            else {   $where = ' where ' . $where; }
+            else {   $where = ' and ' . $where; }
 		$sql = "SELECT
 			t_e.nombre as estudiante_nombre,
                         t_e.apellido as estudiante_apellido,
@@ -53,9 +55,8 @@ class dt_pasantia extends kimelu_datos_tabla
 			LEFT OUTER JOIN docente_guia as t_dg ON (t_p.docente = t_dg.id_docente)
 			LEFT OUTER JOIN actividad as t_a ON (t_p.id_actividad = t_a.id_actividad)
 			LEFT OUTER JOIN convenio as t_c ON (t_p.id_convenio = t_c.id_convenio)
-                        $where 
+                        WHERE t_a.id_ua = '$this->u_a' $where 
 		ORDER BY carrera";
-                
                 
 		return toba::db('kimelu')->consultar($sql);
 	}
@@ -66,11 +67,11 @@ class dt_pasantia extends kimelu_datos_tabla
             //print_r("actividad = $id_actividad, estudiante= $id_estudiante") ;
             $where = "";
             if (!is_null($id_actividad)) {  
-                $where = " Where t_a.id_actividad = $id_actividad";
+                $where = " and t_a.id_actividad = $id_actividad";
             } 
             if (!is_null($id_estudiante)) {  
                 if (strlen($where)===0){
-                  $where = " Where t_e.id_estudiante = $id_estudiante";
+                  $where = " and t_e.id_estudiante = $id_estudiante";
                 }
                 else{
                     $where = "$where and t_e.id_estudiante = $id_estudiante";
@@ -90,15 +91,15 @@ class dt_pasantia extends kimelu_datos_tabla
 			pasantia as t_p	LEFT OUTER JOIN estudiante as t_e 
                                 ON (t_p.id_estudiante = t_e.id_estudiante)
 			LEFT OUTER JOIN actividad as t_a 
-                            ON (t_p.id_actividad = t_a.id_actividad)"
-                        . $where;
+                            ON (t_p.id_actividad = t_a.id_actividad)
+                       WHERE t_a.id_ua = '$this->u_a' $where";
 		return toba::db('kimelu')->consultar($sql);
 	}
         
         function get_listado_estudiante_vigente($id_estudiante=NULL)
 	{   //obtiene todas las pasantias en las que esta un estudiante que esten vigentes
             //obtiene todas las pasantías de los estudiantes que están anotados en una determinada actividad del tipo pasantía vigente
-            $where = " where t_p.estado = 0"; //0: estado vigente, 1: estado finalizado 
+            $where = " and t_p.estado = 0"; //0: estado vigente, 1: estado finalizado 
             if (!is_null($id_estudiante)) {  
                    $where = "$where and t_e.id_estudiante = $id_estudiante";
             }            
@@ -116,8 +117,8 @@ class dt_pasantia extends kimelu_datos_tabla
 			pasantia as t_p	LEFT OUTER JOIN estudiante as t_e 
                                 ON (t_p.id_estudiante = t_e.id_estudiante)
 			LEFT OUTER JOIN actividad as t_a 
-                            ON (t_p.id_actividad = t_a.id_actividad)"
-                        . $where;
+                            ON (t_p.id_actividad = t_a.id_actividad)
+                            WHERE t_a.id_ua = '$this->u_a' $where";
 		return toba::db('kimelu')->consultar($sql);
 	}
         
