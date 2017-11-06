@@ -9,15 +9,23 @@ class dt_convenio extends kimelu_datos_tabla
 		return toba::db('kimelu')->consultar($sql);
 	}
 
-	function get_listado()
+	function get_listado($where = null)
 	{
+            if (is_null($where)){  
+                $where = '';
+                
+             } 
+            else {
+                $where = ' WHERE ' . $where; 
+                
+            }
 		$sql = "SELECT
 			t_c.id_convenio,
 			t_c.sigla,
 			t_c.descripcion
 		FROM
-			convenio as t_c
-		ORDER BY descripcion";
+			convenio as t_c $where 
+		ORDER BY descripcion  ";
 		return toba::db('kimelu')->consultar($sql);
 	}
 

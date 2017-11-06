@@ -36,7 +36,7 @@ class dt_actividad extends kimelu_datos_tabla
                                        ON (t_a.tipo_actividad = t_ta.id_tipo_actividad)
 			LEFT OUTER JOIN institucion as t_i 
                                        ON (t_a.institucion = t_i.id_institucion)
-                        WHERE t_a.id_ua = '$this->u_a' $where
+                        WHERE t_a.id_ua = '$this->u_a' $where  
 		ORDER BY denominacion";
 //		if (count($where)>0) {
 //			$sql = sql_concatenar_where($sql, $where);
@@ -47,12 +47,18 @@ class dt_actividad extends kimelu_datos_tabla
 
 	function get_descripciones()
 	{
-		$sql = "SELECT id_actividad, denominacion "
-                        ." FROM actividad WHERE id_ua = '$this->u_a' "
-                        ." ORDER BY denominacion";
+		$sql = "SELECT id_actividad, denominacion FROM actividad ORDER BY denominacion";
 		return toba::db('kimelu')->consultar($sql);
 	}
-        
+
+        function get_descripciones_actividad($id_actividad)
+	{ //Datos de una determinada actividad
+            $where = ' and id_actividad = ' . $id_actividad ." "; 
+		$sql = "SELECT id_actividad, denominacion FROM actividad "
+                        . " WHERE id_ua = '$this->u_a' $where"
+                        . "ORDER BY denominacion";
+		return toba::db('kimelu')->consultar($sql);
+	}
         function get_institucion()
 	{
 		$sql = "SELECT id_actividad, institucion FROM actividad "
@@ -84,6 +90,21 @@ class dt_actividad extends kimelu_datos_tabla
                         . "ORDER BY denominacion";
             return toba::db('kimelu')->consultar($sql);
         }
-        
+        function get_descripciones_pasantias_asociadas($id_actividad=NULL)
+	{   //Datos de actividades para un determinado tipo: 1-->Pasantía
+            if (is_null($id_actividad)){ 
+                $where = '';} 
+            else {   
+                $where = ' and a.id_actividad = ' . $id_actividad ." "; 
+            
+            }
+            $tipo =1;
+            $sql = "SELECT p.id_pasantia, a.id_actividad, a.denominacion FROM actividad as a "
+                    . " inner join pasantia as p on (p.id_actividad = a.id_actividad) "
+                    ." Where tipo_actividad = " . $tipo ." "
+                    ." and id_ua = '$this->u_a' $where"
+                        . " ORDER BY denominacion";
+            return toba::db('kimelu')->consultar($sql);
+        }
 }
 ?>

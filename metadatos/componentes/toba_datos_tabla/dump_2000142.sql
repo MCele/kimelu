@@ -1,5 +1,5 @@
 ------------------------------------------------------------
---[2000070]--  DT - estudiante 
+--[2000142]--  facturacion 
 ------------------------------------------------------------
 
 ------------------------------------------------------------
@@ -9,18 +9,18 @@
 --- INICIO Grupo de desarrollo 2
 INSERT INTO apex_objeto (proyecto, objeto, anterior, identificador, reflexivo, clase_proyecto, clase, punto_montaje, subclase, subclase_archivo, objeto_categoria_proyecto, objeto_categoria, nombre, titulo, colapsable, descripcion, fuente_datos_proyecto, fuente_datos, solicitud_registrar, solicitud_obj_obs_tipo, solicitud_obj_observacion, parametro_a, parametro_b, parametro_c, parametro_d, parametro_e, parametro_f, usuario, creacion, posicion_botonera) VALUES (
 	'kimelu', --proyecto
-	'2000070', --objeto
+	'2000142', --objeto
 	NULL, --anterior
 	NULL, --identificador
 	NULL, --reflexivo
 	'toba', --clase_proyecto
 	'toba_datos_tabla', --clase
 	'2000003', --punto_montaje
-	'dt_estudiante', --subclase
-	'datos/dt_estudiante.php', --subclase_archivo
+	'dt_facturacion', --subclase
+	'datos/dt_facturacion.php', --subclase_archivo
 	NULL, --objeto_categoria_proyecto
 	NULL, --objeto_categoria
-	'DT - estudiante', --nombre
+	'facturacion', --nombre
 	NULL, --titulo
 	NULL, --colapsable
 	NULL, --descripcion
@@ -36,7 +36,7 @@ INSERT INTO apex_objeto (proyecto, objeto, anterior, identificador, reflexivo, c
 	NULL, --parametro_e
 	NULL, --parametro_f
 	NULL, --usuario
-	'2017-09-10 20:37:38', --creacion
+	'2017-11-03 11:41:00', --creacion
 	NULL  --posicion_botonera
 );
 --- FIN Grupo de desarrollo 2
@@ -46,22 +46,22 @@ INSERT INTO apex_objeto (proyecto, objeto, anterior, identificador, reflexivo, c
 ------------------------------------------------------------
 INSERT INTO apex_objeto_db_registros (objeto_proyecto, objeto, max_registros, min_registros, punto_montaje, ap, ap_clase, ap_archivo, tabla, tabla_ext, alias, modificar_claves, fuente_datos_proyecto, fuente_datos, permite_actualizacion_automatica, esquema, esquema_ext) VALUES (
 	'kimelu', --objeto_proyecto
-	'2000070', --objeto
+	'2000142', --objeto
 	NULL, --max_registros
 	NULL, --min_registros
-	'2000003', --punto_montaje
+	NULL, --punto_montaje
 	'1', --ap
 	NULL, --ap_clase
 	NULL, --ap_archivo
-	'estudiante', --tabla
+	'facturacion', --tabla
 	NULL, --tabla_ext
 	NULL, --alias
-	'0', --modificar_claves
+	NULL, --modificar_claves
 	'kimelu', --fuente_datos_proyecto
 	'kimelu', --fuente_datos
 	'1', --permite_actualizacion_automatica
 	NULL, --esquema
-	'public'  --esquema_ext
+	NULL  --esquema_ext
 );
 
 ------------------------------------------------------------
@@ -71,156 +71,128 @@ INSERT INTO apex_objeto_db_registros (objeto_proyecto, objeto, max_registros, mi
 --- INICIO Grupo de desarrollo 2
 INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, columna, tipo, pk, secuencia, largo, no_nulo, no_nulo_db, externa, tabla) VALUES (
 	'kimelu', --objeto_proyecto
-	'2000070', --objeto
-	'2000075', --col_id
-	'id_estudiante', --columna
+	'2000142', --objeto
+	'2000169', --col_id
+	'nro_factura', --columna
 	'E', --tipo
-	'1', --pk
-	'datos_pasante_id_pasante_seq', --secuencia
+	NULL, --pk
+	NULL, --secuencia
 	NULL, --largo
 	NULL, --no_nulo
-	'1', --no_nulo_db
-	'0', --externa
-	'estudiante'  --tabla
+	NULL, --no_nulo_db
+	NULL, --externa
+	NULL  --tabla
 );
 INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, columna, tipo, pk, secuencia, largo, no_nulo, no_nulo_db, externa, tabla) VALUES (
 	'kimelu', --objeto_proyecto
-	'2000070', --objeto
-	'2000076', --col_id
-	'email', --columna
-	'C', --tipo
-	'0', --pk
-	'', --secuencia
-	'50', --largo
+	'2000142', --objeto
+	'2000170', --col_id
+	'fecha', --columna
+	'F', --tipo
+	NULL, --pk
+	NULL, --secuencia
+	NULL, --largo
 	NULL, --no_nulo
-	'0', --no_nulo_db
-	'0', --externa
-	'estudiante'  --tabla
+	NULL, --no_nulo_db
+	NULL, --externa
+	NULL  --tabla
 );
 INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, columna, tipo, pk, secuencia, largo, no_nulo, no_nulo_db, externa, tabla) VALUES (
 	'kimelu', --objeto_proyecto
-	'2000070', --objeto
-	'2000077', --col_id
-	'telefono', --columna
+	'2000142', --objeto
+	'2000171', --col_id
+	'concepto', --columna
 	'C', --tipo
-	'0', --pk
-	'', --secuencia
-	'20', --largo
+	NULL, --pk
+	NULL, --secuencia
+	NULL, --largo
 	NULL, --no_nulo
-	'0', --no_nulo_db
-	'0', --externa
-	'estudiante'  --tabla
+	NULL, --no_nulo_db
+	NULL, --externa
+	NULL  --tabla
 );
 INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, columna, tipo, pk, secuencia, largo, no_nulo, no_nulo_db, externa, tabla) VALUES (
 	'kimelu', --objeto_proyecto
-	'2000070', --objeto
-	'2000078', --col_id
-	'dni', --columna
+	'2000142', --objeto
+	'2000172', --col_id
+	'monto', --columna
+	'N', --tipo
+	NULL, --pk
+	NULL, --secuencia
+	NULL, --largo
+	NULL, --no_nulo
+	NULL, --no_nulo_db
+	NULL, --externa
+	NULL  --tabla
+);
+INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, columna, tipo, pk, secuencia, largo, no_nulo, no_nulo_db, externa, tabla) VALUES (
+	'kimelu', --objeto_proyecto
+	'2000142', --objeto
+	'2000173', --col_id
+	'id_factura', --columna
+	'E', --tipo
+	'1', --pk
+	'facturacion_id_factura_seq', --secuencia
+	NULL, --largo
+	NULL, --no_nulo
+	NULL, --no_nulo_db
+	NULL, --externa
+	NULL  --tabla
+);
+INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, columna, tipo, pk, secuencia, largo, no_nulo, no_nulo_db, externa, tabla) VALUES (
+	'kimelu', --objeto_proyecto
+	'2000142', --objeto
+	'2000174', --col_id
+	'id_institucion', --columna
 	'C', --tipo
-	'0', --pk
-	'', --secuencia
-	'10', --largo
+	NULL, --pk
+	NULL, --secuencia
+	NULL, --largo
 	NULL, --no_nulo
-	'0', --no_nulo_db
-	'0', --externa
-	'estudiante'  --tabla
+	NULL, --no_nulo_db
+	NULL, --externa
+	NULL  --tabla
 );
 INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, columna, tipo, pk, secuencia, largo, no_nulo, no_nulo_db, externa, tabla) VALUES (
 	'kimelu', --objeto_proyecto
-	'2000070', --objeto
-	'2000079', --col_id
-	'cuil', --columna
+	'2000142', --objeto
+	'2000175', --col_id
+	'id_actividad', --columna
 	'C', --tipo
-	'0', --pk
-	'', --secuencia
-	'12', --largo
+	NULL, --pk
+	NULL, --secuencia
+	NULL, --largo
 	NULL, --no_nulo
-	'0', --no_nulo_db
-	'0', --externa
-	'estudiante'  --tabla
+	NULL, --no_nulo_db
+	NULL, --externa
+	NULL  --tabla
 );
 INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, columna, tipo, pk, secuencia, largo, no_nulo, no_nulo_db, externa, tabla) VALUES (
 	'kimelu', --objeto_proyecto
-	'2000070', --objeto
-	'2000080', --col_id
-	'nombre', --columna
+	'2000142', --objeto
+	'2000176', --col_id
+	'id_sede', --columna
 	'C', --tipo
-	'0', --pk
-	'', --secuencia
-	'40', --largo
+	NULL, --pk
+	NULL, --secuencia
+	NULL, --largo
 	NULL, --no_nulo
-	'0', --no_nulo_db
-	'0', --externa
-	'estudiante'  --tabla
+	NULL, --no_nulo_db
+	NULL, --externa
+	NULL  --tabla
 );
 INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, columna, tipo, pk, secuencia, largo, no_nulo, no_nulo_db, externa, tabla) VALUES (
 	'kimelu', --objeto_proyecto
-	'2000070', --objeto
-	'2000081', --col_id
-	'apellido', --columna
-	'C', --tipo
-	'0', --pk
-	'', --secuencia
-	'30', --largo
-	NULL, --no_nulo
-	'0', --no_nulo_db
-	'0', --externa
-	'estudiante'  --tabla
-);
-INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, columna, tipo, pk, secuencia, largo, no_nulo, no_nulo_db, externa, tabla) VALUES (
-	'kimelu', --objeto_proyecto
-	'2000070', --objeto
-	'2000082', --col_id
-	'legajo', --columna
-	'C', --tipo
-	'0', --pk
-	'', --secuencia
-	'15', --largo
-	NULL, --no_nulo
-	'0', --no_nulo_db
-	'0', --externa
-	'estudiante'  --tabla
-);
-INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, columna, tipo, pk, secuencia, largo, no_nulo, no_nulo_db, externa, tabla) VALUES (
-	'kimelu', --objeto_proyecto
-	'2000070', --objeto
-	'2000083', --col_id
-	'domicilio', --columna
-	'C', --tipo
-	'0', --pk
-	'', --secuencia
-	'50', --largo
-	NULL, --no_nulo
-	'0', --no_nulo_db
-	'0', --externa
-	'estudiante'  --tabla
-);
-INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, columna, tipo, pk, secuencia, largo, no_nulo, no_nulo_db, externa, tabla) VALUES (
-	'kimelu', --objeto_proyecto
-	'2000070', --objeto
-	'2000164', --col_id
+	'2000142', --objeto
+	'2000177', --col_id
 	'id_ua', --columna
 	'C', --tipo
-	'0', --pk
-	'', --secuencia
-	'5', --largo
+	NULL, --pk
+	NULL, --secuencia
+	NULL, --largo
 	NULL, --no_nulo
-	'0', --no_nulo_db
-	'0', --externa
-	'estudiante'  --tabla
-);
-INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, columna, tipo, pk, secuencia, largo, no_nulo, no_nulo_db, externa, tabla) VALUES (
-	'kimelu', --objeto_proyecto
-	'2000070', --objeto
-	'2000168', --col_id
-	'ciudad', --columna
-	'C', --tipo
-	'0', --pk
-	'', --secuencia
-	'30', --largo
-	NULL, --no_nulo
-	'0', --no_nulo_db
-	'0', --externa
-	'estudiante'  --tabla
+	NULL, --no_nulo_db
+	NULL, --externa
+	NULL  --tabla
 );
 --- FIN Grupo de desarrollo 2

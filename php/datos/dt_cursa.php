@@ -8,13 +8,14 @@
             if(!is_null($id_ua)){
               $where = " and ca.id_ua = $id_ua";
             }
-            $sql = "SELECT ca.nombre "
+            $sql = "SELECT ca.id_carrera, ca.nombre "
                     ." FROM cursa cu inner join carrera ca on "
                     ."(cu.id_carrera=ca.id_carrera) "
                     . "where cu.id_estudiante = $id_est"
                     . $where;
             return toba::db('kimelu')->consultar($sql);
         }
+        
     }
-
+    
 ?>

@@ -12,7 +12,6 @@ class ci_pasantias extends abm_ci
         } else {
             $datos = $this->dep('datos')->tabla($this->nombre_tabla)->get_listado();
         }
-        //print_r($datos);
         
         for($i=0;$i<sizeof($datos);$i++) { //0--> estado Vigente/ 1--> estado Finalizado
             if ($datos[$i]['estado'] == 0) {
@@ -26,25 +25,23 @@ class ci_pasantias extends abm_ci
         $cuadro->set_datos($datos);
     }
     function get_estudiante_apellido_nombre($id_estudiante=NULL){
-        //$datos = $this->dep('datos')->tabla($this->nombre_tabla)->get_listado_apellido_nombre($id);
-        //return $datos;
+        $datos = $this->dep('datos')->tabla('pasantia')->get_descripciones_apellido_nombre($id_estudiante);
+        return $datos[0]['apellido_nombre'];
     }
     
     
     //---- Formulario -----------------------------------------------------------------------
     
-    function evt__formulario__alta($datos) {
+    function evt__formulario__alta($datos){
         /*
-         * métodos redeinidos para chequear datos al momento de cargar una nueva pasantía
+         * métodos redefinidos para chequear datos al momento de cargar una nueva pasantía
          */
-       //print_r($datos);
         $hs_sem=$datos['horas_diarias']*$datos['dias_semana'];
         if($hs_sem<=20){    
             if($this->menor_18meses($datos['inicio_convenio'], $datos['fin_convenio'],$datos['id_estudiante'],$datos['id_actividad'])){
                 if($this->estado_vigente($datos['fin_convenio'])){ 
                 //compara la fecha de hoy para cambiar el estado de la pasantía
-                $datos['estado']=0;//estado vigente
-                
+                    $datos['estado']=0;//estado vigente
                 }
                 else{
                     $datos['estado']=1; //estado finalizado
@@ -62,7 +59,7 @@ class ci_pasantias extends abm_ci
             }
            else{
               throw new toba_error('No puede superar los 18 meses de pasantias para la misma Institucion'); 
-           }   
+           }
         }
         else{
             $this->dep('datos')->tabla($this->nombre_tabla)->set($datos);
@@ -157,7 +154,6 @@ class ci_pasantias extends abm_ci
                      $f1=new DateTime($pasantias[$i]['inicio_convenio']);
                      $f2=new DateTime($pasantias[$i]['fin_convenio']);
                      $d=$f1->diff($f2);
-                     //print_r($d);
                      $dif[$k]['d']= $d->d;   
                      $dif[$k]['m']= $d->m + $d->y*12;
                      //$dif[$k]['a']= $d->y;
@@ -166,16 +162,14 @@ class ci_pasantias extends abm_ci
               }
           
         }
-        //print_r($dif);
         for($i=0;$i< sizeof($dif);$i++){//sumo todos los meses y días
            $meses+= $dif[$i]['m'];
            $dias+=$dif[$i]['d'];
         }
-        $meses+= intdiv($dias,30);
+        $meses+= floor($dias/30);
         $dias=$dias%30;
         $total['m']=$meses;
         $total['d']=$dias;
-        //print_r($total);
         return $total;
     }
     function menor_18meses($f_inicio,$f_fin,$id_estudiante,$id_actividad,$id_pasantia=NULL)
@@ -187,9 +181,8 @@ class ci_pasantias extends abm_ci
         $d = $f1->diff($f2);
         $total['d'] += $d->d;
         $total['m'] += $d->m + $d->y * 12;
-        $total['m'] += intdiv($total['d'], 30);
+        $total['m'] += floor($total['d']/ 30);
         $total['d'] = $total['d'] % 30;
-        //print_r($total);
         return($total['m'] < 18);
     }
     /*

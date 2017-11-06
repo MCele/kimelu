@@ -63,7 +63,7 @@ INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, eti
 	'1', --orden
 	NULL, --ci_predep
 	'0', --implicito
-	'0', --defecto
+	'1', --defecto
 	NULL, --display_datos_cargados
 	'cargado,no_cargado', --grupo
 	NULL, --accion
@@ -191,8 +191,8 @@ INSERT INTO apex_objeto_ei_filtro_col (objeto_ei_filtro_col, objeto_ei_filtro, o
 	'2000131', --objeto_ei_filtro
 	'kimelu', --objeto_ei_filtro_proyecto
 	'cadena', --tipo
-	'docente', --nombre
-	'docente', --expresion
+	'docente_nombre', --nombre
+	't_dg.apellido||'' ''|| t_dg.nombre', --expresion
 	'Docente Guía', --etiqueta
 	NULL, --descripcion
 	'0', --obligatorio

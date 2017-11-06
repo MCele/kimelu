@@ -36,12 +36,10 @@ class dt_institucion extends kimelu_datos_tabla
 
 	function get_descripciones()
 	{
-		$sql = "SELECT id_institucion, nombre "
-                        . "FROM institucion "
-                        . "WHERE id_ua = '$this->u_a' "
-                        . "ORDER BY nombre";
+		$sql = "SELECT id_institucion, nombre FROM institucion ORDER BY nombre";
 		return toba::db('kimelu')->consultar($sql);
 	}
+
 
 }
 ?>
