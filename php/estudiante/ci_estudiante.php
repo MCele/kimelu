@@ -64,7 +64,7 @@ class ci_estudiante extends abm_ci
                     $this->dep('datos')->tabla('estudiante')->agregar_carrera($estudiante[0]['id_estudiante'],$c);
                 }
          }
-            $this->resetear();  
+            $this->resetear();
         }
         
         

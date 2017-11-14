@@ -15,7 +15,7 @@ class ci_carga_actividad extends abm_ci
         $this->resetear();
     }
     function evt__formulario__baja() {
-        //falta revisar que no se quiera eliminar una actividad que tenga pasantías asociadas
+        //Revisa que no se quiera eliminar una actividad que tenga pasantías asociadas
         $datos = $this->dep('datos')->tabla($this->nombre_tabla)->get();
         //print_r($datos);
         $pasantias = $this->dep('datos')->tabla('actividad')->get_descripciones_pasantias_asociadas($datos['id_actividad']);
