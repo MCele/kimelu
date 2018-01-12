@@ -20,5 +20,16 @@ class dt_punto_venta extends kimelu_datos_tabla
                 //print_r($datos[0]);
                 return($datos);
 	}
+        
+        function get_descripciones_punto($id_pto_vta)
+	{
+		$sql = "SELECT id_punto_venta, nro_punto_venta, descripcion "
+                        . " FROM punto_venta where id_punto_venta =  ".$id_pto_vta
+                        . " ORDER BY nro_punto_venta";
+                
+		$datos= toba::db('kimelu')->consultar($sql);
+                //print_r($datos[0]);
+                return($datos);
+	}
 }
 ?>

@@ -63,11 +63,9 @@ class ci_estudiante extends abm_ci
                 foreach ($carreras as $i => $c){
                     $this->dep('datos')->tabla('estudiante')->agregar_carrera($estudiante[0]['id_estudiante'],$c);
                 }
-         }
+            }
             $this->resetear();
         }
-        
-        
     }
     
     function evt__formulario__modificacion($datos){

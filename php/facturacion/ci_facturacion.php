@@ -6,12 +6,13 @@ class ci_facturacion extends abm_ci
     protected $u_a='FAEA';
     protected $id_pv=1;
     
+     // la factura contiene estado 1: Correcta y 2:Anulada
+    
     //--------------- FORMULARIO ---------------------------------
     function conf__formulario(toba_ei_formulario $form) {
         //get_descripciones_punto_actual()
         if ($this->dep('datos')->esta_cargada()) {
             $datos = $this->dep('datos')->tabla($this->nombre_tabla)->get();
-            $datos['id_punto_venta'] = $this->id_pv;
             //print_r($datos);
             $form->set_datos($datos);
         }
@@ -22,6 +23,7 @@ class ci_facturacion extends abm_ci
          */
         $datos['id_ua'] = $this->u_a;
         $datos['id_punto_venta'] = $this->id_pv;
+        $datos['estado'] = 1; // la factura contiene estado 1: Correcta y 2:Anulada
         $this->dep('datos')->tabla($this->nombre_tabla)->set($datos);
         $this->dep('datos')->sincronizar();
         $this->resetear();

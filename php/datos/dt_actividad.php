@@ -30,8 +30,10 @@ class dt_actividad extends kimelu_datos_tabla
 			t_a.nro_resolucion
 		FROM
 			actividad as t_a	
+                        LEFT OUTER JOIN dpto_actividad as t_da
+					ON (t_da.id_actividad = t_a.id_actividad)
                         LEFT OUTER JOIN departamento as t_d 
-                                       ON (t_a.departamento = t_d.id_departamento)
+                                       ON (t_da.id_departamento = t_d.id_departamento)
 			LEFT OUTER JOIN tipo_actividad as t_ta 
                                        ON (t_a.tipo_actividad = t_ta.id_tipo_actividad)
 			LEFT OUTER JOIN institucion as t_i 
@@ -105,6 +107,39 @@ class dt_actividad extends kimelu_datos_tabla
                     ." and id_ua = '$this->u_a' $where"
                         . " ORDER BY denominacion";
             return toba::db('kimelu')->consultar($sql);
+        }
+        
+        function agregar_actividad_departamento($id_actividad,$id_dpto){
+            $sql = "insert into dpto_actividad "
+                    . " (id_actividad,id_departamento) "
+                    . "values ($id_actividad,$id_dpto)";
+            return toba::db('kimelu')->consultar($sql);
+        }
+        
+        function borrar_actividad($id_actividad,$id_dpto=NULL){
+          //se borran una o todas las asociación/es a departamento que tenga una actividad
+            $where="";
+            if (!is_null($id_dpto)){//se borra sólo la asociación al departamento especificado
+                $where= " and id_departamento = " . $id_dpto;
+            }
+            $sql = "delete from dpto_actividad "
+                    . " where id_actividad==$id_actividad "
+                    . " $where";
+            return toba::db('kimelu')->consultar($sql);
+        }
+        
+        //méodo que obtiene todos los departamentos asociados a una actividad(si los hay)
+        function obtener_departamentos($id_actividad){
+        $sql = "SELECT
+			t_da.id_actividad,
+			t_da.id_departamento
+		FROM
+			actividad as t_a
+                        inner join dpto_actividad as t_da
+                        on (t_da.id_actividad=t_a.id_actividad)
+                 WHERE t_a.id_ua = '$this->u_a' and t_a.id_actividad=$id_actividad";
+            return toba::db('kimelu')->consultar($sql);
+         
         }
 }
 ?>
