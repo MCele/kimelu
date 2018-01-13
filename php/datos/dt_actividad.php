@@ -109,6 +109,24 @@ class dt_actividad extends kimelu_datos_tabla
             return toba::db('kimelu')->consultar($sql);
         }
         
+        function get_descripciones_facturas_asociadas($id_actividad)
+	{   //Datos de facturas asociadas a una actividad
+            
+            if (is_null($id_actividad)){ 
+                return Array();
+            } 
+            else {   
+            
+                $tipo =1;
+                $sql = "SELECT f.id_factura, f.id_actividad, f.nro_factura FROM actividad as a
+                    inner join facturacion as f on (f.id_actividad = a.id_actividad)
+                    Where f.id_ua = '$this->u_a' and a.id_actividad = $id_actividad"
+                    . " ORDER BY f.nro_factura";
+            }
+            return toba::db('kimelu')->consultar($sql);
+        }
+        
+        
         function agregar_actividad_departamento($id_actividad,$id_dpto){
             $sql = "insert into dpto_actividad "
                     . " (id_actividad,id_departamento) "
@@ -116,14 +134,14 @@ class dt_actividad extends kimelu_datos_tabla
             return toba::db('kimelu')->consultar($sql);
         }
         
-        function borrar_actividad($id_actividad,$id_dpto=NULL){
+        function borrar_actividad_departamento($id_actividad,$id_dpto=NULL){
           //se borran una o todas las asociación/es a departamento que tenga una actividad
             $where="";
             if (!is_null($id_dpto)){//se borra sólo la asociación al departamento especificado
                 $where= " and id_departamento = " . $id_dpto;
             }
             $sql = "delete from dpto_actividad "
-                    . " where id_actividad==$id_actividad "
+                    . " where id_actividad=$id_actividad "
                     . " $where";
             return toba::db('kimelu')->consultar($sql);
         }

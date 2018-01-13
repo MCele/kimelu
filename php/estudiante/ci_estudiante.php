@@ -141,7 +141,7 @@ class ci_estudiante extends abm_ci
         //falta ver si el alumno no está en una pasantía VERRRRR!!!!
         $pasantias = $this->dep('datos')->tabla('estudiante')->get_listado_actividad_estudiante(NULL,$datos['id_estudiante']);
         if(!empty($pasantias)){
-            toba::notificacion()->agregar('El registro no se puede eliminar porque tiene pasantias asociadas', 'info');
+            toba::notificacion()->agregar('El alumno no se puede eliminar porque tiene pasantias asociadas', 'info');
         }
         else{
             $this->dep('datos')->tabla('estudiante')->borrar_carrera($datos['id_estudiante']);
