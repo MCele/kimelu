@@ -39,12 +39,38 @@ class dt_actividad extends kimelu_datos_tabla
 			LEFT OUTER JOIN institucion as t_i 
                                        ON (t_a.institucion = t_i.id_institucion)
                         WHERE t_a.id_ua = '$this->u_a' $where  
-		ORDER BY denominacion";
+		ORDER BY id_actividad"; //no cambiar oden porque se usa para el arreglo siguiente
 //		if (count($where)>0) {
 //			$sql = sql_concatenar_where($sql, $where);
 //		}
                 //$sql = toba::perfil_de_datos()->filtrar($sql);
-		return toba::db('kimelu')->consultar($sql);
+		$consulta= toba::db('kimelu')->consultar($sql);
+                //print_r($consulta);
+                $in = 0;       //recorre actividades
+                $nueva_consulta = array();
+                if (isset($consulta)){
+                //vamos a recorrer el arreglo del resultado de la consulta para conatenar lo departamentos de 
+                //las actividades que tengan más de un departamento asociado
+                //es importante que el arreglo de consultas esté ordenado por id_actividad
+                    array_push($nueva_consulta, $consulta[0]);//agrego la primer actividad al cuadro
+                    $cant = sizeof($consulta);
+                    for ($i=1;$i<$cant;$i++) {//recorro todas las actividades (menos la primera, ya agregada)
+                        if($consulta[$i]['id_actividad']==$nueva_consulta[$in]['id_actividad']){
+                            //si la actividad ya fue agregada, entonces concateno los departamentos
+                            $dpto1= $nueva_consulta[$in]['departamento_nombre'];
+                            $dpto2 = $consulta[$i]['departamento_nombre'];
+                            $nueva_consulta[$in]['departamento_nombre'] = "$dpto1 - $dpto2";
+                        }
+                        else {
+                            //si la actividad no fue agregada, la agreo pr primera vez
+                            array_push($nueva_consulta,$consulta[$i]);
+                            $in++;
+                        }
+                    }
+                    return $nueva_consulta;
+                }
+                
+                return $consulta;
 	}
 
 	function get_descripciones()
