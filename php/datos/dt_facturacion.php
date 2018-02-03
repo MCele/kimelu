@@ -18,7 +18,8 @@ class dt_facturacion extends kimelu_datos_tabla
             }
             //falta calcular total de cobrados para esa factura (cobro) y luego hacer resta entre cobrado y onto (saldo)
 		$sql = " select * from (SELECT
-			'00'||t_pv.nro_punto_venta||'-'||'0000'||t_f.nro_factura as nro_factura,
+			t_pv.nro_punto_venta as pv,
+                        t_f.nro_factura as nro_factura,
 			t_f.fecha,
 			t_f.concepto as concepto_factura,
 			t_f.monto,
@@ -27,6 +28,7 @@ class dt_facturacion extends kimelu_datos_tabla
 			t_i.nombre as institucion_nombre,
                         t_i.cuil_cuit as cuit_institucion,
 			t_a.denominacion as id_actividad_nombre,
+                        t_ef.descripcion as estado,
                         sum(t_c.monto_cobrado) as cobrado,
                         sum(t_c.monto_cobrado) - t_f.monto as saldo
                         
@@ -38,19 +40,54 @@ class dt_facturacion extends kimelu_datos_tabla
 			LEFT OUTER JOIN sede as t_s ON (t_f.id_sede = t_s.id_sede)
 			LEFT OUTER JOIN unidad_academica as t_ua ON (t_f.id_ua = t_ua.sigla)
                         LEFT OUTER JOIN punto_venta as t_pv ON (t_f.id_punto_venta = t_pv.id_punto_venta)
-                        LEFT OUTER JOIN cobro as t_c ON (t_c.id_Factura = t_f.id_factura)
+                        LEFT OUTER JOIN cobro as t_c ON (t_c.id_factura = t_f.id_factura)
+                        LEFT OUTER JOIN estado_factura as t_ef ON (t_ef.id_estado = t_f.estado)
                         WHERE t_f.id_ua = '$this->u_a'
-                        group by 1,2,3,4,5,6,7,8,9--(t_pv.nro_punto_venta,nro_factura,t_f.fecha,t_f.concepto,t_f.monto,t_f.id_factura,t_ta.tipo,t_i.nombre,t_i.cuil_cuit,t_a.denominacion)
+                        group by 1,2,3,4,5,6,7,8,9,10,11--(t_pv.nro_punto_venta,nro_factura,t_f.fecha,t_f.concepto,t_f.monto,t_f.id_factura,t_ta.tipo,t_i.nombre,t_i.cuil_cuit,t_a.denominacion, t_ef.descripcion)
 		ORDER BY nro_factura ) aux 
                         $where ";
 		$datos= toba::db('kimelu')->consultar($sql);
-                //print_r($datos);
-                //ARREGLAR PARA:
-                //recorrer el arreglo de facturas y ver la longitud de nro_factura1<3 agrego tantos 0 para completar 4 caracteres
-                //idem para nro_factura2 hasta 8 caracteres adelante y concatenarlos y guardarlos en nro_factura
+                
+                for($i=0;$i<sizeof($datos);$i++){
+                    //completo con "0" a la izquierda al punto de venta (hasta 4 caracteres)
+                    $pv = str_pad($datos[$i]['pv'],4,"0",STR_PAD_LEFT);
+                    //completo con "0" a la izquierda el número de factura (hasta 8 caracteres)
+                    $nro_f = str_pad($datos[$i]['nro_factura'],8,"0",STR_PAD_LEFT);
+                    $datos[$i]['nro_factura'] = "$pv-$nro_f";   
+                }
                 return $datos;
                 
 	}
+        
+        function get_listado_cobros($id_factura)
+	{
+		$sql = "SELECT
+			t_f.concepto as id_factura_nombre,
+                        t_f.id_factura,
+                        t_f.nro_factura,
+			t_c.monto_cobrado,
+			t_c.fecha_cobro,
+			t_c.nro_rendicion,
+                        t_pv.id_punto_venta,
+                        t_pv.nro_punto_venta,
+			t_c.id_cobro,
+                        t_c.nro_rendicion
+		FROM
+			cobro as t_c	
+                        LEFT OUTER JOIN facturacion as t_f 
+                        ON (t_c.id_factura = t_f.id_factura)
+                        LEFT OUTER JOIN punto_venta as t_pv 
+                        ON (t_pv.id_punto_venta = t_f.id_punto_venta) 
+                        WHERE t_f.id_factura = $id_factura ";
+		return toba::db('kimelu')->consultar($sql);
+	}
+        
+        
+        //function agregar0_nro($nro,$cant_numeros){
+        //dado un string: número de factura ($nro) se agregan ceros hasta completar el total de caracteres ($cant_numeros)
+          //  return(str_pad($nro,$cant_numeros,"0",STR_PAD_LEFT));
+        //}
+        
         function obtener_facturas($id_punto_venta,$nro_fact){
             $datos = null;
             $where = "";
@@ -60,7 +97,7 @@ class dt_facturacion extends kimelu_datos_tabla
                 }
                 $sql = "select id_factura, nro_factura, fecha, concepto, id_punto_venta "
                         . "from facturacion "
-                        . "where id_ua = $this->u_a "
+                        . "where id_ua = '$this->u_a' "
                         . "and id_punto_venta = " .$id_punto_venta 
                         . $where;
                 $datos= toba::db('kimelu')->consultar($sql);

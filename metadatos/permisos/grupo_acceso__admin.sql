@@ -73,4 +73,34 @@ INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, i
 	NULL, --item_id
 	'2000024'  --item
 );
+INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, item) VALUES (
+	'kimelu', --proyecto
+	'admin', --usuario_grupo_acc
+	NULL, --item_id
+	'2000028'  --item
+);
+INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, item) VALUES (
+	'kimelu', --proyecto
+	'admin', --usuario_grupo_acc
+	NULL, --item_id
+	'2000029'  --item
+);
+INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, item) VALUES (
+	'kimelu', --proyecto
+	'admin', --usuario_grupo_acc
+	NULL, --item_id
+	'2000032'  --item
+);
+INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, item) VALUES (
+	'kimelu', --proyecto
+	'admin', --usuario_grupo_acc
+	NULL, --item_id
+	'2000033'  --item
+);
+INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, item) VALUES (
+	'kimelu', --proyecto
+	'admin', --usuario_grupo_acc
+	NULL, --item_id
+	'2000034'  --item
+);
 --- FIN Grupo de desarrollo 2

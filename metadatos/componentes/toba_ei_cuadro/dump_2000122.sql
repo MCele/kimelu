@@ -94,10 +94,10 @@ INSERT INTO apex_objeto_cuadro (objeto_cuadro_proyecto, objeto_cuadro, titulo, s
 	NULL, --columna_descripcion
 	'0', --clave_dbr
 	NULL, --archivos_callbacks
-	'1000px', --ancho
+	'1250px', --ancho
 	'1', --ordenar
 	'0', --paginar
-	NULL, --tamano_pagina
+	'40', --tamano_pagina
 	'P', --tipo_paginado
 	'1', --mostrar_total_registros
 	'0', --eof_invisible
@@ -105,7 +105,7 @@ INSERT INTO apex_objeto_cuadro (objeto_cuadro_proyecto, objeto_cuadro, titulo, s
 	'1', --siempre_con_titulo
 	'0', --exportar_paginado
 	'1', --exportar
-	'0', --exportar_rtf
+	'1', --exportar_rtf
 	NULL, --pdf_propiedades
 	NULL, --pdf_respetar_paginacion
 	NULL, --asociacion_columnas

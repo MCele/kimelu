@@ -94,7 +94,7 @@ INSERT INTO apex_objeto_cuadro (objeto_cuadro_proyecto, objeto_cuadro, titulo, s
 	NULL, --columna_descripcion
 	'0', --clave_dbr
 	NULL, --archivos_callbacks
-	'1000px', --ancho
+	'1200px', --ancho
 	'1', --ordenar
 	'0', --paginar
 	NULL, --tamano_pagina
@@ -118,7 +118,7 @@ INSERT INTO apex_objeto_cuadro (objeto_cuadro_proyecto, objeto_cuadro, titulo, s
 	NULL, --desplegable
 	NULL, --desplegable_activo
 	'1', --scroll
-	'400px', --scroll_alto
+	'370px', --scroll_alto
 	't', --cc_modo
 	'0', --cc_modo_anidado_colap
 	NULL, --cc_modo_anidado_totcol
@@ -294,7 +294,7 @@ INSERT INTO apex_objeto_ei_cuadro_columna (objeto_cuadro_proyecto, objeto_cuadro
 	'Departamento', --titulo
 	'ei-cuadro-col-tit', --estilo_titulo
 	'4', --estilo
-	NULL, --ancho
+	'200', --ancho
 	'1', --formateo
 	NULL, --vinculo_indice
 	'1', --no_ordenar
@@ -328,7 +328,7 @@ INSERT INTO apex_objeto_ei_cuadro_columna (objeto_cuadro_proyecto, objeto_cuadro
 	NULL, --ancho
 	'1', --formateo
 	NULL, --vinculo_indice
-	'1', --no_ordenar
+	'0', --no_ordenar
 	NULL, --mostrar_xls
 	NULL, --mostrar_pdf
 	NULL, --pdf_propiedades

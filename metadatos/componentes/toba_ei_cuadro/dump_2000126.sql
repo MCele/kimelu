@@ -101,8 +101,8 @@ INSERT INTO apex_objeto_cuadro (objeto_cuadro_proyecto, objeto_cuadro, titulo, s
 	'P', --tipo_paginado
 	'1', --mostrar_total_registros
 	'0', --eof_invisible
-	'No se encontraron datos', --eof_customizado
-	'1', --siempre_con_titulo
+	'No se encontraron pasantías cargadas', --eof_customizado
+	'0', --siempre_con_titulo
 	'0', --exportar_paginado
 	'1', --exportar
 	'1', --exportar_rtf

@@ -13,7 +13,7 @@ INSERT INTO apex_item (item_id, proyecto, item, padre_id, padre_proyecto, padre,
 	'2000024', --item
 	NULL, --padre_id
 	'kimelu', --padre_proyecto
-	'1', --padre
+	'2000029', --padre
 	'0', --carpeta
 	'0', --nivel_acceso
 	'web', --solicitud_tipo
@@ -27,8 +27,8 @@ INSERT INTO apex_item (item_id, proyecto, item, padre_id, padre_proyecto, padre,
 	NULL, --descripcion
 	'2000003', --punto_montaje
 	NULL, --actividad_accion
-	'0', --menu
-	'0', --orden
+	'1', --menu
+	'5', --orden
 	'0', --solicitud_registrar
 	NULL, --solicitud_obs_tipo_proyecto
 	NULL, --solicitud_obs_tipo
@@ -47,7 +47,7 @@ INSERT INTO apex_item (item_id, proyecto, item, padre_id, padre_proyecto, padre,
 	'0', --publico
 	NULL, --redirecciona
 	NULL, --usuario
-	'0', --exportable
+	'1', --exportable
 	'2017-11-03 11:36:27', --creacion
 	'0'  --retrasar_headers
 );
