@@ -51,7 +51,7 @@ class dt_facturacion extends kimelu_datos_tabla
                         LEFT OUTER JOIN estado_factura as t_ef ON (t_ef.id_estado = t_f.estado)
                        
                         group by 1,2,3,4,5,6,7,8,9,10,11,12
-                        --(t_pv.nro_punto_venta,nro_factura,t_f.fecha,t_f.concepto,t_f.monto,t_f.id_factura,t_ta.tipo,t_i.nombre,t_i.cuil_cuit,t_a.denominacion, t_ef.descripcion)
+                        --(t_pv.nro_punto_venta,nro_factura,t_f.fecha,t_f.concepto,t_f.monto,t_f.id_factura,t_ta.tipo,t_i.nombre,t_i.cuil_cuit,t_a.denominacion, t_ef.descripcion...estado)
 		ORDER BY nro_factura desc ) aux 
                        $where ";
                 
