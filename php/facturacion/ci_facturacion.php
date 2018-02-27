@@ -31,25 +31,21 @@ class ci_facturacion extends abm_ci
         
     //--------------- FORMULARIO ---------------------------------
     function conf__formulario(toba_ei_formulario $form) {
-         //print_r("id fact: ");
-         //print_r($this->s__id_fact);
-        //get_descripciones_punto_actual()
-        
             if ($this->dep('datos')->esta_cargada()) {
                 $datos = $this->dep('datos')->tabla($this->nombre_tabla)->get();
-                //print_r($datos);
+                
                 $form->set_titulo("Datos de la factura");
                 //print_r($form->get_nombres_ef());
-                $efs=['id_punto_venta','nro_factura'];
+                $efs=Array('id_punto_venta','nro_factura');
                 $form->set_solo_lectura($efs, TRUE);
                 //$form->ef('nro_factura')->set_cuando_cambia_valor();
                 $form->set_datos($datos);
                 $this->s__id_fact=$datos['id_factura'];
-            }else{
+            }
+            else{
                 if (!is_null($this->s__id_fact)){
                     //se carga la factura con el conteido $this->s__id_fact
-                    $datos = $this->dep('datos')->tabla($this->nombre_tabla)->obtener_factura($this->s__id_fact);
-                    
+                    $datos = $this->dep('datos')->tabla($this->nombre_tabla)->obtener_factura($this->s__id_fact);        
                 }
                 else{
                     //se carga una nueva factura
@@ -60,10 +56,6 @@ class ci_facturacion extends abm_ci
             //$form->set_solo_lectura($efs, TRUE);
             //$form->ef('nro_factura')->(TRUE);
             }
-        //}
-        //else{
-              //
-            //}
             
         
     }
@@ -77,10 +69,15 @@ class ci_facturacion extends abm_ci
         $this->s__id_fact=null;
         $datos['id_ua'] = $this->u_a;
         $datos['id_punto_venta'] = $this->id_pv;
-        $datos['estado'] = 1; // la factura contiene estado 1: Correcta y 2:Anulada
         $facturas= $this->dep('datos')->tabla($this->nombre_tabla)->obtener_facturas($datos['id_punto_venta'],$datos['nro_factura']);
        
-        if(empty($facturas)){   
+        if(empty($facturas)){ 
+            if($datos['estado']==='2'){//factura anulada se asocia a un cliente anulada y monto 0
+                 $datos['monto']=0;
+                 $datos['id_institucion'] = 881;//REVISAR!!! Asignación de institucion ANULADA!!!????
+                 $datos['id_actividad'] = NULL; 
+                 toba::notificacion()->agregar('La Factura Anulada se guardo correctamente', 'info');
+            }
             $this->dep('datos')->tabla($this->nombre_tabla)->set($datos);
             $this->dep('datos')->sincronizar();
             $this->resetear();
@@ -90,7 +87,7 @@ class ci_facturacion extends abm_ci
         }
     }
     
-    function evt__formulario__modificacion($datos) {
+    function evt__formulario__modificacion($datos) {//REVISAR!!! Asignación de institucion ANULADA!!!????
         
         $cobros = $this->dep('datos')->tabla($this->nombre_tabla)->get_listado_cobros($datos['id_factura']);
         $cant_cobros = sizeof($cobros);
@@ -101,15 +98,15 @@ class ci_facturacion extends abm_ci
                 toba::notificacion()->agregar("La Factura no puede ser anulada porque tiene $cant_cobros cobros asociados", 'info');
         }
         else{
-               if($datos['estado']==='2'){//factura anulada se asocia a un cleinte anulada y monto 0
+               if($datos['estado']==='2'){//factura anulada se asocia a un cliente anulada y monto 0
                  $datos['monto']=0;
-                 $datos['id_institucion'] = 881;
+                 $datos['id_institucion'] = 881;//Ver!!! Asignación de institucion ANULADA!!!????
                  $datos['id_actividad'] = NULL; 
                  toba::notificacion()->agregar('La Factura Anulada se guardo correctamente', 'info');
-            }
+                }
             else{
                 toba::notificacion()->agregar('Los datos de la factura se han guardado correctamente', 'info');
-        }
+            }
             $this->dep('datos')->tabla($this->nombre_tabla)->set($datos);
             $this->dep('datos')->sincronizar();
          
@@ -137,7 +134,6 @@ class ci_facturacion extends abm_ci
 
 
     function conf__cuadro_cobros(toba_ei_cuadro $cuadro) {
-        //$this->dep('datos')->resetear();
         //$this->dep('datos')->sincronizar();
         if (!is_null($this->s__id_fact)) {    
             $datos = $this->dep('datos')->tabla($this->nombre_tabla)->get_listado_cobros($this->s__id_fact);

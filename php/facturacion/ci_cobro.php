@@ -50,7 +50,7 @@ class ci_cobro extends abm_ci
                 $this->resetear();
            }
            else{//estado anulado d la factura
-                throw new toba_error('No se pueden cargar cobross de una factura anulada');
+                throw new toba_error('No se pueden cargar cobros de una factura anulada');
             }
         }
     }
