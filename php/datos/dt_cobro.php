@@ -36,7 +36,7 @@ class dt_cobro extends kimelu_datos_tabla
                 if(!is_null($nro_fact)){
                     $where = " and nro_factura = $nro_fact";
                 }
-                $sql = "select id_factura, nro_factura, fecha, concepto, id_punto_venta "
+                $sql = "select id_factura, nro_factura, fecha, concepto, id_punto_venta, estado "
                         . "from facturacion "
                         . "where id_ua = '$this->u_a' "
                         . "and id_punto_venta = " .$id_punto_venta 

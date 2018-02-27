@@ -10,7 +10,7 @@ class dt_institucion extends kimelu_datos_tabla
                 $where = '';
              } 
              else {   
-                $where = ' and ' . $where; 
+                $where = ' where ' . $where; 
                  
              }
 		$sql = "SELECT
@@ -26,9 +26,10 @@ class dt_institucion extends kimelu_datos_tabla
 			institucion as t_i    
                         LEFT OUTER JOIN tipo_institucion as t_ti 
                         ON (t_i.tipo = t_ti.id_tipo)
-                        WHERE t_i.id_ua = '$this->u_a' $where
+                         $where
 		ORDER BY nombre";
-                //$sql = toba::perfil_de_datos()->filtrar($sql);
+                $sql = toba::perfil_de_datos()->filtrar($sql);
+                
 		return toba::db('kimelu')->consultar($sql);
 	}
 

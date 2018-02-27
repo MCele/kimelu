@@ -54,7 +54,7 @@ INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, eti
 	'Alta', --etiqueta
 	'1', --maneja_datos
 	'0', --sobre_fila
-	'¿Desea guardar un nuevo cobro?', --confirmacion
+	NULL, --confirmacion
 	NULL, --estilo
 	'apex', --imagen_recurso_origen
 	'nucleo/agregar.gif', --imagen
@@ -120,12 +120,12 @@ INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, eti
 	'Eliminar', --etiqueta
 	'1', --maneja_datos
 	'0', --sobre_fila
-	'¿Desea eliminar el registro?', --confirmacion
+	'¿Desea eliminar el cobro?', --confirmacion
 	'ei-boton-baja', --estilo
 	'apex', --imagen_recurso_origen
 	'borrar.gif', --imagen
 	'1', --en_botonera
-	NULL, --ayuda
+	'Elimina cobro', --ayuda
 	'3', --orden
 	NULL, --ci_predep
 	'0', --implicito
@@ -137,7 +137,7 @@ INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, eti
 	NULL, --accion_vinculo_carpeta
 	NULL, --accion_vinculo_item
 	NULL, --accion_vinculo_objeto
-	NULL, --accion_vinculo_popup
+	'0', --accion_vinculo_popup
 	NULL, --accion_vinculo_popup_param
 	NULL, --accion_vinculo_target
 	NULL, --accion_vinculo_celda
@@ -170,7 +170,7 @@ INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, eti
 	NULL, --accion_vinculo_carpeta
 	NULL, --accion_vinculo_item
 	NULL, --accion_vinculo_objeto
-	NULL, --accion_vinculo_popup
+	'0', --accion_vinculo_popup
 	NULL, --accion_vinculo_popup_param
 	NULL, --accion_vinculo_target
 	NULL, --accion_vinculo_celda

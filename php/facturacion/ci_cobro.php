@@ -24,13 +24,17 @@ class ci_cobro extends abm_ci
         if (empty($facturas)) {
             throw new toba_error('La factura ingresada no existe');
         } else {
-            $datos['id_factura']= $facturas[0]['id_factura'];
+            if($facturas[0]['estado']===1){//estado correcto de la factura
+                $datos['id_factura']= $facturas[0]['id_factura'];
+                $this->dep('datos')->tabla($this->nombre_tabla)->set($datos);
+                $this->dep('datos')->sincronizar();
+                $this->resetear();
+            }
+            else{//estado anulado d la factura
+                throw new toba_error('No se pueden cargar cobross de una factura anulada');
+            }
             
-            
-            $this->dep('datos')->tabla($this->nombre_tabla)->set($datos);
-            $this->dep('datos')->sincronizar();
-            $this->resetear();
-        }
+        } 
     }
 
     function evt__formulario__modificacion($datos) {
@@ -39,10 +43,15 @@ class ci_cobro extends abm_ci
         if (empty($facturas)) {
             throw new toba_error('La factura ingresada no existe');
         } else {
-            $datos['id_factura']= $facturas[0]['id_factura'];
-            $this->dep('datos')->tabla($this->nombre_tabla)->set($datos);
-            $this->dep('datos')->sincronizar();
-            $this->resetear();
+            if($facturas[0]['estado']===1){//estado correcto de la factura
+                $datos['id_factura']= $facturas[0]['id_factura'];
+                $this->dep('datos')->tabla($this->nombre_tabla)->set($datos);
+                $this->dep('datos')->sincronizar();
+                $this->resetear();
+           }
+           else{//estado anulado d la factura
+                throw new toba_error('No se pueden cargar cobross de una factura anulada');
+            }
         }
     }
 

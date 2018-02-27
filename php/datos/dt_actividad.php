@@ -10,7 +10,7 @@ class dt_actividad extends kimelu_datos_tabla
                     
                 } 
                 else {   
-                    $where = ' and ' . $where;
+                    $where = ' where ' . $where;
                 }
 		/*if (isset($filtro['tipo_actividad'])) {
 			$where[] = "tipo_actividad = ".quote($filtro['tipo_actividad']);
@@ -30,28 +30,29 @@ class dt_actividad extends kimelu_datos_tabla
 			t_a.nro_resolucion
 		FROM
 			actividad as t_a	
-                        LEFT OUTER JOIN dpto_actividad as t_da
+                        LEFT  JOIN dpto_actividad as t_da
 					ON (t_da.id_actividad = t_a.id_actividad)
-                        LEFT OUTER JOIN departamento as t_d 
+                        LEFT JOIN departamento as t_d 
                                        ON (t_da.id_departamento = t_d.id_departamento)
-			LEFT OUTER JOIN tipo_actividad as t_ta 
+			LEFT JOIN tipo_actividad as t_ta 
                                        ON (t_a.tipo_actividad = t_ta.id_tipo_actividad)
-			LEFT OUTER JOIN institucion as t_i 
+			LEFT JOIN institucion as t_i 
                                        ON (t_a.institucion = t_i.id_institucion)
-                        WHERE t_a.id_ua = '$this->u_a' $where  
+                        $where  
 		ORDER BY id_actividad"; //no cambiar oden porque se usa para el arreglo siguiente
 //		if (count($where)>0) {
 //			$sql = sql_concatenar_where($sql, $where);
 //		}
-                //$sql = toba::perfil_de_datos()->filtrar($sql);
+                $sql = toba::perfil_de_datos()->filtrar($sql);
+               
 		$consulta= toba::db('kimelu')->consultar($sql);
-                //print_r($consulta);
+                
                 $in = 0;       //recorre actividades
                 $nueva_consulta = array();
-                if (isset($consulta)){
+                if (is_null($consulta)){
                 //vamos a recorrer el arreglo del resultado de la consulta para conatenar lo departamentos de 
                 //las actividades que tengan más de un departamento asociado
-                //es importante que el arreglo de consultas esté ordenado por id_actividad
+                //es importante que el arreglo de consultas esté ordenado por id_actividad!!!!!!!
                     array_push($nueva_consulta, $consulta[0]);//agrego la primer actividad al cuadro
                     $cant = sizeof($consulta);
                     for ($i=1;$i<$cant;$i++) {//recorro todas las actividades (menos la primera, ya agregada)
