@@ -8,11 +8,11 @@
             $cuadro->desactivar_modo_clave_segura();
             if (!is_null($this->s__where)) {
                     $datos = $this->dep('datos')->tabla($this->nombre_tabla)->get_listado_apellido_nombre($this->s__where);
+                    $cuadro->set_datos($datos);
             } else {
-                    $datos = $this->dep('datos')->tabla($this->nombre_tabla)->get_listado_apellido_nombre();
+                    //$datos = $this->dep('datos')->tabla($this->nombre_tabla)->get_listado_apellido_nombre();
             }
-            //print_r($datos);
-            $cuadro->set_datos($datos);
+            
         }
         
         function evt__cuadro__seleccion($datos) {

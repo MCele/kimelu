@@ -4,6 +4,19 @@ class ci_estudiante extends abm_ci
 	protected $nombre_tabla='estudiante';
 	protected $u_a='FAEA';
 	
+        
+        
+        function conf__cuadro(toba_ei_cuadro $cuadro) {
+            $this->dep('datos')->resetear(); 
+            if (!is_null($this->s__where)) {
+                $datos = $this->dep('datos')->tabla($this->nombre_tabla)->get_listado($this->s__where);
+                $cuadro->set_datos($datos);
+            } else {
+                //$datos = $this->dep('datos')->tabla($this->nombre_tabla)->get_listado();
+                //$cuadro->set_datos($datos);
+            }
+            
+        }
 	
 	//-+-+-+-+-+-+-+-+--- Formulario ---+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 	

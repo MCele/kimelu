@@ -1,10 +1,24 @@
 <?php
-class ci_abm extends abm_ci     //Instituciones
+class ci_abm extends abm_ci     //CI para Instituciones
 {                               
      protected $nombre_tabla='institucion';
      protected $u_a='FAEA';
     //se debería cambiar por una variable que la provea el usuario que esté logueado
      
+     
+     
+     function conf__cuadro(toba_ei_cuadro $cuadro) {
+        $this->dep('datos')->resetear(); 
+        if (!is_null($this->s__where)) {
+            $datos = $this->dep('datos')->tabla($this->nombre_tabla)->get_listado($this->s__where);
+            $cuadro->set_datos($datos);
+        } else {
+          //  $datos = $this->dep('datos')->tabla($this->nombre_tabla)->get_listado();
+        }
+        
+    }
+     
+     /*********************** FORMULARIO *************************/
      
      function evt__formulario__alta($datos) {
         /*
