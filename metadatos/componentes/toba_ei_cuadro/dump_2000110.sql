@@ -356,7 +356,7 @@ INSERT INTO apex_objeto_ei_cuadro_columna (objeto_cuadro_proyecto, objeto_cuadro
 	'Institucion', --titulo
 	'ei-cuadro-col-tit', --estilo_titulo
 	'4', --estilo
-	NULL, --ancho
+	'200', --ancho
 	'1', --formateo
 	NULL, --vinculo_indice
 	'0', --no_ordenar

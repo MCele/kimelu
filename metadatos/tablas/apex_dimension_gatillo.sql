@@ -31,7 +31,7 @@ INSERT INTO apex_dimension_gatillo (proyecto, dimension, gatillo, tipo, orden, t
 	'2000001', --dimension
 	'2000003', --gatillo
 	'directo', --tipo
-	'3', --orden
+	'4', --orden
 	'institucion', --tabla_rel_dim
 	'id_ua', --columnas_rel_dim
 	NULL, --tabla_gatillo
@@ -42,7 +42,7 @@ INSERT INTO apex_dimension_gatillo (proyecto, dimension, gatillo, tipo, orden, t
 	'2000001', --dimension
 	'2000004', --gatillo
 	'directo', --tipo
-	'4', --orden
+	'3', --orden
 	'actividad', --tabla_rel_dim
 	'id_ua', --columnas_rel_dim
 	NULL, --tabla_gatillo
@@ -67,6 +67,28 @@ INSERT INTO apex_dimension_gatillo (proyecto, dimension, gatillo, tipo, orden, t
 	'6', --orden
 	'carrera', --tabla_rel_dim
 	'id_ua', --columnas_rel_dim
+	NULL, --tabla_gatillo
+	NULL  --ruta_tabla_rel_dim
+);
+INSERT INTO apex_dimension_gatillo (proyecto, dimension, gatillo, tipo, orden, tabla_rel_dim, columnas_rel_dim, tabla_gatillo, ruta_tabla_rel_dim) VALUES (
+	'kimelu', --proyecto
+	'2000002', --dimension
+	'2000007', --gatillo
+	'directo', --tipo
+	'1', --orden
+	'punto_venta', --tabla_rel_dim
+	'id_punto_venta', --columnas_rel_dim
+	NULL, --tabla_gatillo
+	NULL  --ruta_tabla_rel_dim
+);
+INSERT INTO apex_dimension_gatillo (proyecto, dimension, gatillo, tipo, orden, tabla_rel_dim, columnas_rel_dim, tabla_gatillo, ruta_tabla_rel_dim) VALUES (
+	'kimelu', --proyecto
+	'2000002', --dimension
+	'2000008', --gatillo
+	'directo', --tipo
+	'2', --orden
+	'facturacion', --tabla_rel_dim
+	'id_punto_venta', --columnas_rel_dim
 	NULL, --tabla_gatillo
 	NULL  --ruta_tabla_rel_dim
 );

@@ -2,7 +2,8 @@
 class dt_actividad extends kimelu_datos_tabla
 {
     protected $u_a='FAEA';
-    //se debería cambiar por una variable que la provea el usuario que esté logueado
+    
+    
 	function get_listado($where = null)
 	{
 		if (is_null($where)) {  
@@ -38,20 +39,19 @@ class dt_actividad extends kimelu_datos_tabla
                                        ON (t_a.tipo_actividad = t_ta.id_tipo_actividad)
 			LEFT JOIN institucion as t_i 
                                        ON (t_a.institucion = t_i.id_institucion)
+                        --LEFT JOIN unidad_academica as t_ua 
+                                       --ON (t_i.id_ua = t_ua.sigla) 
                         $where  
 		ORDER BY id_actividad"; //no cambiar oden porque se usa para el arreglo siguiente
-//		if (count($where)>0) {
-//			$sql = sql_concatenar_where($sql, $where);
-//		}
+
                 $sql = toba::perfil_de_datos()->filtrar($sql);
-               
 		$consulta= toba::db('kimelu')->consultar($sql);
                 
                 $in = 0;       //recorre actividades
                 $nueva_consulta = array();
-                if (is_null($consulta)){
-                //vamos a recorrer el arreglo del resultado de la consulta para conatenar lo departamentos de 
-                //las actividades que tengan más de un departamento asociado
+                if ($consulta){
+                //vamos a recorrer el arreglo del resultado de la consulta para concatenar los 
+                //departamentos de las actividades que tengan más de un departamento asociado
                 //es importante que el arreglo de consultas esté ordenado por id_actividad!!!!!!!
                     array_push($nueva_consulta, $consulta[0]);//agrego la primer actividad al cuadro
                     $cant = sizeof($consulta);
@@ -63,14 +63,17 @@ class dt_actividad extends kimelu_datos_tabla
                             $nueva_consulta[$in]['departamento_nombre'] = "$dpto1 - $dpto2";
                         }
                         else {
-                            //si la actividad no fue agregada, la agreo pr primera vez
+                            //si la actividad no fue agregada, la agreo por primera vez
                             array_push($nueva_consulta,$consulta[$i]);
                             $in++;
                         }
+                        
                     }
                     return $nueva_consulta;
                 }
-                
+                if (is_null($consulta)){
+                     $consulta = array();
+                } 
                 return $consulta;
 	}
 
@@ -117,6 +120,7 @@ class dt_actividad extends kimelu_datos_tabla
                     ."Where tipo_actividad = " . $tipo ." "
                     ." and id_ua = '$this->u_a' "
                         . "ORDER BY denominacion";
+            print_r($sql);
             return toba::db('kimelu')->consultar($sql);
         }
         function get_descripciones_pasantias_asociadas($id_actividad=NULL)

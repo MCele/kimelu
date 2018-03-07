@@ -25,6 +25,7 @@ class dt_estudiante extends kimelu_datos_tabla
 			estudiante as t_e
                 WHERE t_e.id_ua = '$this->u_a' $where 
 		ORDER BY (apellido, nombre)";
+                $sql = toba::perfil_de_datos()->filtrar($sql);
 		return toba::db('kimelu')->consultar($sql);
 	}
 
@@ -51,12 +52,12 @@ class dt_estudiante extends kimelu_datos_tabla
                 
             } 
             else {   
-                $where = ' and ' . $where; 
+                $where = ' where ' . $where; 
                 
             }
             $sql = "SELECT e.id_estudiante, e.apellido||' '|| e.nombre as apellido_nombre, e.cuil"
                 . " FROM estudiante as e "
-                . " WHERE e.id_ua = '$this->u_a' ". $where 
+                //. " WHERE e.id_ua = '$this->u_a' ". $where 
                 . " ORDER BY (apellido_nombre)";
             /*
             $sql = "SELECT e.id_estudiante, e.apellido||' '|| e.nombre as apellido_nombre, e.cuil, c.id_carrera as carrera"
@@ -64,6 +65,7 @@ class dt_estudiante extends kimelu_datos_tabla
                 . " WHERE e.id_ua = '$this->u_a' ". $where 
                 . " ORDER BY (apellido_nombre)";
               */  
+            $sql = toba::perfil_de_datos()->filtrar($sql);
             return toba::db('kimelu')->consultar($sql);
 	}
         
