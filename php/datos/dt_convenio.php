@@ -1,11 +1,13 @@
 <?php
 class dt_convenio extends kimelu_datos_tabla
 {
-    protected $u_a='FAEA';
+    protected $u_a='FAEA'; //ver!!!
+    
 	function get_descripciones()
 	{
 		$sql = "SELECT id_convenio, sigla, descripcion "
                         . "FROM convenio ORDER BY descripcion";
+                $sql = toba::perfil_de_datos()->filtrar($sql);
 		return toba::db('kimelu')->consultar($sql);
 	}
 
@@ -24,8 +26,10 @@ class dt_convenio extends kimelu_datos_tabla
 			t_c.sigla,
 			t_c.descripcion
 		FROM
-			convenio as t_c $where 
+			convenio as t_c 
+                $where 
 		ORDER BY descripcion  ";
+                $sql = toba::perfil_de_datos()->filtrar($sql);
 		return toba::db('kimelu')->consultar($sql);
 	}
 

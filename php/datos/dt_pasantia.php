@@ -1,7 +1,7 @@
 <?php
 class dt_pasantia extends kimelu_datos_tabla
 {
-    protected $u_a='FAEA';
+    protected $u_a='FAEA'; //falta
     //se debería cambiar por una variable que la provea el usuario que esté logueado
 	function get_listado($where=null)
 	{

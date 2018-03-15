@@ -1,6 +1,7 @@
 <?php
 class dt_tipo_institucion extends kimelu_datos_tabla
 {
+    //falta VERR!!!
 	function get_descripciones()
 	{
 		$sql = "SELECT id_tipo, descripcion "

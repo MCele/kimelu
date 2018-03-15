@@ -1,12 +1,13 @@
 <?php
 class dt_facturacion extends kimelu_datos_tabla
 {
-    protected $u_a='FAEA';
+    protected $u_a='FAEA';//falta
     //se debería cambiar por una variable que la provea el usuario que esté logueado
     
 	function get_listado($where = null)
 	{
             if (is_null($where)){  
+                //siempre se muestran las facturas que no estén anuladas
                 $where = "where id_estado = '1'"; 
              }
              
@@ -16,14 +17,12 @@ class dt_facturacion extends kimelu_datos_tabla
                   //$where = str_replace("actividad", "t_a.denominacion", $where );
                 $where = ' Where ' . $where; 
                 $pos = strpos($where, 'id_estado');
-                
-               // if (is_null($pos)) {
-                   // $where = $where . " and estado = '1'"; //estado de factura correcto
-                //print_r($where);
-                //}
+                 if (empty($pos)) {
+                    $where = $where . " and id_estado = '1'"; //estado de factura correcto
+                }
             }
             
-		$sql = " select * from (SELECT
+		$sql = " SELECT
 			t_pv.nro_punto_venta as pv,
                         t_f.nro_factura as nro_factura,
 			t_f.fecha,
@@ -45,17 +44,21 @@ class dt_facturacion extends kimelu_datos_tabla
 			LEFT OUTER JOIN actividad as t_a ON (t_f.id_actividad = t_a.id_actividad)
                         LEFT OUTER JOIN tipo_actividad as t_ta ON (t_ta.id_tipo_actividad = t_a.tipo_actividad)
 			LEFT OUTER JOIN sede as t_s ON (t_f.id_sede = t_s.id_sede)
-			LEFT OUTER JOIN unidad_academica as t_ua ON (t_f.id_ua = t_ua.sigla)
+			--LEFT OUTER JOIN unidad_academica as t_ua ON (t_f.id_ua = t_ua.sigla)
                         LEFT OUTER JOIN punto_venta as t_pv ON (t_f.id_punto_venta = t_pv.id_punto_venta)
                         LEFT OUTER JOIN cobro as t_c ON (t_c.id_factura = t_f.id_factura)
                         LEFT OUTER JOIN estado_factura as t_ef ON (t_ef.id_estado = t_f.estado)
                        
                         group by 1,2,3,4,5,6,7,8,9,10,11,12
                         --(t_pv.nro_punto_venta,nro_factura,t_f.fecha,t_f.concepto,t_f.monto,t_f.id_factura,t_ta.tipo,t_i.nombre,t_i.cuil_cuit,t_a.denominacion, t_ef.descripcion...estado)
-		ORDER BY nro_factura desc ) aux 
-                       $where ";
+		ORDER BY nro_factura desc ";
                 
-		//$sql=toba::perfil_de_datos()->filtrar($sql);
+		$sql=toba::perfil_de_datos()->filtrar($sql);
+               
+                $sql = "SELECT * FROM ($sql) as aux";
+                
+                $sql = "$sql $where ";// agregamos where del filtro
+               
                 $datos= toba::db('kimelu')->consultar($sql);
                 
                 for($i=0;$i<sizeof($datos);$i++){
@@ -89,6 +92,8 @@ class dt_facturacion extends kimelu_datos_tabla
                         LEFT OUTER JOIN punto_venta as t_pv 
                         ON (t_pv.id_punto_venta = t_f.id_punto_venta) 
                         WHERE t_f.id_factura = $id_factura ";
+                //creo que no es necesaria la restricción de perfil de datos
+                $sql=toba::perfil_de_datos()->filtrar($sql);
 		return toba::db('kimelu')->consultar($sql);
 	}
         
@@ -108,9 +113,11 @@ class dt_facturacion extends kimelu_datos_tabla
                 }
                 $sql = "select id_factura, nro_factura, fecha, concepto, id_punto_venta "
                         . "from facturacion "
-                        . "where id_ua = '$this->u_a' "
+                        //. "where id_ua = '$this->u_a' "
                         . "and id_punto_venta = " .$id_punto_venta 
                         . $where;
+                
+                $sql=toba::perfil_de_datos()->filtrar($sql);
                 $datos= toba::db('kimelu')->consultar($sql);
             }
             return $datos;
@@ -122,9 +129,9 @@ class dt_facturacion extends kimelu_datos_tabla
             if(!is_null($id_fact)){
                 $sql = "select id_factura, nro_factura, fecha, concepto, id_punto_venta, monto, id_institucion, id_actividad, estado "
                         . "from facturacion "
-                        . "where id_ua = '$this->u_a' "
                         .  "and id_factura = " . $id_fact;
                 $datos= toba::db('kimelu')->consultar($sql);
+                $sql=toba::perfil_de_datos()->filtrar($sql);
             }
             return $datos;
         }

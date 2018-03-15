@@ -1,7 +1,7 @@
 <?php
 class dt_punto_venta extends kimelu_datos_tabla
 {
-    protected $u_a='FAEA';
+    protected $u_a='FAEA';  //falta
     protected $id_pv=1;
     
 	function get_descripciones()

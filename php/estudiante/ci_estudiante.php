@@ -25,8 +25,8 @@ class ci_estudiante extends abm_ci
 			$datos = $this->dep('datos')->tabla($this->nombre_tabla)->get();
 			if(isset($datos['id_estudiante'])){
 			//se debería cargar las carreras de la BD para este alumno
-			$resp= $this->dep('datos')->tabla($this->nombre_tabla)->get_carreras($datos['id_estudiante']);
-			$carreras = Array();
+                            $resp= $this->dep('datos')->tabla($this->nombre_tabla)->get_carreras($datos['id_estudiante']);
+                            $carreras = Array();
 			foreach ($resp  as  $c){
 				array_push($carreras, $c['id_carrera']);
 			}

@@ -94,7 +94,7 @@ INSERT INTO apex_objeto_cuadro (objeto_cuadro_proyecto, objeto_cuadro, titulo, s
 	NULL, --columna_descripcion
 	'0', --clave_dbr
 	NULL, --archivos_callbacks
-	'1000px', --ancho
+	'1250px', --ancho
 	'1', --ordenar
 	'0', --paginar
 	NULL, --tamano_pagina
@@ -139,7 +139,7 @@ INSERT INTO apex_objeto_ei_cuadro_columna (objeto_cuadro_proyecto, objeto_cuadro
 	'Nombre', --titulo
 	'ei-cuadro-col-tit', --estilo_titulo
 	'4', --estilo
-	'200', --ancho
+	'350', --ancho
 	'1', --formateo
 	NULL, --vinculo_indice
 	'0', --no_ordenar
@@ -170,7 +170,7 @@ INSERT INTO apex_objeto_ei_cuadro_columna (objeto_cuadro_proyecto, objeto_cuadro
 	'Cuil/t', --titulo
 	'ei-cuadro-col-tit', --estilo_titulo
 	'4', --estilo
-	'70', --ancho
+	'80', --ancho
 	'1', --formateo
 	NULL, --vinculo_indice
 	'0', --no_ordenar
@@ -201,7 +201,7 @@ INSERT INTO apex_objeto_ei_cuadro_columna (objeto_cuadro_proyecto, objeto_cuadro
 	'Tipo', --titulo
 	'ei-cuadro-col-tit', --estilo_titulo
 	'0', --estilo
-	'140', --ancho
+	'220', --ancho
 	'1', --formateo
 	NULL, --vinculo_indice
 	'0', --no_ordenar
@@ -232,7 +232,7 @@ INSERT INTO apex_objeto_ei_cuadro_columna (objeto_cuadro_proyecto, objeto_cuadro
 	'Direccion', --titulo
 	'ei-cuadro-col-tit', --estilo_titulo
 	'4', --estilo
-	'260', --ancho
+	'200', --ancho
 	'1', --formateo
 	NULL, --vinculo_indice
 	'1', --no_ordenar
@@ -263,7 +263,7 @@ INSERT INTO apex_objeto_ei_cuadro_columna (objeto_cuadro_proyecto, objeto_cuadro
 	'Observacion', --titulo
 	'ei-cuadro-col-tit', --estilo_titulo
 	'4', --estilo
-	'260', --ancho
+	'200', --ancho
 	'1', --formateo
 	NULL, --vinculo_indice
 	'1', --no_ordenar
@@ -294,7 +294,7 @@ INSERT INTO apex_objeto_ei_cuadro_columna (objeto_cuadro_proyecto, objeto_cuadro
 	'Teléfono', --titulo
 	'ei-cuadro-col-tit', --estilo_titulo
 	'4', --estilo
-	'60', --ancho
+	'100', --ancho
 	'1', --formateo
 	NULL, --vinculo_indice
 	'1', --no_ordenar
@@ -325,7 +325,7 @@ INSERT INTO apex_objeto_ei_cuadro_columna (objeto_cuadro_proyecto, objeto_cuadro
 	'Email', --titulo
 	'ei-cuadro-col-tit', --estilo_titulo
 	'4', --estilo
-	'70', --ancho
+	'100', --ancho
 	'1', --formateo
 	NULL, --vinculo_indice
 	'1', --no_ordenar

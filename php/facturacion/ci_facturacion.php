@@ -11,6 +11,7 @@ class ci_facturacion extends abm_ci
     // $this->pantalla('pant_docente')->set_titulo($this->pantalla('pant_docente')->get_titulo()."  ".date_format($f, 'd-m-Y'));
     function conf()
 	{
+        
             $this->pantalla()->tab('pant_cuadro_cobros')->ocultar();
             $nueva="Nueva";
             $this->pantalla('pant_edicion')->set_etiqueta($nueva);
@@ -43,14 +44,14 @@ class ci_facturacion extends abm_ci
                 $this->s__id_fact=$datos['id_factura'];
             }
             else{
-                if (!is_null($this->s__id_fact)){
+                //if (!is_null($this->s__id_fact)){
                     //se carga la factura con el conteido $this->s__id_fact
-                    $datos = $this->dep('datos')->tabla($this->nombre_tabla)->obtener_factura($this->s__id_fact);        
-                }
-                else{
+                  //  $datos = $this->dep('datos')->tabla($this->nombre_tabla)->obtener_factura($this->s__id_fact);        
+                //}
+                //else{
                     //se carga una nueva factura
                     
-                }
+                //}
                 
             //$efs=['nro_factura'];
             //$form->set_solo_lectura($efs, TRUE);

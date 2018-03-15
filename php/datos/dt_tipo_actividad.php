@@ -1,7 +1,7 @@
 <?php
 class dt_tipo_actividad extends kimelu_datos_tabla
 {
-
+    //falta VERRRR!!!!!!
 	function get_descripciones()
 	{
 		$sql = "SELECT id_tipo_actividad, tipo "

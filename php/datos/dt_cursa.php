@@ -1,6 +1,7 @@
 <?php
     class dt_cursa extends kimelu_datos_tabla
     {
+        //falta verrrr!!!
         //busca las carreras en las que está inscripto un alumno, 
         //puede ser de una unidad académica especifica o de toda la Universidad
         function get_carreras_alumno($id_est, $id_ua=NULL){

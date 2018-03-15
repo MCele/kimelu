@@ -1,7 +1,7 @@
 <?php
 class dt_estudiante extends kimelu_datos_tabla
 {
-    protected $u_a='FAEA';
+    //protected $u_a='FAEA'; //falta VERR!!!!!!!!!!
     //se debería cambiar por una variable que la provea el usuario que esté logueado
 	function get_listado($where = null)
 	{
@@ -9,7 +9,7 @@ class dt_estudiante extends kimelu_datos_tabla
                 $where = '';
                 
              } 
-            else {   $where = ' and ' . $where; }
+            else {   $where = ' WHERE ' . $where; }
 		$sql = "SELECT
 			t_e.id_estudiante,
 			t_e.email,
@@ -23,8 +23,9 @@ class dt_estudiante extends kimelu_datos_tabla
                         t_e.ciudad
 		FROM
 			estudiante as t_e
-                WHERE t_e.id_ua = '$this->u_a' $where 
+                $where 
 		ORDER BY (apellido, nombre)";
+               
                 $sql = toba::perfil_de_datos()->filtrar($sql);
 		return toba::db('kimelu')->consultar($sql);
 	}
@@ -35,13 +36,14 @@ class dt_estudiante extends kimelu_datos_tabla
                 $where = '';
             } 
             else {  
-                $where = " and id_estudiante = $id_est"; 
+                $where = " WHERE id_estudiante = $id_est"; 
                 
             }
 		$sql = "SELECT id_estudiante, apellido||' '|| nombre as apellido_nombre, cuil"
                         . " FROM estudiante "
-                        . " WHERE id_ua = '$this->u_a'". $where 
+                        . $where 
                         . " ORDER BY (apellido,nombre)";
+                $sql = toba::perfil_de_datos()->filtrar($sql);
 		return toba::db('kimelu')->consultar($sql);
 	}
         
@@ -59,12 +61,6 @@ class dt_estudiante extends kimelu_datos_tabla
                 . " FROM estudiante as e "
                 //. " WHERE e.id_ua = '$this->u_a' ". $where 
                 . " ORDER BY (apellido_nombre)";
-            /*
-            $sql = "SELECT e.id_estudiante, e.apellido||' '|| e.nombre as apellido_nombre, e.cuil, c.id_carrera as carrera"
-                . " FROM estudiante as e inner join cursa as c on (e.id_estudiante = c.id_estudiante)"
-                . " WHERE e.id_ua = '$this->u_a' ". $where 
-                . " ORDER BY (apellido_nombre)";
-              */  
             $sql = toba::perfil_de_datos()->filtrar($sql);
             return toba::db('kimelu')->consultar($sql);
 	}
@@ -75,57 +71,69 @@ class dt_estudiante extends kimelu_datos_tabla
                 $where = '';
             } 
             else {  
-                $where = ' and id_estudiante = ' . $id; 
+                $where = ' WHERE id_estudiante = ' . $id; 
                 
             }
 		$sql = "SELECT id_estudiante, cuil"
                         . " FROM estudiante "
-                        . " WHERE t_e.id_ua = '$this->u_a'". $where ;
-		return toba::db('kimelu')->consultar($sql);
+                        . $where ;
+            $sql = toba::perfil_de_datos()->filtrar($sql);
+            return toba::db('kimelu')->consultar($sql);
 	}
         
         function get_alumno_cuil($cuil=NULL,$id_estudiante=NULL)
 	{
+            $where = '';
             if (is_null($cuil)) { 
-                $where = '';
+                if (!is_null($id_estudiante)) { 
+                    $where = "WHERE id_estudiante = $id_estudiante "; 
+                } 
             } 
             else {  
-                $where = " and cuil = '$cuil' "; 
+                $where = " WHERE cuil = '$cuil' ";
+                if (!is_null($id_estudiante)) { 
+                    $where = "$where and id_estudiante = $id_estudiante "; 
+                } 
                 
-            }
-            if (!is_null($id_estudiante)) { 
-                $where = "$where and id_estudiante = $id_estudiante "; 
             } 
-		$sql = "SELECT id_estudiante, cuil, dni"
-                        . " FROM estudiante "
-                        . " WHERE id_ua = '$this->u_a'". $where ;
-		return toba::db('kimelu')->consultar($sql);
+            $sql = "SELECT id_estudiante, cuil, dni"
+                    . " FROM estudiante "
+                    . $where ;
+                
+            $sql = toba::perfil_de_datos()->filtrar($sql);
+            return toba::db('kimelu')->consultar($sql);
 	}
         
         function get_alumno_dni($dni=NULL,$id_estudiante=NULL)
 	{
-            if (is_null($dni)) { 
-                $where = '';
+            $where = '';
+            if (is_null($dni)){
+                if (!is_null($id_estudiante)) { 
+                    $where = " WHERE id_estudiante = $id_estudiante "; 
+                }      
             } 
-            else {  
-                $where = " and dni =  '$dni' "; 
+            else {
+                $where = " WHERE dni =  '$dni' "; 
+                if (!is_null($id_estudiante)) { 
+                    $where = " and  id_estudiante = $id_estudiante "; 
+                }
                 
             }
-             if (!is_null($id_estudiante)) { 
-                $where = "$where and id_estudiante = $id_estudiante "; 
-            }
-		$sql = "SELECT id_estudiante, cuil,dni "
-                        . " FROM estudiante "
-                        . " WHERE id_ua = '$this->u_a'". $where ;
+            $sql = "SELECT id_estudiante, cuil,dni "
+                    . " FROM estudiante "
+                    . $where ;
+                $sql = toba::perfil_de_datos()->filtrar($sql);
 		return toba::db('kimelu')->consultar($sql);
 	}
-        //insertamos nueva carrera del alumno
+        
+        //insertamos nueva carrera del alumno: se agrega carrera para un alumno existente en la BD
         function agregar_carrera($id_alumno,$id_carrera){
             $sql = "insert into cursa "
                     . " (id_estudiante,id_carrera) "
                     . "values ($id_alumno,$id_carrera)";
             return toba::db('kimelu')->consultar($sql);
         }
+        
         function borrar_carrera($id_alumno,$id_carrera=NULL){
             $where="";//se borran todas las asociaciones a carreras que tenga el alumno
             if (!is_null($id_carrera)){//se borra sólo la asociación a la carrera especificada
@@ -140,7 +148,7 @@ class dt_estudiante extends kimelu_datos_tabla
         
         // obtener carreras de un alumno
         function get_carreras($id_est)
-	{
+	{ 
             $sql = "SELECT
 			t_e.id_estudiante,
 			cu.id_carrera
@@ -148,20 +156,24 @@ class dt_estudiante extends kimelu_datos_tabla
 			estudiante as t_e
                         inner join cursa as cu 
                         on (cu.id_estudiante=t_e.id_estudiante)
-                 WHERE t_e.id_ua = '$this->u_a' and $id_est=t_e.id_estudiante ";
-		return toba::db('kimelu')->consultar($sql);
+                 WHERE $id_est=t_e.id_estudiante ";
+            $sql = toba::perfil_de_datos()->filtrar($sql);
+            return toba::db('kimelu')->consultar($sql);
+            
 	}
+        
         //método que está en pasantías, pero sólo está asociado estudiante al ci_estudante
         function get_listado_actividad_estudiante($id_actividad=NULL,$id_estudiante=NULL)
-	{   //obtiene todas las pasantías en las que está un estudiante ($id_estudiante!=NULL) para una determinada actividad(tipo pasantía $id_actividad!=NULL) o no
-            //obtiene todas las pasantías de los estudiantes que están anotados en una determinada actividad del tipo pasantía
+	{   // obtiene todas las pasantías en las que está un estudiante 
+            // ($id_estudiante!=NULL) para una determinada actividad (tipo pasantía $id_actividad!=NULL) o no
+            // obtiene todas las pasantías de los estudiantes que están anotados en una determinada actividad del tipo pasantía
             $where = "";
             if (!is_null($id_actividad)) {  
-                $where = " and t_a.id_actividad = $id_actividad";
-            } 
-            if (!is_null($id_estudiante)) {  
+                $where = " WHERE t_a.id_actividad = $id_actividad";
+            }                 
+            if (!is_null($id_estudiante)) { 
                 if (strlen($where)===0){
-                  $where = " and t_e.id_estudiante = $id_estudiante";
+                  $where = " Where t_e.id_estudiante = $id_estudiante";
                 }
                 else{
                     $where = "$where and t_e.id_estudiante = $id_estudiante";
@@ -182,8 +194,9 @@ class dt_estudiante extends kimelu_datos_tabla
                                 ON (t_p.id_estudiante = t_e.id_estudiante)
 			LEFT OUTER JOIN actividad as t_a 
                             ON (t_p.id_actividad = t_a.id_actividad)
-                       WHERE t_a.id_ua = '$this->u_a' $where";
-		return toba::db('kimelu')->consultar($sql);
+                        $where";
+            $sql = toba::perfil_de_datos()->filtrar($sql);
+            return toba::db('kimelu')->consultar($sql);
 	}
 }
 ?>

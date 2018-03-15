@@ -3,7 +3,7 @@ class ci_carga_actividad extends abm_ci
 {   
     protected $nombre_tabla='actividad';
     protected $u_a='FAEA';
-    //se debería cambiar por una variable que la provea el usuario que esté logueado
+    //se debería cambiar por una variable que la provea el usuario que esté logueado VERRR!!!
     
     //---- Formulario -------------------------------------------------------------------
 
@@ -11,7 +11,7 @@ class ci_carga_actividad extends abm_ci
         if ($this->dep('datos')->esta_cargada()) { //si es un formulario de modificación (Actividad ya creada)
             //obtengo los datos de la actividad
             $datos = $this->dep('datos')->tabla($this->nombre_tabla)->get();
-            //print_r($datos);
+            
             $dpto_act=Array();
             if(isset($datos['id_actividad'])){
                 //se carga/n lo/s departamento/s de la BD para esta actividad (si los tiene)
@@ -34,6 +34,9 @@ class ci_carga_actividad extends abm_ci
         /*
          * todo: el periodo por defecto
          */
+        print_r($datos);
+        //$sql = toba::perfil_de_datos();
+        //print_r($sql);
         $datos['id_ua']= $this->u_a;
         //print_r($datos);
         $departamentos = $datos['departamento'];

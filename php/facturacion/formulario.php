@@ -9,7 +9,7 @@ class formulario extends kimelu_ei_formulario {
                 console.log(dni);
                 if (estado === '2') {
                 if () {
-                       confirma = confirm('Estas seguro que queres ejecutarme en Güindous Messenyer?');
+                       confirma = confirm('Estas seguro que ...?');
                 }
                 return confirma;
              }
