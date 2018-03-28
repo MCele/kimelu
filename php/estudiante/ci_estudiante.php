@@ -25,7 +25,6 @@ class ci_estudiante extends abm_ci
 	function conf__formulario(toba_ei_formulario $form) {
 		if ($this->dep('datos')->esta_cargada()) {
 			$datos = $this->dep('datos')->tabla($this->nombre_tabla)->get();
-                        //print_r($datos);
 			if(isset($datos['id_estudiante'])){
 			//se debería cargar las carreras de la BD para este alumno
                             $resp= $this->dep('datos')->tabla($this->nombre_tabla)->get_carreras($datos['id_estudiante']);
@@ -47,23 +46,20 @@ class ci_estudiante extends abm_ci
 		$datos['cuil']= str_replace("-", "", $datos['cuil']);
 		if (!is_null($datos['cuil'])){ //si ingresaron datos del cuil
 			$estudiante = $this->dep('datos')->tabla('estudiante')->get_alumno_cuil($datos['cuil'],NULL);
-                        //print_r($estudiante);
 			$existe=(sizeof($estudiante)!=0);
 			if ($existe){
                             $unidades_est = $this->dep('datos')->tabla('estudiante')->get_estudiante_ua($estudiante[0]['id_estudiante']);
                             if (sizeof($unidades_est)==1){
-                                //print_r($unidades_est);
                                 $nombre = $unidades_est[0]['nombre'];
                                 throw new toba_error("Ya existe otro estudiante con el mismo CUIL en la $nombre" );
                             }
                             else{
                                 if (sizeof($unidades_est)>0){
-                                    throw new toba_error('Ya existe otro estudiante con el mismo CUIL en más de una Unidad Académica');
+                                    throw new toba_error('Ya existe otro estudiante con el mismo CUIL en mas de una Unidad Academica');
                                 }
                                 else{
                                     throw new toba_error('Ya existe otro estudiante con el mismo CUIL');
-                                }
-                                
+                                }    
                             }
 			}
 			else{
@@ -73,7 +69,6 @@ class ci_estudiante extends abm_ci
 				if($existe){
                                     $unidades_est = $this->dep('datos')->tabla('estudiante')->get_estudiante_ua($estudiante[0]['id_estudiante']);
                                     if (sizeof($unidades_est)==1){
-                                        //print_r($unidades_est);
                                         $nombre = $unidades_est[0]['nombre'];
                                         throw new toba_error("Ya existe otro estudiante con el mismo DNI en la $nombre");
                                     }
@@ -84,21 +79,13 @@ class ci_estudiante extends abm_ci
                             }
 			} 
 		}
-		//print_r($datos);   //[id_carreras] => Array ( [0] => 623 [1] => 634 ) 
+                  //[id_carreras] => Array ( [0] => 623 [1] => 634 ) 
 		if(!$existe){//solo se da de alta un estudiante si no existe ya en la BD con igual cuil o dni
                     $carreras = $datos['id_carreras'];
-                    //for($i=0;$i<sizeof($carreras);$i++){//ERROR SE QUIERE AGREGAR CARRERAS A UN ESTUDIANTE QUE NO HA SIDO CREADO AUN
-                        //$estudiante= $this->dep('datos')->tabla('estudiante')->agregar_carrera($datos['id_estudiante'],$carreras[$i]);
-                        //        }
-			//actualizo los datos de las carreras ingresadas
-			//agregar uno o más registros en tabla cursa el id_estudiante y el id_carrera/s que está cursando
-				
+                    	
                     $this->dep('datos')->tabla($this->nombre_tabla)->set($datos);
                     $this->dep('datos')->sincronizar(); //actualiza datos enla BD
                     $estudiante = $this->dep('datos')->tabla('estudiante')->get_alumno_cuil($datos['cuil'],NULL);
-                    //print_r($estudiante);
-                    //$ua = $this->dep('datos')->tabla('estudiante')->get_ua();
-                    //print_r(sizeof($ua));  
                     if (sizeof($ua)==1){ //Se restringe 1 USUARIO por UNIDAD ACADEMICA (lo mismo para PUNTO DE VENTA)
                         $this->dep('datos')->tabla('estudiante')->agregar_ua($estudiante[0]['id_estudiante'],$ua[0]['sigla']);
                     }
@@ -130,7 +117,6 @@ class ci_estudiante extends abm_ci
 			if ($existe){
 				$unidades_est = $this->dep('datos')->tabla('estudiante')->get_estudiante_ua($estudiante[0]['id_estudiante']);
                                 if (sizeof($unidades_est)==1){
-                                    //print_r($unidades_est);
                                     $nombre = $unidades_est[0]['nombre'];
                                     throw new toba_error("Ya existe otro estudiante con el mismo CUIL en la $nombre" );
                                 }
@@ -156,7 +142,6 @@ class ci_estudiante extends abm_ci
                                 if ($existe){
                                     $unidades_est = $this->dep('datos')->tabla('estudiante')->get_estudiante_ua($estudiante[0]['id_estudiante']);
                                     if (sizeof($unidades_est)==1){
-                                       // print_r($unidades_est);
                                         $nombre = $unidades_est[0]['nombre'];
                                         throw new toba_error("Ya existe otro estudiante con el mismo DNI en la $nombre");
                                     }
@@ -213,16 +198,18 @@ class ci_estudiante extends abm_ci
 		}
 		else{
 			$this->dep('datos')->tabla('estudiante')->borrar_carrera($datos['id_estudiante']);
-			//se elimina el registro del alumno de la BD
-                        $ua = $this->dep('datos')->tabla('estudiante')->get_ua();
-                        //print_r($ua);
-                        foreach ($ua as $pos => $unidad){
-                            //print_r($unidad);
-                            //print_r($u);
+			//se elimina el registro del alumno de la BD vinculado a la UA del usuario loguado
+                        $ua = $this->dep('datos')->tabla('estudiante')->get_ua();//obtenemos UA de usuario
+                        foreach ($ua as $pos => $unidad)
+                        {   //eliminamos registros de UA del usuario en la que esté el estudiante
                             $this->dep('datos')->tabla('estudiante')->borrar_ua($datos['id_estudiante'],$unidad['sigla']);
                         }
-			$this->dep('datos')->eliminar_todo();
-                        
+                        $unidades_est = $this->dep('datos')->tabla('estudiante')->get_estudiante_ua($datos['id_estudiante']);
+                        if (sizeof($unidades_est)==0){
+                        //el estudiante ya no está asociado a ninguna unidad academica, entonces lo podemos eliminar
+                        //si el alumno está asociado a otras UA entonces no se elimina su registro
+                            $this->dep('datos')->eliminar_todo();
+                        }                        
 			toba::notificacion()->agregar('El registro se ha eliminado correctamente', 'info');
 			$this->resetear();
 		}

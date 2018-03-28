@@ -165,7 +165,6 @@ class dt_estudiante extends kimelu_datos_tabla
                  WHERE $id_est=t_e.id_estudiante ";
             $sql = toba::perfil_de_datos()->filtrar($sql);
             $datos =  toba::db('kimelu')->consultar($sql);
-            print_r($datos);
             return ($datos);
             
 	}
@@ -233,7 +232,6 @@ class dt_estudiante extends kimelu_datos_tabla
                         . " inner join unidad_academica as t_ua "
                         . " on(t_ua.sigla = e_ua.id_ua)"
                         .   " where e_ua.id_estudiante = $id_estudiante";
-                //print_r($sql);
                 return toba::db('kimelu')->consultar($sql);
             }
             return null;
@@ -247,7 +245,6 @@ class dt_estudiante extends kimelu_datos_tabla
             $sql = "delete from estudiante_ua "
                     . " where id_estudiante=$id_alumno "
                     . " $where";
-           // print_r($sql);
             return toba::db('kimelu')->consultar($sql);
         }
 }
