@@ -15,14 +15,14 @@ INSERT INTO apex_usuario_perfil_datos (proyecto, usuario_perfil_datos, nombre, d
 	'kimelu', --proyecto
 	'2000004', --usuario_perfil_datos
 	'FAEA - Extension', --nombre
-	'Facultad de Economía y Administracones', --descripcion
+	'Facultad de Economía y Administración', --descripcion
 	NULL  --listar
 );
 INSERT INTO apex_usuario_perfil_datos (proyecto, usuario_perfil_datos, nombre, descripcion, listar) VALUES (
 	'kimelu', --proyecto
 	'2000005', --usuario_perfil_datos
 	'FAIF - Extension', --nombre
-	NULL, --descripcion
+	'Facultad de Informática', --descripcion
 	NULL  --listar
 );
 --- FIN Grupo de desarrollo 2

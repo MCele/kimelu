@@ -13,6 +13,11 @@ class ci_cobro extends abm_ci
             
             $form->set_datos($datos);
         }
+        else{
+             $pv= $this->dep('datos')->tabla('cobro')->obtener_punto_venta_actual();
+             $datos=Array('id_punto_venta'=>$pv[0]['id_punto_venta']);
+             $form->set_datos($datos, false);//guardo los datos en el formulario VERRR!!! Pasa a estado cargado (muestra botones de modificar, cancelar)
+        }
     }
 
     function evt__formulario__alta($datos) {

@@ -25,10 +25,19 @@ class ci_abm extends abm_ci     //CI para Instituciones
          * 
          */
         $datos['cuil_cuit']= str_replace("-", "", $datos['cuil_cuit']);
-        $datos['id_ua']= $this->u_a;
-        $this->dep('datos')->tabla($this->nombre_tabla)->set($datos);
-        $this->dep('datos')->sincronizar();
-        $this->resetear();
+        //$aux= new dt_unidad_academica();
+        $aux2=$this->dep('datos')->tabla('unidad_academica')->get_descripciones();
+        //print_r($aux2);
+        if(!empty ($aux2)){
+        $datos['id_ua']= $aux2[0]['sigla'];
+        //$this->dep('datos')->tabla($this->nombre_tabla)->set($datos);
+        //$this->dep('datos')->sincronizar();
+        //$this->resetear();
+        }
+        else{
+            //mensaje no tiene asociado unidad academica para dar de alta
+        }
+        
     }
 
     function evt__formulario__modificacion($datos) {

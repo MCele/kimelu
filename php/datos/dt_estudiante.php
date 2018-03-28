@@ -23,6 +23,8 @@ class dt_estudiante extends kimelu_datos_tabla
                         t_e.ciudad
 		FROM
 			estudiante as t_e
+                        inner join estudiante_ua as t_eua 
+                        on (t_e.id_estudiante=t_eua.id_estudiante)
                 $where 
 		ORDER BY (apellido, nombre)";
                
@@ -40,7 +42,9 @@ class dt_estudiante extends kimelu_datos_tabla
                 
             }
 		$sql = "SELECT id_estudiante, apellido||' '|| nombre as apellido_nombre, cuil"
-                        . " FROM estudiante "
+                        . " FROM estudiante as t_e
+                        inner join estudiante_ua as t_eua 
+                        on (t_e.id_estudiante=t_eua.id_estudiante)"
                         . $where 
                         . " ORDER BY (apellido,nombre)";
                 $sql = toba::perfil_de_datos()->filtrar($sql);
@@ -58,7 +62,9 @@ class dt_estudiante extends kimelu_datos_tabla
                 
             }
             $sql = "SELECT e.id_estudiante, e.apellido||' '|| e.nombre as apellido_nombre, e.cuil"
-                . " FROM estudiante as e "
+                . " FROM estudiante as e as t_e
+                    inner join estudiante_ua as t_eua 
+                    on (t_e.id_estudiante = t_eua.id_estudiante)"
                 //. " WHERE e.id_ua = '$this->u_a' ". $where 
                 . " ORDER BY (apellido_nombre)";
             $sql = toba::perfil_de_datos()->filtrar($sql);
@@ -198,5 +204,49 @@ class dt_estudiante extends kimelu_datos_tabla
             $sql = toba::perfil_de_datos()->filtrar($sql);
             return toba::db('kimelu')->consultar($sql);
 	}
+        
+        function get_ua(){
+            $sql = "SELECT sigla, nombre FROM unidad_academica ORDER BY nombre";
+            $sql=toba::perfil_de_datos()->filtrar($sql);
+            return toba::db('kimelu')->consultar($sql);
+        }
+        function agregar_ua($id_estudiante = null,$ua = null) 
+        { //se ejecuta un insert para estudiante_UA
+            if (!is_null($id_estudiante)&&(!is_null($ua)))
+            {
+                $sql = "insert into estudiante_ua "
+                        . " (id_estudiante,id_ua) "
+                        . "values ($id_estudiante,'$ua')";
+                return toba::db('kimelu')->consultar($sql);
+            }
+            return null;
+        }
+        
+        function get_estudiante_ua($id_estudiante){
+            //obtiene las unidades académicas asociadas al estudiante
+            //NO se filtra usuario en este caso!!!
+            if (!is_null($id_estudiante)){
+                $sql = "SELECT id_estudiante, id_ua, t_ua.nombre FROM estudiante_ua "
+                        . " inner join unidad_academica as t_ua "
+                        . " on(t_ua.sigla = e_ua.id_ua)"
+                        .   " where e_ua.id_estudiante = $id_estudiante"
+                        ;
+                print_r($sql);
+                return toba::db('kimelu')->consultar($sql);
+            }
+            return null;
+        }
+        
+        function borrar_ua($id_alumno,$ua=null){
+            $where="";//se borran todas las asociaciones a las unidades académicas que tenga el alumno en la tabla estudiante_ua
+            if (!is_null($ua)){ //se borra sólo la asociación a la unidad académica especificada
+                $where= " and id_ua = " . "'$ua'";
+            }
+            $sql = "delete from estudiante_ua "
+                    . " where id_estudiante=$id_alumno "
+                    . " $where";
+           // print_r($sql);
+            return toba::db('kimelu')->consultar($sql);
+        }
 }
 ?>

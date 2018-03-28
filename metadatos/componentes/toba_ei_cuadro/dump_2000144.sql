@@ -235,7 +235,7 @@ INSERT INTO apex_objeto_ei_cuadro_columna (objeto_cuadro_proyecto, objeto_cuadro
 	'ei-cuadro-col-tit', --estilo_titulo
 	'4', --estilo
 	'80', --ancho
-	'5', --formateo
+	'1', --formateo
 	NULL, --vinculo_indice
 	'0', --no_ordenar
 	NULL, --mostrar_xls

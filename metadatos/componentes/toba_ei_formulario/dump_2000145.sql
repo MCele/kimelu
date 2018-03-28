@@ -261,8 +261,8 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'0', --permitir_html
 	'0', --deshabilitar_rest_func
 	NULL, --estado_defecto
-	'1', --solo_lectura
-	'0', --solo_lectura_modificacion
+	'0', --solo_lectura
+	'1', --solo_lectura_modificacion
 	'siguiente_factura', --carga_metodo
 	NULL, --carga_clase
 	NULL, --carga_include
@@ -756,9 +756,9 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	NULL, --carga_maestros
 	'0', --carga_cascada_relaj
 	'0', --cascada_mantiene_estado
-	'1', --carga_permite_no_seteado
+	'0', --carga_permite_no_seteado
 	'Seleccionar...', --carga_no_seteado
-	'0', --carga_no_seteado_ocultar
+	'1', --carga_no_seteado_ocultar
 	NULL, --edit_tamano
 	NULL, --edit_maximo
 	NULL, --edit_mascara

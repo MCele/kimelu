@@ -1,7 +1,7 @@
 <?php
 class dt_convenio extends kimelu_datos_tabla
 {
-    protected $u_a='FAEA'; //ver!!!
+    //protected $u_a='FAEA'; //ver!!!
     
 	function get_descripciones()
 	{
@@ -29,6 +29,7 @@ class dt_convenio extends kimelu_datos_tabla
 			convenio as t_c 
                 $where 
 		ORDER BY descripcion  ";
+                
                 $sql = toba::perfil_de_datos()->filtrar($sql);
 		return toba::db('kimelu')->consultar($sql);
 	}

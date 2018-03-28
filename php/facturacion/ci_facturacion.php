@@ -1,7 +1,7 @@
 <?php
 class ci_facturacion extends abm_ci
 {
-    
+///CORREGIR ALTA Y MODIFICACIOÓN DE ACUERDO AL PUNTO DE VENTA    
     protected $nombre_tabla='facturacion';
     protected $u_a='FAEA';
     protected $id_pv=1;
@@ -32,27 +32,30 @@ class ci_facturacion extends abm_ci
         
     //--------------- FORMULARIO ---------------------------------
     function conf__formulario(toba_ei_formulario $form) {
+        //deberia cargar los datos del p_v del usuario para que aparezca en el combo ya elegido
+        //idem para unidad academica
             if ($this->dep('datos')->esta_cargada()) {
                 $datos = $this->dep('datos')->tabla($this->nombre_tabla)->get();
-                
+                //print_r($datos);
                 $form->set_titulo("Datos de la factura");
                 //print_r($form->get_nombres_ef());
                 $efs=Array('id_punto_venta','nro_factura');
-                $form->set_solo_lectura($efs, TRUE);
+                //$form->set_solo_lectura($efs, TRUE);
                 //$form->ef('nro_factura')->set_cuando_cambia_valor();
-                $form->set_datos($datos);
+                $form->set_datos($datos); //guardo los datos en el formulario
                 $this->s__id_fact=$datos['id_factura'];
             }
             else{
-                //if (!is_null($this->s__id_fact)){
-                    //se carga la factura con el conteido $this->s__id_fact
-                  //  $datos = $this->dep('datos')->tabla($this->nombre_tabla)->obtener_factura($this->s__id_fact);        
-                //}
-                //else{
-                    //se carga una nueva factura
-                    
-                //}
+                //select * from punto_venta
+                //filtro
                 
+                $pv= $this->dep('datos')->tabla('facturacion')->obtener_punto_venta_actual();
+               // print_r($pv);
+                
+                $nro_fact = $this->dep('datos')->tabla('facturacion')->siguiente_factura($pv[0]['id_punto_venta']);
+                //print_r($nro_fact);
+                $datos=Array('id_punto_venta'=>$pv[0]['id_punto_venta'],'nro_factura'=>$nro_fact);
+                $form->set_datos($datos,false);//guardo los datos en el formulario VERRR!!! Pasa a estado cargado (muestra botones de modificar, cancelar)
             //$efs=['nro_factura'];
             //$form->set_solo_lectura($efs, TRUE);
             //$form->ef('nro_factura')->(TRUE);
@@ -63,7 +66,7 @@ class ci_facturacion extends abm_ci
     function avisar_anular(){
         throw new toba_error('Cambia datos');
     }
-    function evt__formulario__alta($datos) {
+    function evt__formulario__alta($datos) {///CORREGIR ALTA Y MODIFICACIOÓN DE ACUERDO AL PUNTO DE VENTA
         /*
          * todo: el periodo por defecto
          */
@@ -71,7 +74,7 @@ class ci_facturacion extends abm_ci
         $datos['id_ua'] = $this->u_a;
         $datos['id_punto_venta'] = $this->id_pv;
         $facturas= $this->dep('datos')->tabla($this->nombre_tabla)->obtener_facturas($datos['id_punto_venta'],$datos['nro_factura']);
-       
+       //el punto de venta es para toda la Universidad (se aocian al CUIL de la UNCO)
         if(empty($facturas)){ 
             if($datos['estado']==='2'){//factura anulada se asocia a un cliente anulada y monto 0
                  $datos['monto']=0;
@@ -81,7 +84,7 @@ class ci_facturacion extends abm_ci
             }
             $this->dep('datos')->tabla($this->nombre_tabla)->set($datos);
             $this->dep('datos')->sincronizar();
-            $this->resetear();
+            toba::notificacion()->agregar('Los datos de la factura se han guardado correctamente', 'info');
         }
         else{
             throw new toba_error('Ya existe una factura con ese numero');
@@ -110,7 +113,6 @@ class ci_facturacion extends abm_ci
             }
             $this->dep('datos')->tabla($this->nombre_tabla)->set($datos);
             $this->dep('datos')->sincronizar();
-         
             $this->resetear();
             $this->s__id_fact=null;
         }

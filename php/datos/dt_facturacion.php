@@ -104,23 +104,32 @@ class dt_facturacion extends kimelu_datos_tabla
         //}
         
         //dado un punto de venta y un número de factura (opcional) se listan la/s factura/s asociadas
-        function obtener_facturas($id_punto_venta,$nro_fact){
+        function obtener_facturas($id_punto_venta,$nro_fact=NULL){
             $datos = null;
             $where = "";
             if(!is_null($id_punto_venta)){
                 if(!is_null($nro_fact)){
                     $where = " and nro_factura = $nro_fact";
                 }
-                $sql = "select id_factura, nro_factura, fecha, concepto, id_punto_venta "
+                $sql = "select id_factura, nro_factura, fecha, concepto, id_punto_venta, monto "
                         . "from facturacion "
-                        //. "where id_ua = '$this->u_a' "
-                        . "and id_punto_venta = " .$id_punto_venta 
+                        . " where id_punto_venta = " .$id_punto_venta 
                         . $where;
-                
                 $sql=toba::perfil_de_datos()->filtrar($sql);
                 $datos= toba::db('kimelu')->consultar($sql);
             }
             return $datos;
+        }
+        
+        function obtener_monto_factura($id_punto_venta, $nro_factura){
+            $datos = $this->obtener_facturas($id_punto_venta, $nro_factura);
+            if(is_null($datos)){
+                return 0;
+            }
+            else {
+                return $datos[0]['monto'];
+            
+            }
         }
         
         function obtener_factura($id_fact){
@@ -129,27 +138,34 @@ class dt_facturacion extends kimelu_datos_tabla
             if(!is_null($id_fact)){
                 $sql = "select id_factura, nro_factura, fecha, concepto, id_punto_venta, monto, id_institucion, id_actividad, estado "
                         . "from facturacion "
-                        .  "and id_factura = " . $id_fact;
+                        .  "where id_factura = " . $id_fact;
                 $datos= toba::db('kimelu')->consultar($sql);
                 $sql=toba::perfil_de_datos()->filtrar($sql);
             }
             return $datos;
         }
         
-        function siguiente_factura($id_punto_venta){
+        
+        function siguiente_factura($id_punto_venta=NULL){
             if (is_null($id_punto_venta)){
                 return '';
             }
             else{
                 $sql = "select max(nro_factura)+1 as nro_factura from facturacion "
-                    . "where id_punto_venta = " .$id_punto_venta;
-            
-                     $datos= toba::db('kimelu')->consultar($sql);
-                    // print_r($datos);
-                   return $datos[0]['nro_factura'];
+                        ." where id_punto_venta = " .$id_punto_venta;
+               // print_r($id_punto_venta);
+                $sql=toba::perfil_de_datos()->filtrar($sql);
+                //print_r($sql);
+                $datos= toba::db('kimelu')->consultar($sql);
+                return $datos[0]['nro_factura'];
             }
         }
-
+        function obtener_punto_venta_actual (){
+             $sql = " select id_punto_venta, nro_punto_venta from punto_venta";
+             $sql=toba::perfil_de_datos()->filtrar($sql);
+             //print_r($sql);
+             return toba::db('kimelu')->consultar($sql);
+        }
 }
 
 ?>

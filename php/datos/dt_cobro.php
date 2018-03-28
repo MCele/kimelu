@@ -48,7 +48,7 @@ class dt_cobro extends kimelu_datos_tabla
                 if(!is_null($nro_fact)){
                     $where = " where nro_factura = $nro_fact";
                 }
-                $sql = "select id_factura, nro_factura, fecha, concepto, id_punto_venta, estado "
+                $sql = "select id_factura, nro_factura, fecha, concepto, id_punto_venta, estado, monto "
                         . "from facturacion " 
                         . $where;
                 $sql = toba::perfil_de_datos()->filtrar($sql);
@@ -57,6 +57,18 @@ class dt_cobro extends kimelu_datos_tabla
             }
             return $datos;
         }
+        
+        function obtener_monto_factura($id_punto_venta, $nro_factura){
+            $datos = $this->obtener_facturas($id_punto_venta, $nro_factura);
+            if(is_null($datos)||empty($datos)){
+                return NULL;
+            }
+            else {
+                return $datos[0]['monto'];
+            
+            }
+        }
+        
         function obtener_datos_factura($id_punto_venta=null,$id_fact=null){
             $datos = null;
             $where = "";
@@ -89,6 +101,12 @@ class dt_cobro extends kimelu_datos_tabla
                 $datos= toba::db('kimelu')->consultar($sql);
             }
             return $datos;
+        }
+        function obtener_punto_venta_actual (){
+             $sql = " select id_punto_venta, nro_punto_venta from punto_venta";
+             $sql=toba::perfil_de_datos()->filtrar($sql);
+             //print_r($sql);
+             return toba::db('kimelu')->consultar($sql);
         }
 }
 
