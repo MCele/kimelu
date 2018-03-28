@@ -120,7 +120,7 @@ INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, eti
 	'Eliminar', --etiqueta
 	'1', --maneja_datos
 	'0', --sobre_fila
-	'¿Desea eliminar los datos del alumno?', --confirmacion
+	'¿Desea eliminar todos los datos del alumno?', --confirmacion
 	'ei-boton-baja', --estilo
 	'apex', --imagen_recurso_origen
 	'borrar.gif', --imagen
