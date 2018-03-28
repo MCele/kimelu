@@ -14,7 +14,9 @@
                     ."(cu.id_carrera=ca.id_carrera) "
                     . "where cu.id_estudiante = $id_est"
                     . $where;
-            return toba::db('kimelu')->consultar($sql);
+            $datos = toba::db('kimelu')->consultar($sql);
+            print_r($datos);
+            return $datos;
         }
         
     }

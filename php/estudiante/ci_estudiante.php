@@ -4,7 +4,9 @@ class ci_estudiante extends abm_ci
 	protected $nombre_tabla='estudiante';
 	protected $u_a='FAEA';
 	
-        
+       // Para tener en cuenta si el alumno esa inscripto en carreras distintas en distintas Unidades Académicas
+        // entonces cuando se ingrese por una unidad académica a editarlo se borrarán las carreras a la que esté inscrito 
+        // en las otras unidades académicas!!! Se solucionaría con la Conexion al SIU Guaraní
         
         function conf__cuadro(toba_ei_cuadro $cuadro) {
             $this->dep('datos')->resetear(); 
@@ -48,22 +50,36 @@ class ci_estudiante extends abm_ci
                         //print_r($estudiante);
 			$existe=(sizeof($estudiante)!=0);
 			if ($existe){
-                            //$unidades_est = $this->dep('datos')->tabla('estudiante')->get_estudiante_ua($estudiante[0]['id_estudiante']);
-                            /*if (sizeof($unidades_est)==1){
-                                $nombre = $unidades_est['nombre'];
-                                throw new toba_error("Ya existe otro estudiante con el mismo CUIL en $nombre" );
+                            $unidades_est = $this->dep('datos')->tabla('estudiante')->get_estudiante_ua($estudiante[0]['id_estudiante']);
+                            if (sizeof($unidades_est)==1){
+                                //print_r($unidades_est);
+                                $nombre = $unidades_est[0]['nombre'];
+                                throw new toba_error("Ya existe otro estudiante con el mismo CUIL en la $nombre" );
                             }
                             else{
-                                throw new toba_error('Ya existe otro estudiante con el mismo CUIL');
-                            }*/
-                             throw new toba_error('Ya existe otro estudiante con el mismo CUIL');
+                                if (sizeof($unidades_est)>0){
+                                    throw new toba_error('Ya existe otro estudiante con el mismo CUIL en más de una Unidad Académica');
+                                }
+                                else{
+                                    throw new toba_error('Ya existe otro estudiante con el mismo CUIL');
+                                }
+                                
+                            }
 			}
 			else{
                             if((!is_null($datos['dni']))&&(!$existe)){
 				$estudiante= $this->dep('datos')->tabla('estudiante')->get_alumno_dni($datos['dni'],NULL);  
 				$existe=(sizeof($estudiante)!=0);
 				if($existe){
-                                    throw new toba_error('Ya existe otro estudiante con el mismo DNI');
+                                    $unidades_est = $this->dep('datos')->tabla('estudiante')->get_estudiante_ua($estudiante[0]['id_estudiante']);
+                                    if (sizeof($unidades_est)==1){
+                                        //print_r($unidades_est);
+                                        $nombre = $unidades_est[0]['nombre'];
+                                        throw new toba_error("Ya existe otro estudiante con el mismo DNI en la $nombre");
+                                    }
+                                    else{
+                                        throw new toba_error('Ya existe otro estudiante con el mismo DNI');
+                                    }
 				}
                             }
 			} 
@@ -112,22 +128,44 @@ class ci_estudiante extends abm_ci
 				}
 			$existe=(sizeof($estudiante)!=0);
 			if ($existe){
-				throw new toba_error('Ya existe otro estudiante con el mismo CUIL');
-				}
+				$unidades_est = $this->dep('datos')->tabla('estudiante')->get_estudiante_ua($estudiante[0]['id_estudiante']);
+                                if (sizeof($unidades_est)==1){
+                                    //print_r($unidades_est);
+                                    $nombre = $unidades_est[0]['nombre'];
+                                    throw new toba_error("Ya existe otro estudiante con el mismo CUIL en la $nombre" );
+                                }
+                                else{
+                                    if (sizeof($unidades_est)>0){
+                                        throw new toba_error('Ya existe otro estudiante con el mismo CUIL en más de una Unidad Académica');
+                                    }
+                                    else{
+                                        throw new toba_error('Ya existe otro estudiante con el mismo CUIL');
+                                    }
+
+                                }
+			}
 			else{
-					if ((!is_null($datos['dni']))&&(!$existe)){
-					$estudiante= $this->dep('datos')->tabla('estudiante')->get_alumno_dni($datos['dni'],NULL);
-					for($i=0;$i<sizeof($estudiante);$i++){//elimino el estudiante actual del arreglo de estudiantes con ese dni
-						if($estudiante[$i]['id_estudiante']==$datos['id_estudiante']){
-							unset($estudiante[$i]);
-						}
-					}
-					$existe=(sizeof($estudiante)!=0);
-					if ($existe){
-						throw new toba_error('Ya existe otro estudiante con el mismo DNI');
-						}
-					}
+                            if ((!is_null($datos['dni']))&&(!$existe)){
+				$estudiante= $this->dep('datos')->tabla('estudiante')->get_alumno_dni($datos['dni'],NULL);
+				for($i=0;$i<sizeof($estudiante);$i++){//elimino el estudiante actual del arreglo de estudiantes con ese dni
+                                    if($estudiante[$i]['id_estudiante']==$datos['id_estudiante']){
+					unset($estudiante[$i]);
+                                    }
 				}
+				$existe=(sizeof($estudiante)!=0);
+                                if ($existe){
+                                    $unidades_est = $this->dep('datos')->tabla('estudiante')->get_estudiante_ua($estudiante[0]['id_estudiante']);
+                                    if (sizeof($unidades_est)==1){
+                                       // print_r($unidades_est);
+                                        $nombre = $unidades_est[0]['nombre'];
+                                        throw new toba_error("Ya existe otro estudiante con el mismo DNI en la $nombre");
+                                    }
+                                    else{
+                                        throw new toba_error('Ya existe otro estudiante con el mismo DNI');
+                                    }
+				}
+                            }
+			}
 		}
 		
 		if(!$existe){   //si el alumno ingresado no está duplicado con ese cuil o dni

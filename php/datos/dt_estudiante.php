@@ -164,7 +164,9 @@ class dt_estudiante extends kimelu_datos_tabla
                         on (cu.id_estudiante=t_e.id_estudiante)
                  WHERE $id_est=t_e.id_estudiante ";
             $sql = toba::perfil_de_datos()->filtrar($sql);
-            return toba::db('kimelu')->consultar($sql);
+            $datos =  toba::db('kimelu')->consultar($sql);
+            print_r($datos);
+            return ($datos);
             
 	}
         
@@ -226,12 +228,12 @@ class dt_estudiante extends kimelu_datos_tabla
             //obtiene las unidades académicas asociadas al estudiante
             //NO se filtra usuario en este caso!!!
             if (!is_null($id_estudiante)){
-                $sql = "SELECT id_estudiante, id_ua, t_ua.nombre FROM estudiante_ua "
+                $sql = "SELECT e_ua.id_estudiante, e_ua.id_ua, t_ua.nombre "
+                        . "FROM estudiante_ua as e_ua "
                         . " inner join unidad_academica as t_ua "
                         . " on(t_ua.sigla = e_ua.id_ua)"
-                        .   " where e_ua.id_estudiante = $id_estudiante"
-                        ;
-                print_r($sql);
+                        .   " where e_ua.id_estudiante = $id_estudiante";
+                //print_r($sql);
                 return toba::db('kimelu')->consultar($sql);
             }
             return null;
