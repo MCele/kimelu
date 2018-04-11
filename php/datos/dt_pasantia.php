@@ -6,7 +6,12 @@ class dt_pasantia extends kimelu_datos_tabla
 	function get_listado($where=null)
 	{
             if (is_null($where)) {  $where = '';} 
-            else {   $where = ' and ' . $where; }
+            else {   
+                $where = str_replace("apellido", "t_e.apellido", $where );
+                $where = ' Where ' . $where;
+                
+                
+            }
 		$sql = "SELECT
 			t_e.nombre as estudiante_nombre,
                         t_e.apellido as estudiante_apellido,
@@ -29,7 +34,7 @@ class dt_pasantia extends kimelu_datos_tabla
 			INNER JOIN actividad as t_a ON (t_p.id_actividad = t_a.id_actividad)
 			LEFT OUTER JOIN convenio as t_c ON (t_p.id_convenio = t_c.id_convenio)
                         LEFT OUTER JOIN carrera as t_ca ON (t_p.id_carrera = t_ca.id_carrera)
-                        
+                        $where
 		ORDER BY t_ca.nombre";
                 $sql = toba::perfil_de_datos()->filtrar($sql);
 		return toba::db('kimelu')->consultar($sql);
