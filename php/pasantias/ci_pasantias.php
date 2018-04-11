@@ -2,7 +2,7 @@
 class ci_pasantias extends abm_ci
 {
     protected $nombre_tabla='pasantia';
-    
+    //LISTO!!!
     //---- Cuadro -----------------------------------------------------------------------
     function conf__cuadro(toba_ei_cuadro $cuadro) 
     {               //redefino el método heredado de abm_ci para mostrado "estado" como cadena (no como número)
@@ -52,7 +52,7 @@ class ci_pasantias extends abm_ci
                     throw new toba_error('El estudiante ya se encuentra en otra pasantia vigente');
                 } else {
                     $this->dep('datos')->tabla($this->nombre_tabla)->set($datos);
-                    $this->dep('datos')->sincronizar();
+                    $this->dep('datos')->tabla($this->nombre_tabla)->sincronizar();
                     toba::notificacion()->agregar('El registro se ha guardado correctamente', 'info');
                     $this->resetear();    
                 }
@@ -92,7 +92,7 @@ class ci_pasantias extends abm_ci
                     throw new toba_error('El estudiante ya se encuentra en otra pasantia vigente');
                 } else {
                     $this->dep('datos')->tabla($this->nombre_tabla)->set($datos);
-                    $this->dep('datos')->sincronizar();
+                    $this->dep('datos')->tabla($this->nombre_tabla)->sincronizar();
                     toba::notificacion()->agregar('El registro se ha guardado correctamente', 'info');
                     $this->resetear();
                 }
@@ -107,7 +107,7 @@ class ci_pasantias extends abm_ci
     }
     
     function estado_vigente($fecha_fin){
-    //Consulta si el estado es viente o no y hay que cambiarlo
+    //Consulta si el estado es vigente o no y hay que cambiarlo
     //($fecha_fin ya tiene el formato aaaa-mm-dd)
         $hoy = getdate();
         return($this->formato_fecha($hoy) <= $fecha_fin);

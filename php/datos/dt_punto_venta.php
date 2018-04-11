@@ -1,7 +1,7 @@
 <?php
 class dt_punto_venta extends kimelu_datos_tabla
 {
-    //protected $u_a='FAEA';  //falta
+    //protected $u_a='FAEA';  //LISTO!!!
     //protected $id_pv=1;
     
 	function get_descripciones()
@@ -28,7 +28,6 @@ class dt_punto_venta extends kimelu_datos_tabla
                         . " ORDER BY nro_punto_venta";
                 $sql=toba::perfil_de_datos()->filtrar($sql);
 		$datos= toba::db('kimelu')->consultar($sql);
-                //print_r($datos[0]);
                 return($datos);
 	}
 }

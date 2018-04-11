@@ -1,7 +1,7 @@
 <?php
 class dt_unidad_academica extends kimelu_datos_tabla
 {
-    //falta VERRR!!!!!!
+    //LISTO!!!
 	function get_descripciones()
 	{
 		$sql = "SELECT sigla, nombre FROM unidad_academica ORDER BY nombre";

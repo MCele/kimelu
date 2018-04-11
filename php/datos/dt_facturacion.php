@@ -1,14 +1,13 @@
 <?php
 class dt_facturacion extends kimelu_datos_tabla
 {
-    protected $u_a='FAEA';//falta
-    //se debería cambiar por una variable que la provea el usuario que esté logueado
+    //protected $u_a='FAEA';//LISTO!!!!!
     
 	function get_listado($where = null)
 	{
             if (is_null($where)){  
-                //siempre se muestran las facturas que no estén anuladas
-                $where = "where id_estado = '1'"; 
+                //siempre se muestran las facturas que estén anuladas y las que correctas
+                $where = "where id_estado = '1' or id_estado = '2' "; 
              }
              
             else {  
@@ -17,11 +16,11 @@ class dt_facturacion extends kimelu_datos_tabla
                   //$where = str_replace("actividad", "t_a.denominacion", $where );
                 $where = ' Where ' . $where; 
                 $pos = strpos($where, 'id_estado');
-                 if (empty($pos)) {
+                 /*// se filtra solo por facturas de estado correcto para mostrar
+                  * if (empty($pos)) {
                     $where = $where . " and id_estado = '1'"; //estado de factura correcto
-                }
+                }*/
             }
-            
 		$sql = " SELECT
 			t_pv.nro_punto_venta as pv,
                         t_f.nro_factura as nro_factura,
@@ -52,26 +51,26 @@ class dt_facturacion extends kimelu_datos_tabla
                         group by 1,2,3,4,5,6,7,8,9,10,11,12
                         --(t_pv.nro_punto_venta,nro_factura,t_f.fecha,t_f.concepto,t_f.monto,t_f.id_factura,t_ta.tipo,t_i.nombre,t_i.cuil_cuit,t_a.denominacion, t_ef.descripcion...estado)
 		ORDER BY nro_factura desc ";
-                
+               
 		$sql=toba::perfil_de_datos()->filtrar($sql);
                
                 $sql = "SELECT * FROM ($sql) as aux";
                 
                 $sql = "$sql $where ";// agregamos where del filtro
-               
                 $datos= toba::db('kimelu')->consultar($sql);
-                
-                for($i=0;$i<sizeof($datos);$i++){
+                //Para Nro_factura: se completan con 0 a la izquierda del punto de venta(4 caracteres) y de número factura (8 caracteres)
+                /*//No lo necesitan por eso se comenta
+                 * for($i=0;$i<sizeof($datos);$i++){
                     //completo con "0" a la izquierda al punto de venta (hasta 4 caracteres)
                     $pv = str_pad($datos[$i]['pv'],4,"0",STR_PAD_LEFT);
                     //completo con "0" a la izquierda el número de factura (hasta 8 caracteres)
                     $nro_f = str_pad($datos[$i]['nro_factura'],8,"0",STR_PAD_LEFT);
-                    $datos[$i]['nro_factura'] = "$pv-$nro_f";   
-                }
+                    $datos[$i]['nro_factura'] = "$pv-$nro_f";   //se concatena el Punto de Venta y el número de Factura
+                }*/
                 return $datos;
                 
 	}
-        //se listan los cobros asciados a una factura
+        //se listan los cobros asociados a una factura
         function get_listado_cobros($id_factura)
 	{
 		$sql = "SELECT
@@ -96,12 +95,6 @@ class dt_facturacion extends kimelu_datos_tabla
                 $sql=toba::perfil_de_datos()->filtrar($sql);
 		return toba::db('kimelu')->consultar($sql);
 	}
-        
-        
-        //function agregar0_nro($nro,$cant_numeros){
-        //dado un string: número de factura ($nro) se agregan ceros hasta completar el total de caracteres ($cant_numeros)
-          //  return(str_pad($nro,$cant_numeros,"0",STR_PAD_LEFT));
-        //}
         
         //dado un punto de venta y un número de factura (opcional) se listan la/s factura/s asociadas
         function obtener_facturas($id_punto_venta,$nro_fact=NULL){
@@ -153,9 +146,7 @@ class dt_facturacion extends kimelu_datos_tabla
             else{
                 $sql = "select max(nro_factura)+1 as nro_factura from facturacion "
                         ." where id_punto_venta = " .$id_punto_venta;
-               // print_r($id_punto_venta);
                 $sql=toba::perfil_de_datos()->filtrar($sql);
-                //print_r($sql);
                 $datos= toba::db('kimelu')->consultar($sql);
                 return $datos[0]['nro_factura'];
             }
@@ -163,7 +154,6 @@ class dt_facturacion extends kimelu_datos_tabla
         function obtener_punto_venta_actual (){
              $sql = " select id_punto_venta, nro_punto_venta from punto_venta";
              $sql=toba::perfil_de_datos()->filtrar($sql);
-             //print_r($sql);
              return toba::db('kimelu')->consultar($sql);
         }
 }

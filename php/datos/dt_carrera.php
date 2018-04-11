@@ -1,6 +1,7 @@
 <?php
 class dt_carrera extends kimelu_datos_tabla
 {
+    //LISTO!!!
     
     function get_descripciones()
 	{

@@ -1,7 +1,7 @@
 <?php
 class dt_docente_guia extends kimelu_datos_tabla
 {   
-    //protected $u_a='FAEA';
+    //protected $u_a='FAEA'; //LISTO!!!
     
     
 	function get_descripciones_ua()

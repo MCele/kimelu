@@ -135,7 +135,7 @@ INSERT INTO apex_objeto_ei_filtro_col (objeto_ei_filtro_col, objeto_ei_filtro, o
 	'cadena', --tipo
 	'nro_factura', --nombre
 	'nro_factura', --expresion
-	'Número Factura', --etiqueta
+	'Número Comprobante', --etiqueta
 	NULL, --descripcion
 	'0', --obligatorio
 	'0', --inicial

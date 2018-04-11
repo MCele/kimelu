@@ -54,15 +54,16 @@ class abm_ci extends toba_ci {
         $this->set_pantalla('pant_edicion');
     }
 
-    function evt__cuadro__seleccion($datos) {
+    
+      function evt__cuadro__seleccion($datos){
         $this->set_pantalla('pant_edicion');
-        $this->dep('datos')->cargar($datos);
-    }
+        $this->dep('datos')->tabla($this->nombre_tabla)->cargar($datos);
+      }
 
     //---- Formulario -------------------------------------------------------------------
 
     function conf__formulario(toba_ei_formulario $form) {
-        if ($this->dep('datos')->esta_cargada()) {
+        if ($this->dep('datos')->tabla($this->nombre_tabla)->esta_cargada()) {
             $form->set_datos($this->dep('datos')->tabla($this->nombre_tabla)->get());
         }
     }
@@ -72,13 +73,13 @@ class abm_ci extends toba_ci {
          * todo: el periodo por defecto
          */
         $this->dep('datos')->tabla($this->nombre_tabla)->set($datos);
-        $this->dep('datos')->sincronizar();
+        $this->dep('datos')->tabla($this->nombre_tabla)->sincronizar();
         $this->resetear();
     }
 
     function evt__formulario__modificacion($datos) {
         $this->dep('datos')->tabla($this->nombre_tabla)->set($datos);
-        $this->dep('datos')->sincronizar();
+        $this->dep('datos')->tabla($this->nombre_tabla)->sincronizar();
         $this->resetear();
     }
 

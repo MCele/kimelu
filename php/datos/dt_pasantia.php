@@ -1,7 +1,7 @@
 <?php
 class dt_pasantia extends kimelu_datos_tabla
 {
-    protected $u_a='FAEA'; //falta
+    //protected $u_a='FAEA'; //LISTO!!!
     //se debería cambiar por una variable que la provea el usuario que esté logueado
 	function get_listado($where=null)
 	{
@@ -32,7 +32,6 @@ class dt_pasantia extends kimelu_datos_tabla
                         
 		ORDER BY t_ca.nombre";
                 $sql = toba::perfil_de_datos()->filtrar($sql);
-                //print_r($sql);
 		return toba::db('kimelu')->consultar($sql);
 	}
         
@@ -104,7 +103,6 @@ class dt_pasantia extends kimelu_datos_tabla
                             ON (t_p.id_actividad = t_a.id_actividad)
                        $where";
                 $sql = toba::perfil_de_datos()->filtrar($sql);
-                //print_r($sql);
 		return toba::db('kimelu')->consultar($sql);
 	}
         
@@ -133,7 +131,6 @@ class dt_pasantia extends kimelu_datos_tabla
                             ON (t_p.id_actividad = t_a.id_actividad)
                         $where";
             $sql = toba::perfil_de_datos()->filtrar($sql);
-            //print_r($sql);
             return toba::db('kimelu')->consultar($sql);
 	}
         
@@ -148,11 +145,9 @@ class dt_pasantia extends kimelu_datos_tabla
             }
 		$sql = "SELECT id_estudiante, apellido||' '|| nombre as apellido_nombre, cuil"
                         . " FROM estudiante "
-                        //. " WHERE id_ua = '$this->u_a'""
                         . " $where "
                         . " ORDER BY (apellido,nombre)";
                 $sql = toba::perfil_de_datos()->filtrar($sql);
-                //print_r($sql);
 		return toba::db('kimelu')->consultar($sql);
 	}
 }       

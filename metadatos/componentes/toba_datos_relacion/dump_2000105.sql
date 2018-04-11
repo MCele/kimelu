@@ -81,8 +81,8 @@ INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objet
 	'2000105', --objeto_consumidor
 	'2000088', --objeto_proveedor
 	'unidad_academica', --identificador
-	NULL, --parametros_a
-	NULL, --parametros_b
+	'1', --parametros_a
+	'1', --parametros_b
 	NULL, --parametros_c
 	NULL, --inicializar
 	'2'  --orden

@@ -32,6 +32,7 @@ class formulario extends kimelu_ei_formulario {
                  {
                         if (this.cascadas_maestros_preparados('monto_cobrado')) {
                            var m = this.ef('monto_cobrado').get_estado();
+                           console.log('actualizo Monto');
                                 console.log(m);
                                 if(m===''){ 
                                     //this.ef('nro_factura').set_estado(0);

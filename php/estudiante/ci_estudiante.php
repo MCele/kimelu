@@ -2,7 +2,7 @@
 class ci_estudiante extends abm_ci
 {
 	protected $nombre_tabla='estudiante';
-	protected $u_a='FAEA';
+	//protected $u_a='FAEA';    LISTO!!!
 	
        // Para tener en cuenta si el alumno esa inscripto en carreras distintas en distintas Unidades Académicas
         // entonces cuando se ingrese por una unidad académica a editarlo se borrarán las carreras a la que esté inscrito 
@@ -14,6 +14,7 @@ class ci_estudiante extends abm_ci
                 $datos = $this->dep('datos')->tabla($this->nombre_tabla)->get_listado($this->s__where);
                 $cuadro->set_datos($datos);
             } else {
+                //no se hace nada para que el cuadro que no tenga datos de entrada (no carga todos los datos al inicio)
                 //$datos = $this->dep('datos')->tabla($this->nombre_tabla)->get_listado();
                 //$cuadro->set_datos($datos);
             }
@@ -23,7 +24,7 @@ class ci_estudiante extends abm_ci
 	//-+-+-+-+-+-+-+-+--- Formulario ---+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 	
 	function conf__formulario(toba_ei_formulario $form) {
-		if ($this->dep('datos')->esta_cargada()) {
+		if ($this->dep('datos')->tabla($this->nombre_tabla)->esta_cargada()) {
 			$datos = $this->dep('datos')->tabla($this->nombre_tabla)->get();
 			if(isset($datos['id_estudiante'])){
 			//se debería cargar las carreras de la BD para este alumno
@@ -84,7 +85,7 @@ class ci_estudiante extends abm_ci
                     $carreras = $datos['id_carreras'];
                     	
                     $this->dep('datos')->tabla($this->nombre_tabla)->set($datos);
-                    $this->dep('datos')->sincronizar(); //actualiza datos enla BD
+                    $this->dep('datos')->tabla($this->nombre_tabla)->sincronizar();; //actualiza datos enla BD
                     $estudiante = $this->dep('datos')->tabla('estudiante')->get_alumno_cuil($datos['cuil'],NULL);
                     if (sizeof($ua)==1){ //Se restringe 1 USUARIO por UNIDAD ACADEMICA (lo mismo para PUNTO DE VENTA)
                         $this->dep('datos')->tabla('estudiante')->agregar_ua($estudiante[0]['id_estudiante'],$ua[0]['sigla']);
@@ -102,36 +103,33 @@ class ci_estudiante extends abm_ci
 	}
 	
 	function evt__formulario__modificacion($datos){
-		$existe = false;    //verifica si existe ya estudiante con los datos de cuil y dni ingresados
-		//Quita los '-' si el CUIL lo tiene
-		$datos['cuil']= str_replace("-", "", $datos['cuil']);
-		if (!is_null($datos['cuil']))
-			{ //si no ingresaron datos del cuil (en general no pasa porque es obligatorio)
-			$estudiante = $this->dep('datos')->tabla('estudiante')->get_alumno_cuil($datos['cuil'],NULL);
-			for($i=0;$i<sizeof($estudiante);$i++){//elimino el estudiante actual del arreglo de estudiantes con ese cuil
-				if($estudiante[$i]['id_estudiante']==$datos['id_estudiante']){
-					unset($estudiante[$i]);
-				}
-				}
-			$existe=(sizeof($estudiante)!=0);
-			if ($existe){
-				$unidades_est = $this->dep('datos')->tabla('estudiante')->get_estudiante_ua($estudiante[0]['id_estudiante']);
-                                if (sizeof($unidades_est)==1){
-                                    $nombre = $unidades_est[0]['nombre'];
-                                    throw new toba_error("Ya existe otro estudiante con el mismo CUIL en la $nombre" );
-                                }
-                                else{
-                                    if (sizeof($unidades_est)>0){
-                                        throw new toba_error('Ya existe otro estudiante con el mismo CUIL en más de una Unidad Académica');
-                                    }
-                                    else{
-                                        throw new toba_error('Ya existe otro estudiante con el mismo CUIL');
-                                    }
-
-                                }
-			}
-			else{
-                            if ((!is_null($datos['dni']))&&(!$existe)){
+            $existe = false;    //verifica si existe ya estudiante con los datos de cuil y dni ingresados
+            //Quita los '-' si el CUIL lo tiene
+            $datos['cuil']= str_replace("-", "", $datos['cuil']);
+            if (!is_null($datos['cuil']))
+            { //si no ingresaron datos del cuil (en general no pasa porque es obligatorio)
+                $estudiante = $this->dep('datos')->tabla('estudiante')->get_alumno_cuil($datos['cuil'],NULL);
+         	for($i=0;$i<sizeof($estudiante);$i++){//elimino el estudiante actual del arreglo de estudiantes con ese cuil
+                    if($estudiante[$i]['id_estudiante'] == $datos['id_estudiante']){
+			unset($estudiante[$i]);
+                    }
+                }
+		$existe=(sizeof($estudiante)!=0);
+		if ($existe){
+                    $unidades_est = $this->dep('datos')->tabla('estudiante')->get_estudiante_ua($estudiante[0]['id_estudiante']);
+                    if (sizeof($unidades_est) == 1){
+                        $nombre = $unidades_est[0]['nombre'];
+                        throw new toba_error("Ya existe otro estudiante con el mismo CUIL en la $nombre" );
+                        }
+                    else{
+                            if (sizeof($unidades_est) > 0) {
+                        throw new toba_error('Ya existe otro estudiante con el mismo CUIL en más de una Unidad Académica');
+                    } else {
+                        throw new toba_error('Ya existe otro estudiante con el mismo CUIL');
+                        }
+                    }
+                } else{
+                    if ((!is_null($datos['dni']))&&(!$existe)){
 				$estudiante= $this->dep('datos')->tabla('estudiante')->get_alumno_dni($datos['dni'],NULL);
 				for($i=0;$i<sizeof($estudiante);$i++){//elimino el estudiante actual del arreglo de estudiantes con ese dni
                                     if($estudiante[$i]['id_estudiante']==$datos['id_estudiante']){
@@ -151,7 +149,7 @@ class ci_estudiante extends abm_ci
 				}
                             }
 			}
-		}
+            }
 		
 		if(!$existe){   //si el alumno ingresado no está duplicado con ese cuil o dni
 			$carreras = $datos['id_carreras'];//carreras elegidas en el formulario
@@ -183,7 +181,7 @@ class ci_estudiante extends abm_ci
 				}
 			}            
 			$this->dep('datos')->tabla($this->nombre_tabla)->set($datos);
-			$this->dep('datos')->sincronizar();
+			$this->dep('datos')->tabla($this->nombre_tabla)->sincronizar();
 			$this->resetear();
 		}
 	}

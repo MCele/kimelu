@@ -1,7 +1,7 @@
 <?php
 class dt_actividad extends kimelu_datos_tabla
 {
-    //protected $u_a='FAEA';
+    //protected $u_a='FAEA'; LISTO!!!
     
     
 	function get_listado($where = null)
@@ -44,7 +44,7 @@ class dt_actividad extends kimelu_datos_tabla
 		ORDER BY id_actividad"; //no cambiar oden porque se usa para el arreglo siguiente
                 
                 $sql = toba::perfil_de_datos()->filtrar($sql);
-                //print_r($sql);
+                
 		$consulta= toba::db('kimelu')->consultar($sql);
                 
                 $in = 0;       //recorre actividades
@@ -77,9 +77,18 @@ class dt_actividad extends kimelu_datos_tabla
                 return $consulta;
 	}
 
-	function get_descripciones()
+	function get_descripciones($id_institucion = NULL)
 	{
-		$sql = "SELECT id_actividad, denominacion FROM actividad ORDER BY denominacion";
+            if(is_null($id_institucion)){
+               $where = "";
+            }
+            else{
+                $where = " Where $id_institucion = institucion ";
+            }
+		$sql = "SELECT id_actividad, denominacion, institucion FROM actividad "
+                        . $where
+                        . "ORDER BY denominacion";
+                
                 $sql = toba::perfil_de_datos()->filtrar($sql);
 		return toba::db('kimelu')->consultar($sql);
 	}
@@ -88,7 +97,6 @@ class dt_actividad extends kimelu_datos_tabla
 	{ //Datos de una determinada actividad
             $where = ' WHERE id_actividad = ' . $id_actividad ." "; 
 		$sql = "SELECT id_actividad, denominacion FROM actividad "
-                        //. " WHERE id_ua = '$this->u_a' $where"
                         . "ORDER BY denominacion";
                 $sql = toba::perfil_de_datos()->filtrar($sql);
 		return toba::db('kimelu')->consultar($sql);
@@ -96,7 +104,6 @@ class dt_actividad extends kimelu_datos_tabla
         function get_institucion()
 	{
 		$sql = "SELECT id_actividad, institucion FROM actividad "
-                        //." WHERE id_ua = '$this->u_a' " 
                         . "ORDER BY denominacion";
                 $sql = toba::perfil_de_datos()->filtrar($sql);
 		return toba::db('kimelu')->consultar($sql);
@@ -112,7 +119,6 @@ class dt_actividad extends kimelu_datos_tabla
             
             }
 		$sql = "SELECT id_actividad, denominacion FROM actividad "
-                        //. " WHERE id_ua = '$this->u_a' $where"
                         . "ORDER BY denominacion";
                 $sql = toba::perfil_de_datos()->filtrar($sql);
 		return toba::db('kimelu')->consultar($sql);
@@ -123,10 +129,9 @@ class dt_actividad extends kimelu_datos_tabla
             $tipo =1;
             $sql = "SELECT id_actividad, denominacion FROM actividad "
                     ."Where tipo_actividad = " . $tipo ." "
-                    //." and id_ua = '$this->u_a' "
                     . "ORDER BY denominacion";
             $sql = toba::perfil_de_datos()->filtrar($sql);
-            //print_r($sql);
+            
             return toba::db('kimelu')->consultar($sql);
         }
         function get_descripciones_pasantias_asociadas($id_actividad=NULL)

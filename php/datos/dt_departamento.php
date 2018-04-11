@@ -1,7 +1,8 @@
 <?php
 class dt_departamento extends kimelu_datos_tabla
-{
-	function get_descripciones()
+{       //LISTO!!!
+	
+    function get_descripciones()
 	{
 		$sql = "SELECT id_departamento, nombre "
                         . " FROM departamento"

@@ -2,15 +2,18 @@
 class ci_cobro extends abm_ci
 {
 	protected $nombre_tabla='cobro';
-        
-        
+        //LISTO!!!
+        //Ver si se puede solucionar lo de cascada para monto_cobrado desde JS formulario.php
     function conf__formulario(toba_ei_formulario $form) {        
-        if ($this->dep('datos')->esta_cargada()) {
+        if ($this->dep('datos')->tabla($this->nombre_tabla)->esta_cargada()) {
             $datos = $this->dep('datos')->tabla($this->nombre_tabla)->get();
             $factura = $this->dep('datos')->tabla('cobro')->obtener_datos_una_factura($datos['id_factura']);
             $datos['id_punto_venta']= $factura[0]['id_punto_venta'];
             $datos['nro_factura']= $factura[0]['nro_factura'];
             
+            //$form->ef('monto_cobrado')->quitar_maestro('id_punto_venta');
+            //$form->ef('monto_cobrado')->quitar_maestro('nro_factura');
+            //print_r($form->ef('monto_cobrado')->get_estado());
             $form->set_datos($datos);
         }
         else{
@@ -32,7 +35,8 @@ class ci_cobro extends abm_ci
             if($facturas[0]['estado']===1){//estado correcto de la factura
                 $datos['id_factura']= $facturas[0]['id_factura'];
                 $this->dep('datos')->tabla($this->nombre_tabla)->set($datos);
-                $this->dep('datos')->sincronizar();
+                $this->dep('datos')->tabla($this->nombre_tabla)->sincronizar();;
+                toba::notificacion()->agregar('El cobro se ha guardado correctamente', 'info');
                 $this->resetear();
             }
             else{//estado anulado d la factura
@@ -51,7 +55,8 @@ class ci_cobro extends abm_ci
             if($facturas[0]['estado']===1){//estado correcto de la factura
                 $datos['id_factura']= $facturas[0]['id_factura'];
                 $this->dep('datos')->tabla($this->nombre_tabla)->set($datos);
-                $this->dep('datos')->sincronizar();
+                $this->dep('datos')->tabla($this->nombre_tabla)->sincronizar();
+                toba::notificacion()->agregar('El cobro se ha guardado correctamente', 'info');
                 $this->resetear();
            }
            else{//estado anulado d la factura
@@ -59,59 +64,6 @@ class ci_cobro extends abm_ci
             }
         }
     }
-
-    /**
-      //---- Cuadro -----------------------------------------------------------------------
-
-      function conf__cuadro(toba_ei_cuadro $cuadro)
-      {
-      $cuadro->set_datos($this->dep('datos')->tabla('cobro')->get_listado());
-      }
-
-      function evt__cuadro__seleccion($datos)
-      {
-      $this->dep('datos')->cargar($datos);
-      }
-
-      //---- Formulario -------------------------------------------------------------------
-
-      function conf__formulario(toba_ei_formulario $form)
-      {
-      if ($this->dep('datos')->esta_cargada()) {
-      $form->set_datos($this->dep('datos')->tabla('cobro')->get());
-      }
-      }
-
-      function evt__formulario__alta($datos)
-      {
-      $this->dep('datos')->tabla('cobro')->set($datos);
-      $this->dep('datos')->sincronizar();
-      $this->resetear();
-      }
-
-      function evt__formulario__modificacion($datos)
-      {
-      $this->dep('datos')->tabla('cobro')->set($datos);
-      $this->dep('datos')->sincronizar();
-      $this->resetear();
-      }
-
-      function evt__formulario__baja()
-      {
-      $this->dep('datos')->eliminar_todo();
-      $this->resetear();
-      }
-
-      function evt__formulario__cancelar()
-      {
-      $this->resetear();
-      }
-
-      function resetear()
-      {
-      $this->dep('datos')->resetear();
-      }
-     * */
 }
 
 ?>

@@ -1,7 +1,7 @@
 <?php
 class dt_cobro extends kimelu_datos_tabla
 {
-    //protected $u_a='FAEA';
+    //protected $u_a='FAEA'; LISTO!!!
     
     
     
@@ -78,11 +78,9 @@ class dt_cobro extends kimelu_datos_tabla
                 }
                 $sql = "select id_factura, nro_factura, fecha, concepto "
                         . "from facturacion "
-                        //. "where id_ua = '$this->u_a' "
                         . "WHERE id_punto_venta = " .$id_punto_venta 
                         . $where;
                 $sql = toba::perfil_de_datos()->filtrar($sql);
-                //print_r($sql);
                 $datos= toba::db('kimelu')->consultar($sql);
             }
             
@@ -94,10 +92,8 @@ class dt_cobro extends kimelu_datos_tabla
             if(!is_null($id_factura)){
                 $sql = "select id_factura, nro_factura, fecha, concepto, id_punto_venta "
                         . "from facturacion "
-                        //. "where id_ua = '$this->u_a' "
                         . " WHERE id_factura = $id_factura";
                 $sql = toba::perfil_de_datos()->filtrar($sql);
-                //print_r($sql);
                 $datos= toba::db('kimelu')->consultar($sql);
             }
             return $datos;
@@ -105,7 +101,6 @@ class dt_cobro extends kimelu_datos_tabla
         function obtener_punto_venta_actual (){
              $sql = " select id_punto_venta, nro_punto_venta from punto_venta";
              $sql=toba::perfil_de_datos()->filtrar($sql);
-             //print_r($sql);
              return toba::db('kimelu')->consultar($sql);
         }
 }

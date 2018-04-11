@@ -1,8 +1,8 @@
 <?php
 class dt_estudiante extends kimelu_datos_tabla
 {
-    //protected $u_a='FAEA'; //falta VERR!!!!!!!!!!
-    //se debería cambiar por una variable que la provea el usuario que esté logueado
+    //protected $u_a='FAEA'; //LISTO!!!
+    
 	function get_listado($where = null)
 	{
             if (is_null($where)){  
@@ -41,12 +41,13 @@ class dt_estudiante extends kimelu_datos_tabla
                 $where = " WHERE id_estudiante = $id_est"; 
                 
             }
-		$sql = "SELECT id_estudiante, apellido||' '|| nombre as apellido_nombre, cuil"
+		$sql = "SELECT t_e.id_estudiante, t_e.apellido||' '|| t_e.nombre as apellido_nombre, cuil"
                         . " FROM estudiante as t_e
                         inner join estudiante_ua as t_eua 
                         on (t_e.id_estudiante=t_eua.id_estudiante)"
                         . $where 
                         . " ORDER BY (apellido,nombre)";
+                print_r($sql);
                 $sql = toba::perfil_de_datos()->filtrar($sql);
 		return toba::db('kimelu')->consultar($sql);
 	}
@@ -61,11 +62,10 @@ class dt_estudiante extends kimelu_datos_tabla
                 $where = ' where ' . $where; 
                 
             }
-            $sql = "SELECT e.id_estudiante, e.apellido||' '|| e.nombre as apellido_nombre, e.cuil"
-                . " FROM estudiante as e as t_e
+            $sql = "SELECT t_e.id_estudiante, t_e.apellido||' '|| t_e.nombre as apellido_nombre, t_e.cuil"
+                . " FROM estudiante as t_e
                     inner join estudiante_ua as t_eua 
                     on (t_e.id_estudiante = t_eua.id_estudiante)"
-                //. " WHERE e.id_ua = '$this->u_a' ". $where 
                 . " ORDER BY (apellido_nombre)";
             $sql = toba::perfil_de_datos()->filtrar($sql);
             return toba::db('kimelu')->consultar($sql);
