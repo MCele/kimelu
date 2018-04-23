@@ -54,7 +54,7 @@ class ci_pasantias extends abm_ci
                     $this->dep('datos')->tabla($this->nombre_tabla)->set($datos);
                     $this->dep('datos')->tabla($this->nombre_tabla)->sincronizar();
                     toba::notificacion()->agregar('El registro se ha guardado correctamente', 'info');
-                    $this->resetear();    
+                    $this->resetear(); 
                 }
             }
            else{
@@ -140,7 +140,7 @@ class ci_pasantias extends abm_ci
          * se devuelve la diferenca en fechas de todas las pasantias existentes en cantidad de meses
          */
         $pasantias=$this->dep('datos')->tabla($this->nombre_tabla)->get_listado_actividad_estudiante($id_actividad,$id_estudiante);
-        
+        $cant_dias = 0;
         $dif=array();
         $k=0;
         $meses=0;
@@ -154,6 +154,8 @@ class ci_pasantias extends abm_ci
                      $f1=new DateTime($pasantias[$i]['inicio_convenio']);
                      $f2=new DateTime($pasantias[$i]['fin_convenio']);
                      $d=$f1->diff($f2);
+                    $cant_dias = $cant_dias + $d->days;
+                     //print_r($dif[$k]);
                      $dif[$k]['d']= $d->d;   
                      $dif[$k]['m']= $d->m + $d->y*12;
                      //$dif[$k]['a']= $d->y;
@@ -170,6 +172,10 @@ class ci_pasantias extends abm_ci
         $dias=$dias%30;
         $total['m']=$meses;
         $total['d']=$dias;
+        $total['total_dias'] =$cant_dias;
+        //print_r("Total: ");
+        //print_r($total);
+        //print_r($cant_dias);
         return $total;
     }
     function menor_18meses($f_inicio,$f_fin,$id_estudiante,$id_actividad,$id_pasantia=NULL)
@@ -179,11 +185,18 @@ class ci_pasantias extends abm_ci
         $f1 = new DateTime($f_fin);
         $f2 = new DateTime($f_inicio);
         $d = $f1->diff($f2);
+       // print_r("Total dias actual:");
+        //print_r($d->days);
         $total['d'] += $d->d;
         $total['m'] += $d->m + $d->y * 12;
         $total['m'] += floor($total['d']/ 30);
         $total['d'] = $total['d'] % 30;
-        return($total['m'] < 18);
+        $total_dias = $total['total_dias'] + $d->days;
+        //la cantidad total de días debe ser hasta los 548 días (1 año y medio son 547,5 días 0 548 en año bisiesto)
+        //print_r("Total de días: ");print_r($total_dias); print_r($total);
+        $menor18 = (($total['m'] < 18)||(($total['m'] == 18)&&($total['d'] == 0)));
+        $menor = $menor18 &&($total_dias<549);
+        return($menor);
     }
 }
 

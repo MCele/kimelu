@@ -249,8 +249,8 @@ INSERT INTO apex_objeto_ei_filtro_col (objeto_ei_filtro_col, objeto_ei_filtro, o
 	'2000131', --objeto_ei_filtro
 	'kimelu', --objeto_ei_filtro_proyecto
 	'cadena', --tipo
-	'convenio', --nombre
-	'convenio', --expresion
+	'sigla', --nombre
+	'sigla', --expresion
 	'Convenio', --etiqueta
 	NULL, --descripcion
 	'0', --obligatorio
@@ -482,8 +482,8 @@ INSERT INTO apex_objeto_ei_filtro_col (objeto_ei_filtro_col, objeto_ei_filtro, o
 	'kimelu', --objeto_ei_filtro_proyecto
 	'cadena', --tipo
 	'estudiante_apellido', --nombre
-	'apellido', --expresion
-	'Apellido de Estudiante', --etiqueta
+	'estudiante_apellido', --expresion
+	'Apellido Estudiante', --etiqueta
 	NULL, --descripcion
 	'0', --obligatorio
 	'0', --inicial

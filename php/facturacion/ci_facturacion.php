@@ -3,7 +3,6 @@ class ci_facturacion extends abm_ci
 {    
     protected $nombre_tabla='facturacion';
     //protected $u_a='FAEA';    //LISTO!!!!
-   //protected $id_pv=1;
     protected $s__id_fact=NULL;//Ver si se puede sacar 
             ////(aparentemente se usa para cargar el cuadro_cobros de una factura determunada)
     
@@ -67,6 +66,7 @@ class ci_facturacion extends abm_ci
          */
         $this->s__id_fact=null;
         //se buscan facturas con los mismos datos en puto de venta y número
+        //print_r($datos);
         $facturas= $this->dep('datos')->tabla($this->nombre_tabla)->obtener_facturas($datos['id_punto_venta'],$datos['nro_factura']);
         //se le asocia la unidad académica del usuario
         /*Ya No es necesario porque ya oculta en el formulario
@@ -74,9 +74,11 @@ class ci_facturacion extends abm_ci
         if(!empty ($aux2)){
             $datos['id_ua']= $aux2[0]['sigla'];
         }*/
+        
+        //revise actualizar el arreglo de $datos o ver funcion de toba
         if(empty($facturas)){ 
             if($datos['estado']==='2')
-                {//toda factura anulada se asocia a un cliente anulada y monto $0
+            {//toda factura anulada se asocia a un cliente anulada y monto $0
                  $datos['monto']=0;
                // ¡¡¡Importante!!! Asignación de institucion ANULADA!!! para una factura anulada
                  $datos['id_institucion'] = 881;
@@ -87,6 +89,8 @@ class ci_facturacion extends abm_ci
             $this->dep('datos')->tabla($this->nombre_tabla)->set($datos);
             $this->dep('datos')->tabla($this->nombre_tabla)->sincronizar();
             toba::notificacion()->agregar('Los datos de la factura se han guardado correctamente', 'info');
+            $this->dep('datos')->resetear();// no se puede usar $this->resetear(); de abm_ci
+                            //porque no de debe volver al cuadro
         }
         else{
             throw new toba_error('Ya existe una factura con ese numero');

@@ -56,8 +56,8 @@ INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, eti
 	'1', --sobre_fila
 	NULL, --confirmacion
 	NULL, --estilo
-	'proyecto', --imagen_recurso_origen
-	'nuevo1.png', --imagen
+	'apex', --imagen_recurso_origen
+	'editable.gif', --imagen
 	'0', --en_botonera
 	'Ver/Editar', --ayuda
 	'1', --orden
@@ -265,7 +265,7 @@ INSERT INTO apex_objeto_ei_cuadro_columna (objeto_cuadro_proyecto, objeto_cuadro
 	'Importe', --titulo
 	'ei-cuadro-col-tit', --estilo_titulo
 	'1', --estilo
-	'70', --ancho
+	'50', --ancho
 	'2', --formateo
 	NULL, --vinculo_indice
 	'1', --no_ordenar
@@ -327,7 +327,7 @@ INSERT INTO apex_objeto_ei_cuadro_columna (objeto_cuadro_proyecto, objeto_cuadro
 	'Actividad', --titulo
 	'ei-cuadro-col-tit', --estilo_titulo
 	'4', --estilo
-	'30', --ancho
+	'50', --ancho
 	'1', --formateo
 	NULL, --vinculo_indice
 	'0', --no_ordenar
@@ -482,7 +482,7 @@ INSERT INTO apex_objeto_ei_cuadro_columna (objeto_cuadro_proyecto, objeto_cuadro
 	'Estado', --titulo
 	'ei-cuadro-col-tit', --estilo_titulo
 	'7', --estilo
-	'70', --ancho
+	'35', --ancho
 	'1', --formateo
 	NULL, --vinculo_indice
 	'0', --no_ordenar

@@ -7,7 +7,7 @@ class dt_pasantia extends kimelu_datos_tabla
 	{
             if (is_null($where)) {  $where = '';} 
             else {   
-                $where = str_replace("apellido", "t_e.apellido", $where );
+                $where = str_replace("estudiante_apellido", "t_e.apellido", $where );
                 $where = ' Where ' . $where;
                 
                 
@@ -26,6 +26,7 @@ class dt_pasantia extends kimelu_datos_tabla
 			t_p.id_pasantia,
 			t_a.denominacion as id_actividad_nombre,
 			t_c.descripcion as id_convenio_nombre,
+                        t_c.sigla,
                         t_a.id_ua
 		FROM
 			pasantia as t_p	

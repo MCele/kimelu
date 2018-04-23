@@ -94,7 +94,7 @@ INSERT INTO apex_objeto_cuadro (objeto_cuadro_proyecto, objeto_cuadro, titulo, s
 	NULL, --columna_descripcion
 	'0', --clave_dbr
 	NULL, --archivos_callbacks
-	'1000px', --ancho
+	'1280px', --ancho
 	'1', --ordenar
 	'0', --paginar
 	NULL, --tamano_pagina
@@ -135,8 +135,8 @@ INSERT INTO apex_objeto_ei_cuadro_columna (objeto_cuadro_proyecto, objeto_cuadro
 	'2000126', --objeto_cuadro
 	'2000104', --objeto_cuadro_col
 	'estudiante_nombre', --clave
-	'2', --orden
-	'Nombre estudiante', --titulo
+	'3', --orden
+	'Nombre Estudiante', --titulo
 	'ei-cuadro-col-tit', --estilo_titulo
 	'4', --estilo
 	NULL, --ancho
@@ -166,11 +166,11 @@ INSERT INTO apex_objeto_ei_cuadro_columna (objeto_cuadro_proyecto, objeto_cuadro
 	'2000126', --objeto_cuadro
 	'2000105', --objeto_cuadro_col
 	'carrera', --clave
-	'3', --orden
+	'12', --orden
 	'Carrera:', --titulo
 	'ei-cuadro-col-tit', --estilo_titulo
 	'4', --estilo
-	NULL, --ancho
+	'10%', --ancho
 	'1', --formateo
 	NULL, --vinculo_indice
 	'1', --no_ordenar
@@ -414,11 +414,11 @@ INSERT INTO apex_objeto_ei_cuadro_columna (objeto_cuadro_proyecto, objeto_cuadro
 	'2000126', --objeto_cuadro
 	'2000113', --objeto_cuadro_col
 	'id_actividad_nombre', --clave
-	'11', --orden
+	'1', --orden
 	'Actividad', --titulo
 	'ei-cuadro-col-tit', --estilo_titulo
 	'4', --estilo
-	NULL, --ancho
+	'15%', --ancho
 	'1', --formateo
 	NULL, --vinculo_indice
 	'0', --no_ordenar
@@ -444,8 +444,8 @@ INSERT INTO apex_objeto_ei_cuadro_columna (objeto_cuadro_proyecto, objeto_cuadro
 	'kimelu', --objeto_cuadro_proyecto
 	'2000126', --objeto_cuadro
 	'2000114', --objeto_cuadro_col
-	'id_convenio_nombre', --clave
-	'12', --orden
+	'sigla', --clave
+	'11', --orden
 	'Convenio', --titulo
 	'ei-cuadro-col-tit', --estilo_titulo
 	'4', --estilo
@@ -476,7 +476,7 @@ INSERT INTO apex_objeto_ei_cuadro_columna (objeto_cuadro_proyecto, objeto_cuadro
 	'2000126', --objeto_cuadro
 	'2000115', --objeto_cuadro_col
 	'estudiante_apellido', --clave
-	'1', --orden
+	'2', --orden
 	'Apellido Estudiante', --titulo
 	'ei-cuadro-col-tit', --estilo_titulo
 	'4', --estilo

@@ -57,7 +57,7 @@ INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, eti
 	NULL, --confirmacion
 	NULL, --estilo
 	'apex', --imagen_recurso_origen
-	'doc.gif', --imagen
+	'editable.gif', --imagen
 	'0', --en_botonera
 	NULL, --ayuda
 	'1', --orden
@@ -95,7 +95,7 @@ INSERT INTO apex_objeto_cuadro (objeto_cuadro_proyecto, objeto_cuadro, titulo, s
 	'0', --clave_dbr
 	NULL, --archivos_callbacks
 	'1100px', --ancho
-	'0', --ordenar
+	'1', --ordenar
 	'0', --paginar
 	NULL, --tamano_pagina
 	'P', --tipo_paginado
@@ -135,7 +135,7 @@ INSERT INTO apex_objeto_ei_cuadro_columna (objeto_cuadro_proyecto, objeto_cuadro
 	'2000155', --objeto_cuadro
 	'2000135', --objeto_cuadro_col
 	'monto_cobrado', --clave
-	'3', --orden
+	'4', --orden
 	'Monto Cobrado', --titulo
 	'ei-cuadro-col-tit', --estilo_titulo
 	'1', --estilo
@@ -166,7 +166,7 @@ INSERT INTO apex_objeto_ei_cuadro_columna (objeto_cuadro_proyecto, objeto_cuadro
 	'2000155', --objeto_cuadro
 	'2000136', --objeto_cuadro_col
 	'fecha_cobro', --clave
-	'4', --orden
+	'5', --orden
 	'Fecha Cobro', --titulo
 	'ei-cuadro-col-tit', --estilo_titulo
 	'7', --estilo
@@ -197,7 +197,7 @@ INSERT INTO apex_objeto_ei_cuadro_columna (objeto_cuadro_proyecto, objeto_cuadro
 	'2000155', --objeto_cuadro
 	'2000137', --objeto_cuadro_col
 	'nro_factura', --clave
-	'2', --orden
+	'3', --orden
 	'Número Factura', --titulo
 	'ei-cuadro-col-tit', --estilo_titulo
 	'0', --estilo
@@ -228,11 +228,11 @@ INSERT INTO apex_objeto_ei_cuadro_columna (objeto_cuadro_proyecto, objeto_cuadro
 	'2000155', --objeto_cuadro
 	'2000141', --objeto_cuadro_col
 	'nro_punto_venta', --clave
-	'1', --orden
+	'2', --orden
 	'Punto de Venta', --titulo
 	'ei-cuadro-col-tit', --estilo_titulo
 	'4', --estilo
-	NULL, --ancho
+	'10%', --ancho
 	'1', --formateo
 	NULL, --vinculo_indice
 	NULL, --no_ordenar
@@ -259,11 +259,11 @@ INSERT INTO apex_objeto_ei_cuadro_columna (objeto_cuadro_proyecto, objeto_cuadro
 	'2000155', --objeto_cuadro
 	'2000142', --objeto_cuadro_col
 	'nro_rendicion', --clave
-	'5', --orden
+	'1', --orden
 	'Rendición', --titulo
 	'ei-cuadro-col-tit', --estilo_titulo
 	'4', --estilo
-	NULL, --ancho
+	'20%', --ancho
 	'1', --formateo
 	NULL, --vinculo_indice
 	NULL, --no_ordenar
