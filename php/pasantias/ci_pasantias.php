@@ -5,7 +5,8 @@ class ci_pasantias extends abm_ci
     //LISTO!!!
     //---- Cuadro -----------------------------------------------------------------------
     function conf__cuadro(toba_ei_cuadro $cuadro) 
-    {               //redefino el método heredado de abm_ci para mostrado "estado" como cadena (no como número)
+    {       
+        //redefino el método heredado de abm_ci para mostrar "estado" como cadena (no como número)
         $this->dep('datos')->resetear();
         if (!is_null($this->s__where)) {
             $datos = $this->dep('datos')->tabla($this->nombre_tabla)->get_listado($this->s__where);
@@ -13,7 +14,8 @@ class ci_pasantias extends abm_ci
             $datos = $this->dep('datos')->tabla($this->nombre_tabla)->get_listado();
         }
         
-        for($i=0;$i<sizeof($datos);$i++) { //0--> estado Vigente/ 1--> estado Finalizado
+        for($i=0;$i<sizeof($datos);$i++) { 
+            //0--> estado Vigente/ 1--> estado Finalizado
             if ($datos[$i]['estado'] == 0) {
                 $datos[$i]['estado'] = 'Vigente';
                 
@@ -155,7 +157,6 @@ class ci_pasantias extends abm_ci
                      $f2=new DateTime($pasantias[$i]['fin_convenio']);
                      $d=$f1->diff($f2);
                     $cant_dias = $cant_dias + $d->days;
-                     //print_r($dif[$k]);
                      $dif[$k]['d']= $d->d;   
                      $dif[$k]['m']= $d->m + $d->y*12;
                      //$dif[$k]['a']= $d->y;
@@ -173,9 +174,6 @@ class ci_pasantias extends abm_ci
         $total['m']=$meses;
         $total['d']=$dias;
         $total['total_dias'] =$cant_dias;
-        //print_r("Total: ");
-        //print_r($total);
-        //print_r($cant_dias);
         return $total;
     }
     function menor_18meses($f_inicio,$f_fin,$id_estudiante,$id_actividad,$id_pasantia=NULL)
@@ -185,15 +183,12 @@ class ci_pasantias extends abm_ci
         $f1 = new DateTime($f_fin);
         $f2 = new DateTime($f_inicio);
         $d = $f1->diff($f2);
-       // print_r("Total dias actual:");
-        //print_r($d->days);
         $total['d'] += $d->d;
         $total['m'] += $d->m + $d->y * 12;
         $total['m'] += floor($total['d']/ 30);
         $total['d'] = $total['d'] % 30;
         $total_dias = $total['total_dias'] + $d->days;
-        //la cantidad total de días debe ser hasta los 548 días (1 año y medio son 547,5 días 0 548 en año bisiesto)
-        //print_r("Total de días: ");print_r($total_dias); print_r($total);
+        //la cantidad total de días debe ser hasta los 548 días (1 año y medio son 547,5 días o 548 en año bisiesto)
         $menor18 = (($total['m'] < 18)||(($total['m'] == 18)&&($total['d'] == 0)));
         $menor = $menor18 &&($total_dias<549);
         return($menor);

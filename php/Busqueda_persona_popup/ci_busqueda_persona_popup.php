@@ -11,6 +11,7 @@
                     $cuadro->set_datos($datos);
             } else {
                 //no se hace nada para que el cuadro que no tenga datos de entrada (no carga todos los datos al inicio)
+                //para evitar cargar todos los alumnos al comienzo
                     //$datos = $this->dep('datos')->tabla($this->nombre_tabla)->get_listado_apellido_nombre();
             }
             

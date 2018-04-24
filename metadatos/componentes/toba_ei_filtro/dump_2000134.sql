@@ -191,7 +191,7 @@ INSERT INTO apex_objeto_ei_filtro_col (objeto_ei_filtro_col, objeto_ei_filtro, o
 	'2000134', --objeto_ei_filtro
 	'kimelu', --objeto_ei_filtro_proyecto
 	'cadena', --tipo
-	'nombre', --nombre
+	'apellido_nombre', --nombre
 	'nombre', --expresion
 	'Nombre', --etiqueta
 	NULL, --descripcion

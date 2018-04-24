@@ -47,28 +47,28 @@ class dt_estudiante extends kimelu_datos_tabla
                         on (t_e.id_estudiante=t_eua.id_estudiante)"
                         . $where 
                         . " ORDER BY (apellido,nombre)";
-                print_r($sql);
                 $sql = toba::perfil_de_datos()->filtrar($sql);
 		return toba::db('kimelu')->consultar($sql);
 	}
         
         function get_listado_apellido_nombre($where=NULL)
-	{
+	{ //se utiliza para cargar el cuadro del popUp de alumnos
             if (is_null($where)) {  
-                $where = '';
-                
+                $where = '';               
             } 
-            else {   
-                $where = ' where ' . $where; 
-                
+            else {
+                $where = ' where ' . $where;                
             }
-            $sql = "SELECT t_e.id_estudiante, t_e.apellido||' '|| t_e.nombre as apellido_nombre, t_e.cuil"
+            $sql = "SELECT t_e.id_estudiante,"
+                . " t_e.apellido||' '|| t_e.nombre as apellido_nombre, t_e.cuil"
                 . " FROM estudiante as t_e
                     inner join estudiante_ua as t_eua 
                     on (t_e.id_estudiante = t_eua.id_estudiante)"
+                . $where
                 . " ORDER BY (apellido_nombre)";
             $sql = toba::perfil_de_datos()->filtrar($sql);
-            return toba::db('kimelu')->consultar($sql);
+            $datos = toba::db('kimelu')->consultar($sql);
+            return $datos;
 	}
         
         function get_descripciones_cuil($id=NULL)

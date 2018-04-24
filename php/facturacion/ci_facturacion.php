@@ -66,7 +66,6 @@ class ci_facturacion extends abm_ci
          */
         $this->s__id_fact=null;
         //se buscan facturas con los mismos datos en puto de venta y número
-        //print_r($datos);
         $facturas= $this->dep('datos')->tabla($this->nombre_tabla)->obtener_facturas($datos['id_punto_venta'],$datos['nro_factura']);
         //se le asocia la unidad académica del usuario
         /*Ya No es necesario porque ya oculta en el formulario
@@ -74,8 +73,6 @@ class ci_facturacion extends abm_ci
         if(!empty ($aux2)){
             $datos['id_ua']= $aux2[0]['sigla'];
         }*/
-        
-        //revise actualizar el arreglo de $datos o ver funcion de toba
         if(empty($facturas)){ 
             if($datos['estado']==='2')
             {//toda factura anulada se asocia a un cliente anulada y monto $0

@@ -147,7 +147,6 @@ class dt_facturacion extends kimelu_datos_tabla
                 $sql = "select max(nro_factura)+1 as nro_factura from facturacion "
                         ." where id_punto_venta = " .$id_punto_venta;
                 $sql=toba::perfil_de_datos()->filtrar($sql);
-                //print_r($sql);
                 $datos= toba::db('kimelu')->consultar($sql);
                 return $datos[0]['nro_factura'];
             }
