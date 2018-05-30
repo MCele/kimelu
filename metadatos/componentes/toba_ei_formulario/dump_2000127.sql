@@ -27,7 +27,7 @@ INSERT INTO apex_objeto (proyecto, objeto, anterior, identificador, reflexivo, c
 <b> 1)</b> La cantidad de <b>horas semanales</b> debe ser menor o igual a <b>20</b>.</br>
 <b> 2)</b> El <b>total de meses</b> en todas las pasantías cargadas para un mismo alumno y misma institución deben ser menores o iguales a <b>18</b>.</br>
 <b> 3)</b> No se pueden cargar más de <b>6.5 horas diarias</b>.</br>
-<b> 4)</b> Si la fecha de Fin de Convenio es menor a la fecha de <b>hoy</b> el convenio se guarda con estado <b>Finalizado</b>.</br>', --descripcion
+<b> 4)</b> El <b>estado</b> del convenio se guarda con el que se <b>elija</b> de forma manual (no es automático).</br>', --descripcion
 	'kimelu', --fuente_datos_proyecto
 	'kimelu', --fuente_datos
 	NULL, --solicitud_registrar

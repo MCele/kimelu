@@ -167,13 +167,13 @@ INSERT INTO apex_objeto_ei_cuadro_columna (objeto_cuadro_proyecto, objeto_cuadro
 	'2000105', --objeto_cuadro_col
 	'carrera', --clave
 	'12', --orden
-	'Carrera:', --titulo
+	'Carrera', --titulo
 	'ei-cuadro-col-tit', --estilo_titulo
 	'4', --estilo
-	'10%', --ancho
+	'15%', --ancho
 	'1', --formateo
 	NULL, --vinculo_indice
-	'1', --no_ordenar
+	'0', --no_ordenar
 	NULL, --mostrar_xls
 	NULL, --mostrar_pdf
 	NULL, --pdf_propiedades
@@ -204,7 +204,7 @@ INSERT INTO apex_objeto_ei_cuadro_columna (objeto_cuadro_proyecto, objeto_cuadro
 	NULL, --ancho
 	'8', --formateo
 	NULL, --vinculo_indice
-	'1', --no_ordenar
+	'0', --no_ordenar
 	NULL, --mostrar_xls
 	NULL, --mostrar_pdf
 	NULL, --pdf_propiedades
@@ -235,7 +235,7 @@ INSERT INTO apex_objeto_ei_cuadro_columna (objeto_cuadro_proyecto, objeto_cuadro
 	NULL, --ancho
 	'8', --formateo
 	NULL, --vinculo_indice
-	'1', --no_ordenar
+	'0', --no_ordenar
 	NULL, --mostrar_xls
 	NULL, --mostrar_pdf
 	NULL, --pdf_propiedades
@@ -263,7 +263,7 @@ INSERT INTO apex_objeto_ei_cuadro_columna (objeto_cuadro_proyecto, objeto_cuadro
 	'Horas Diarias', --titulo
 	'ei-cuadro-col-tit', --estilo_titulo
 	'0', --estilo
-	NULL, --ancho
+	'1%', --ancho
 	'9', --formateo
 	NULL, --vinculo_indice
 	'1', --no_ordenar
@@ -294,7 +294,7 @@ INSERT INTO apex_objeto_ei_cuadro_columna (objeto_cuadro_proyecto, objeto_cuadro
 	'Dias Semana', --titulo
 	'ei-cuadro-col-tit', --estilo_titulo
 	'0', --estilo
-	NULL, --ancho
+	'1%', --ancho
 	'7', --formateo
 	NULL, --vinculo_indice
 	'1', --no_ordenar

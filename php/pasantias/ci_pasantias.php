@@ -41,70 +41,122 @@ class ci_pasantias extends abm_ci
         $hs_sem=$datos['horas_diarias']*$datos['dias_semana'];
         if($hs_sem<=20){    
             if($this->menor_18meses($datos['inicio_convenio'], $datos['fin_convenio'],$datos['id_estudiante'],$datos['id_actividad'])){
-                if($this->estado_vigente($datos['fin_convenio'])){ 
+               /* if($this->estado_vigente($datos['fin_convenio'])){ 
                 //compara la fecha de hoy para cambiar el estado de la pasantía
                     $datos['estado']=0;//estado vigente
                 }
                 else{
                     $datos['estado']=1; //estado finalizado
-                }
-                //consulta si el estudiante no se encuentra en otra pasantía que esté vigente
+                }*/
+
+                $vigente = FALSE;
+                //Ver Consulta!!!!!!! creo deberían ser todas (no solo vigente) get_listado_actividad_estudiante(NULL,$datos['id_estudiante'])
+                //consulta si el estudiante se encuentra en otra pasantía que esté vigente
                 $pasantias = $this->dep('datos')->tabla('pasantia')->get_listado_estudiante_vigente($datos['id_estudiante']);
-                if ((sizeof($pasantias) >= 1) && ($datos['estado'] == 0)) {
-                    throw new toba_error('El estudiante ya se encuentra en otra pasantia vigente');
-                } else {
+                if(sizeof($pasantias) >= 1) {                    
+                    $i=0;
+                    while(($i<sizeof($pasantias)) && ($vigente === FALSE)){
+                        if(!empty($pasantias[$i])){
+                        //hay una posicion eliminada (pasantía actual)
+                            $fi_c1 = new DateTime($pasantias[$i]['inicio_convenio']);
+                            $ff_c1 = new DateTime($pasantias[$i]['fin_convenio']);
+                            $fi_c2 = new DateTime($datos['inicio_convenio']);
+                            $ff_c2 = new DateTime($datos['fin_convenio']);
+                            if(!(($ff_c1<$fi_c2)||($fi_c1>$ff_c2))){
+                                $vigente = TRUE;
+                            }
+                        }
+                        $i++;
+                    }
+
+                } 
+                if($vigente){
+                    throw new toba_error('El estudiante ya se encuentra en otra pasantia vigente','','Ya existe Pasantia');
+                    //throw new toba_error('El estudiante ya se encuentra en otra pasantia dentro del mismo periodo de tiempo','','Fechas no permitidas');
+                }
+                else{
                     $this->dep('datos')->tabla($this->nombre_tabla)->set($datos);
                     $this->dep('datos')->tabla($this->nombre_tabla)->sincronizar();
-                    toba::notificacion()->agregar('El registro se ha guardado correctamente', 'info');
                     $this->resetear(); 
+                    toba::notificacion()->agregar('La pasantia se ha guardado correctamente', 'info');
                 }
             }
            else{
-              throw new toba_error('No puede superar los 18 meses de pasantias para la misma Institucion'); 
+              throw new toba_error('No puede superar los 18 meses de pasantias para la misma Institucion','Se ha excedido en la cantidad de meses. ','Cantidad de Meses Incorrecta'); 
            }
         }
         else{
-            $this->dep('datos')->tabla($this->nombre_tabla)->set($datos);
-            throw new toba_error('La cantidad de horas semanales no puede ser mayor a 20');  
+            //$this->dep('datos')->tabla($this->nombre_tabla)->set($datos);
+            throw new toba_error('La cantidad de horas semanales no puede ser mayor a 20. ', '','Cantidad de Horas Incorrecta');
         }
     }
 
     function evt__formulario__modificacion($datos) {
          /*
-         * métodos redeinidos para chequear datos al momento de modificar pasantía
+         * métodos redefinidos para chequear datos al momento de modificar pasantía
          */
         $hs_sem=$datos['horas_diarias']*$datos['dias_semana'];
-        if($hs_sem<=20){
-            if($this->menor_18meses($datos['inicio_convenio'], $datos['fin_convenio'],$datos['id_estudiante'],$datos['id_actividad'],$datos['id_pasantia'])){
-                if ($this->estado_vigente($datos['fin_convenio'])) {
-                    //compara la fecha de hoy para cambiar el estado de la pasantía
-                    $datos['estado'] = 0; //estado vigente
-                } else {
-                    $datos['estado'] = 1; //estado finalizado
-                }
-                //consulta si el estudiante no se encuentra en otra pasantía que esté vigente
-                $pasantias = $this->dep('datos')->tabla('pasantia')->get_listado_estudiante_vigente($datos['id_estudiante']);
-                
-                for($i=0;$i<sizeof($pasantias);$i++){//elimino la pasantía actual del arreglo de pasantías vigentes
-                    if($pasantias[$i]['id_pasantia']==$datos['id_pasantia']){
-                        unset($pasantias[$i]);
+        $f_ini = new DateTime($datos['inicio_convenio']);
+        $f_fin = new DateTime($datos['fin_convenio']);
+        if($f_ini<$f_fin){
+            if($hs_sem<=20){
+                if($this->menor_18meses($datos['inicio_convenio'], $datos['fin_convenio'],$datos['id_estudiante'],$datos['id_actividad'],$datos['id_pasantia'])){
+                    /*if ($this->estado_vigente($datos['fin_convenio'])) {
+                        //compara la fecha de hoy para cambiar el estado de la pasantía
+                        $datos['estado'] = 0; //estado vigente
+                    } else {
+                        $datos['estado'] = 1; //estado finalizado
+                    }*/
+
+                    //Ver Consulta con Pablo!!! creo debería ser todas (no solo vigente) get_listado_actividad_estudiante(NULL,$datos['id_estudiante'])
+                    //consulta si el estudiante se encuentra en otra pasantía que esté vigente
+                    $pasantias = $this->dep('datos')->tabla('pasantia')->get_listado_estudiante_vigente($datos['id_estudiante']);
+                    //obtiene todas las pasantias en las que esta un estudiante que esten vigentes
+
+                    for($i=0;$i<sizeof($pasantias);$i++){//elimino la pasantía actual del arreglo de pasantías vigentes
+                        if($pasantias[$i]['id_pasantia']==$datos['id_pasantia']){
+                            unset($pasantias[$i]);
+                        }
+                    }
+                    $vigente = FALSE;
+                    if ((sizeof($pasantias) >= 1)) {
+                    //si ya hay una pasantía vigente dentro del mismo periodo no se puede cargar    
+                        $i=0;
+                        while(($i<sizeof($pasantias)) && ($vigente === FALSE)){
+                            if(!empty($pasantias[$i])){
+                            //hay una posicion eliminada (pasantía actual)
+                                $fi_c1 = new DateTime($pasantias[$i]['inicio_convenio']);
+                                $ff_c1 = new DateTime($pasantias[$i]['fin_convenio']);
+                                $fi_c2 = new DateTime($datos['inicio_convenio']);
+                                $ff_c2 = new DateTime($datos['fin_convenio']);
+                                if(!(($ff_c1<$fi_c2)||($fi_c1>$ff_c2))){
+                                    $vigente = TRUE;
+                                }
+                            }
+                            $i++;
+                        }
+                    } 
+                    if($vigente){
+                        throw new toba_error('El estudiante ya se encuentra en otra pasantia vigente','','Ya existe Pasantia');
+                        //throw new toba_error('El estudiante ya se encuentra en otra pasantia dentro del mismo periodo de tiempo','','Fechas no permitidas');
+                    }
+                    else{
+                        $this->dep('datos')->tabla($this->nombre_tabla)->set($datos);
+                        $this->dep('datos')->tabla($this->nombre_tabla)->sincronizar();
+                        $this->resetear(); 
+                        toba::notificacion()->agregar('La pasantia se ha guardado correctamente', 'info');
                     }
                 }
-                if ((sizeof($pasantias) >= 1) && ($datos['estado'] == 0)) {//si ya hay una pasantía vigente no se puede cargar
-                    throw new toba_error('El estudiante ya se encuentra en otra pasantia vigente');
-                } else {
-                    $this->dep('datos')->tabla($this->nombre_tabla)->set($datos);
-                    $this->dep('datos')->tabla($this->nombre_tabla)->sincronizar();
-                    toba::notificacion()->agregar('El registro se ha guardado correctamente', 'info');
-                    $this->resetear();
+                else{
+                  throw new toba_error('No puede superar los 18 meses de pasantias para la misma Institucion','Se ha excedido en la cantidad de meses. ','Cantidad de Meses Incorrecta'); 
                 }
             }
             else{
-              throw new toba_error('No puede superar los 18 meses de pasantias para la misma Institucion'); 
+                throw new toba_error('La cantidad de horas semanales no puede ser mayor a 20. ', '','Cantidad de Horas Incorrecta');
             }
         }
         else{
-            throw new toba_error('La cantidad de horas semanales no puede ser mayor a 20');
+            throw new toba_error('La fecha Inicio del Convenio debe ser menor a la fecha Fin del Convenio','','Periodo Incorrecto');
         }
     }
     
@@ -179,6 +231,7 @@ class ci_pasantias extends abm_ci
     function menor_18meses($f_inicio,$f_fin,$id_estudiante,$id_actividad,$id_pasantia=NULL)
     {
         //Verifica si la cantidad de meses entre todas las pasantías + la actual es menor a 18
+        //la cantidad total de días debe ser hasta los 548 días: según FAEA (1 año y medio son 547,5 días o 548 en año bisiesto)
         $total = $this->total_meses_pasantia_estudiante($id_estudiante, $id_actividad,$id_pasantia);
         $f1 = new DateTime($f_fin);
         $f2 = new DateTime($f_inicio);

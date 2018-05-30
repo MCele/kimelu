@@ -36,7 +36,7 @@ class dt_pasantia extends kimelu_datos_tabla
 			LEFT OUTER JOIN convenio as t_c ON (t_p.id_convenio = t_c.id_convenio)
                         LEFT OUTER JOIN carrera as t_ca ON (t_p.id_carrera = t_ca.id_carrera)
                         $where
-		ORDER BY t_ca.nombre";
+		ORDER BY t_a.denominacion, t_ca.nombre";
                 $sql = toba::perfil_de_datos()->filtrar($sql);
 		return toba::db('kimelu')->consultar($sql);
 	}
@@ -113,8 +113,8 @@ class dt_pasantia extends kimelu_datos_tabla
 	}
         
         function get_listado_estudiante_vigente($id_estudiante=NULL)
-	{   //obtiene todas las pasantias en las que esta un estudiante que esten vigentes
-            //obtiene todas las pasantías de los estudiantes que están anotados en una determinada actividad del tipo pasantía vigente
+	{//obtiene todas las pasantias en las que esta un estudiante que esten vigentes
+         //si ($id_estudiante ==NULL) obtiene todas las pasantías de los estudiantes que están anotados en una determinada actividad del tipo pasantía vigente
             $where = " WHERE t_p.estado = 0"; //0: estado vigente, 1: estado finalizado 
             if (!is_null($id_estudiante)) {  
                    $where = "$where and t_e.id_estudiante = $id_estudiante";

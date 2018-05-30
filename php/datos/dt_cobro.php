@@ -35,7 +35,8 @@ class dt_cobro extends kimelu_datos_tabla
                         LEFT OUTER JOIN punto_venta as t_pv 
                         ON (t_pv.id_punto_venta = t_f.id_punto_venta)
                         $where
-                        ORDER BY fecha_cobro desc";
+                        ORDER BY id_cobro desc";
+                //se ven los últimos cobros cargados en el cuadro
                 
                 $sql = toba::perfil_de_datos()->filtrar($sql);
 		return toba::db('kimelu')->consultar($sql);

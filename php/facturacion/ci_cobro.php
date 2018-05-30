@@ -19,7 +19,7 @@ class ci_cobro extends abm_ci
         else{
              $pv= $this->dep('datos')->tabla('cobro')->obtener_punto_venta_actual();
              $datos=Array('id_punto_venta'=>$pv[0]['id_punto_venta']);
-             $form->set_datos($datos, false);//guardo los datos en el formulario VERRR!!! Pasa a estado cargado (muestra botones de modificar, cancelar)
+             $form->set_datos($datos, false);//guardo los datos en el formulario. Pasa a estado cargado (muestra botones de modificar, cancelar)
         }
     }
 
@@ -37,7 +37,8 @@ class ci_cobro extends abm_ci
                 $this->dep('datos')->tabla($this->nombre_tabla)->set($datos);
                 $this->dep('datos')->tabla($this->nombre_tabla)->sincronizar();;
                 toba::notificacion()->agregar('El cobro se ha guardado correctamente', 'info');
-                $this->resetear();
+                 $this->dep('datos')->resetear();// no se puede usar $this->resetear(); de abm_ci
+                            //porque no de debe volver al cuadro
             }
             else{//estado anulado d la factura
                 throw new toba_error('No se pueden cargar cobross de una factura anulada');
