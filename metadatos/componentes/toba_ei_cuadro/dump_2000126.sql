@@ -135,11 +135,11 @@ INSERT INTO apex_objeto_ei_cuadro_columna (objeto_cuadro_proyecto, objeto_cuadro
 	'2000126', --objeto_cuadro
 	'2000104', --objeto_cuadro_col
 	'estudiante_nombre', --clave
-	'3', --orden
+	'4', --orden
 	'Nombre Estudiante', --titulo
 	'ei-cuadro-col-tit', --estilo_titulo
 	'4', --estilo
-	NULL, --ancho
+	'10%', --ancho
 	'1', --formateo
 	NULL, --vinculo_indice
 	'0', --no_ordenar
@@ -166,11 +166,11 @@ INSERT INTO apex_objeto_ei_cuadro_columna (objeto_cuadro_proyecto, objeto_cuadro
 	'2000126', --objeto_cuadro
 	'2000105', --objeto_cuadro_col
 	'carrera', --clave
-	'12', --orden
+	'14', --orden
 	'Carrera', --titulo
 	'ei-cuadro-col-tit', --estilo_titulo
 	'4', --estilo
-	'15%', --ancho
+	'16%', --ancho
 	'1', --formateo
 	NULL, --vinculo_indice
 	'0', --no_ordenar
@@ -197,7 +197,7 @@ INSERT INTO apex_objeto_ei_cuadro_columna (objeto_cuadro_proyecto, objeto_cuadro
 	'2000126', --objeto_cuadro
 	'2000106', --objeto_cuadro_col
 	'inicio_convenio', --clave
-	'4', --orden
+	'5', --orden
 	'Inicio Convenio', --titulo
 	'ei-cuadro-col-tit', --estilo_titulo
 	'7', --estilo
@@ -228,7 +228,7 @@ INSERT INTO apex_objeto_ei_cuadro_columna (objeto_cuadro_proyecto, objeto_cuadro
 	'2000126', --objeto_cuadro
 	'2000107', --objeto_cuadro_col
 	'fin_convenio', --clave
-	'5', --orden
+	'6', --orden
 	'Fin Convenio', --titulo
 	'ei-cuadro-col-tit', --estilo_titulo
 	'7', --estilo
@@ -259,7 +259,7 @@ INSERT INTO apex_objeto_ei_cuadro_columna (objeto_cuadro_proyecto, objeto_cuadro
 	'2000126', --objeto_cuadro
 	'2000108', --objeto_cuadro_col
 	'horas_diarias', --clave
-	'6', --orden
+	'7', --orden
 	'Horas Diarias', --titulo
 	'ei-cuadro-col-tit', --estilo_titulo
 	'0', --estilo
@@ -290,7 +290,7 @@ INSERT INTO apex_objeto_ei_cuadro_columna (objeto_cuadro_proyecto, objeto_cuadro
 	'2000126', --objeto_cuadro
 	'2000109', --objeto_cuadro_col
 	'dias_semana', --clave
-	'7', --orden
+	'8', --orden
 	'Dias Semana', --titulo
 	'ei-cuadro-col-tit', --estilo_titulo
 	'0', --estilo
@@ -321,7 +321,7 @@ INSERT INTO apex_objeto_ei_cuadro_columna (objeto_cuadro_proyecto, objeto_cuadro
 	'2000126', --objeto_cuadro
 	'2000110', --objeto_cuadro_col
 	'retribucion_mensual', --clave
-	'8', --orden
+	'9', --orden
 	'Retribucion Mensual', --titulo
 	'ei-cuadro-col-tit', --estilo_titulo
 	'1', --estilo
@@ -352,11 +352,11 @@ INSERT INTO apex_objeto_ei_cuadro_columna (objeto_cuadro_proyecto, objeto_cuadro
 	'2000126', --objeto_cuadro
 	'2000111', --objeto_cuadro_col
 	'docente_nombre', --clave
-	'9', --orden
+	'10', --orden
 	'Docente', --titulo
 	'ei-cuadro-col-tit', --estilo_titulo
 	'4', --estilo
-	NULL, --ancho
+	'15%', --ancho
 	'1', --formateo
 	NULL, --vinculo_indice
 	'0', --no_ordenar
@@ -383,7 +383,7 @@ INSERT INTO apex_objeto_ei_cuadro_columna (objeto_cuadro_proyecto, objeto_cuadro
 	'2000126', --objeto_cuadro
 	'2000112', --objeto_cuadro_col
 	'estado', --clave
-	'10', --orden
+	'12', --orden
 	'Estado', --titulo
 	'ei-cuadro-col-tit', --estilo_titulo
 	'1', --estilo
@@ -414,7 +414,7 @@ INSERT INTO apex_objeto_ei_cuadro_columna (objeto_cuadro_proyecto, objeto_cuadro
 	'2000126', --objeto_cuadro
 	'2000113', --objeto_cuadro_col
 	'id_actividad_nombre', --clave
-	'1', --orden
+	'2', --orden
 	'Actividad', --titulo
 	'ei-cuadro-col-tit', --estilo_titulo
 	'4', --estilo
@@ -445,7 +445,7 @@ INSERT INTO apex_objeto_ei_cuadro_columna (objeto_cuadro_proyecto, objeto_cuadro
 	'2000126', --objeto_cuadro
 	'2000114', --objeto_cuadro_col
 	'sigla', --clave
-	'11', --orden
+	'13', --orden
 	'Convenio', --titulo
 	'ei-cuadro-col-tit', --estilo_titulo
 	'4', --estilo
@@ -476,11 +476,73 @@ INSERT INTO apex_objeto_ei_cuadro_columna (objeto_cuadro_proyecto, objeto_cuadro
 	'2000126', --objeto_cuadro
 	'2000115', --objeto_cuadro_col
 	'estudiante_apellido', --clave
-	'2', --orden
+	'3', --orden
 	'Apellido Estudiante', --titulo
 	'ei-cuadro-col-tit', --estilo_titulo
 	'4', --estilo
 	NULL, --ancho
+	'1', --formateo
+	NULL, --vinculo_indice
+	'0', --no_ordenar
+	NULL, --mostrar_xls
+	NULL, --mostrar_pdf
+	NULL, --pdf_propiedades
+	NULL, --desabilitado
+	'0', --total
+	NULL, --total_cc
+	'0', --usar_vinculo
+	NULL, --vinculo_carpeta
+	NULL, --vinculo_item
+	NULL, --vinculo_popup
+	NULL, --vinculo_popup_param
+	NULL, --vinculo_target
+	NULL, --vinculo_celda
+	NULL, --vinculo_servicio
+	'0', --permitir_html
+	NULL, --grupo
+	NULL  --evento_asociado
+);
+INSERT INTO apex_objeto_ei_cuadro_columna (objeto_cuadro_proyecto, objeto_cuadro, objeto_cuadro_col, clave, orden, titulo, estilo_titulo, estilo, ancho, formateo, vinculo_indice, no_ordenar, mostrar_xls, mostrar_pdf, pdf_propiedades, desabilitado, total, total_cc, usar_vinculo, vinculo_carpeta, vinculo_item, vinculo_popup, vinculo_popup_param, vinculo_target, vinculo_celda, vinculo_servicio, permitir_html, grupo, evento_asociado) VALUES (
+	'kimelu', --objeto_cuadro_proyecto
+	'2000126', --objeto_cuadro
+	'2000150', --objeto_cuadro_col
+	'tutor', --clave
+	'11', --orden
+	'Tutor en Institución', --titulo
+	'ei-cuadro-col-tit', --estilo_titulo
+	'4', --estilo
+	'10%', --ancho
+	'1', --formateo
+	NULL, --vinculo_indice
+	NULL, --no_ordenar
+	NULL, --mostrar_xls
+	NULL, --mostrar_pdf
+	NULL, --pdf_propiedades
+	NULL, --desabilitado
+	NULL, --total
+	NULL, --total_cc
+	NULL, --usar_vinculo
+	NULL, --vinculo_carpeta
+	NULL, --vinculo_item
+	NULL, --vinculo_popup
+	NULL, --vinculo_popup_param
+	NULL, --vinculo_target
+	NULL, --vinculo_celda
+	NULL, --vinculo_servicio
+	'0', --permitir_html
+	NULL, --grupo
+	NULL  --evento_asociado
+);
+INSERT INTO apex_objeto_ei_cuadro_columna (objeto_cuadro_proyecto, objeto_cuadro, objeto_cuadro_col, clave, orden, titulo, estilo_titulo, estilo, ancho, formateo, vinculo_indice, no_ordenar, mostrar_xls, mostrar_pdf, pdf_propiedades, desabilitado, total, total_cc, usar_vinculo, vinculo_carpeta, vinculo_item, vinculo_popup, vinculo_popup_param, vinculo_target, vinculo_celda, vinculo_servicio, permitir_html, grupo, evento_asociado) VALUES (
+	'kimelu', --objeto_cuadro_proyecto
+	'2000126', --objeto_cuadro
+	'2000154', --objeto_cuadro_col
+	'institucion', --clave
+	'1', --orden
+	'Institución', --titulo
+	'ei-cuadro-col-tit', --estilo_titulo
+	'4', --estilo
+	'13%', --ancho
 	'1', --formateo
 	NULL, --vinculo_indice
 	'0', --no_ordenar

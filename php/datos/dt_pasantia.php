@@ -1,8 +1,8 @@
 <?php
 class dt_pasantia extends kimelu_datos_tabla
 {
-    //protected $u_a='FAEA'; //LISTO!!!
-    //se debería cambiar por una variable que la provea el usuario que esté logueado
+    
+    
 	function get_listado($where=null)
 	{
             if (is_null($where)) {  $where = '';} 
@@ -27,7 +27,9 @@ class dt_pasantia extends kimelu_datos_tabla
 			t_a.denominacion as id_actividad_nombre,
 			t_c.descripcion as id_convenio_nombre,
                         t_c.sigla,
-                        t_a.id_ua
+                        t_p.tutor,
+                        t_a.id_ua,
+                        t_i.nombre as institucion
 		FROM
 			pasantia as t_p	
                         INNER JOIN estudiante as t_e ON (t_p.id_estudiante = t_e.id_estudiante)
@@ -35,6 +37,7 @@ class dt_pasantia extends kimelu_datos_tabla
 			INNER JOIN actividad as t_a ON (t_p.id_actividad = t_a.id_actividad)
 			LEFT OUTER JOIN convenio as t_c ON (t_p.id_convenio = t_c.id_convenio)
                         LEFT OUTER JOIN carrera as t_ca ON (t_p.id_carrera = t_ca.id_carrera)
+                        LEFT OUTER JOIN institucion as t_i ON (t_a.institucion = t_i.id_institucion)
                         $where
 		ORDER BY t_a.denominacion, t_ca.nombre";
                 $sql = toba::perfil_de_datos()->filtrar($sql);

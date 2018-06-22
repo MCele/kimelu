@@ -127,9 +127,10 @@ class dt_actividad extends kimelu_datos_tabla
         function get_descripciones_pasantia()
 	{   //Datos de actividades para un determinado tipo: 1-->Pasantía
             $tipo =1;
-            $sql = "SELECT id_actividad, denominacion FROM actividad "
-                    ."Where tipo_actividad = " . $tipo ." "
-                    . "ORDER BY denominacion";
+            $sql = "SELECT id_actividad, institucion, denominacion||' - '||i.nombre as nombre FROM actividad as a"
+                    ." inner join institucion as i on (a.institucion = i.id_institucion) "
+                    ." Where tipo_actividad = " . $tipo ." "
+                    ." ORDER BY nombre";
             $sql = toba::perfil_de_datos()->filtrar($sql);
             
             return toba::db('kimelu')->consultar($sql);

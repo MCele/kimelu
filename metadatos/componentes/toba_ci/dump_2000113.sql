@@ -152,7 +152,7 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	'2000027', --pantalla
 	'pant_cuadro', --identificador
 	'1', --orden
-	'Ver', --etiqueta
+	'Ver Actividades', --etiqueta
 	NULL, --descripcion
 	NULL, --tip
 	'proyecto', --imagen_recurso_origen
