@@ -132,7 +132,7 @@ INSERT INTO apex_objeto_ei_filtro_col (objeto_ei_filtro_col, objeto_ei_filtro, o
 	'2000023', --objeto_ei_filtro_col
 	'2000147', --objeto_ei_filtro
 	'kimelu', --objeto_ei_filtro_proyecto
-	'cadena', --tipo
+	'numero', --tipo
 	'nro_factura', --nombre
 	'nro_factura', --expresion
 	'Número Comprobante', --etiqueta
