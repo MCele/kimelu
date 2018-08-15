@@ -44,10 +44,12 @@ class ci_facturacion extends abm_ci
             else{//Si la factura es nueva (Alta)
                 //se filtra el punto de venta de acuerdo al usuario logueado
                 $pv= $this->dep('datos')->tabla('facturacion')->obtener_punto_venta_actual();
-                //se obtiene el siguiente número de la nueva factura
-                $nro_fact = $this->dep('datos')->tabla('facturacion')->siguiente_factura($pv[0]['id_punto_venta']);
-                //el punto de venta es para toda la Universidad (se asocia al CUIL de la UNCO) y es uno por usuario
-                $datos=Array('id_punto_venta'=>$pv[0]['id_punto_venta'],'nro_factura'=>$nro_fact);
+                if(!empty ($pv)){
+                    //se obtiene el siguiente número de la nueva factura
+                    $nro_fact = $this->dep('datos')->tabla('facturacion')->siguiente_factura($pv[0]['id_punto_venta']);
+                    //el punto de venta es para toda la Universidad (se asocia al CUIL de la UNCO) y es uno por usuario
+                    $datos=Array('id_punto_venta'=>$pv[0]['id_punto_venta'],'nro_factura'=>$nro_fact);
+                }
                 $aux2=$this->dep('datos')->tabla('unidad_academica')->get_descripciones();
                 if(!empty ($aux2)){
                     $datos['id_ua']= $aux2[0]['sigla'];

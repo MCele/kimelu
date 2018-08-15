@@ -28,6 +28,7 @@ class ci_pasantias extends abm_ci
         
         $cuadro->set_datos($datos);
     }
+    
     function get_estudiante_apellido_nombre($id_estudiante=NULL){
         $datos = $this->dep('datos')->tabla('pasantia')->get_descripciones_apellido_nombre($id_estudiante);
         return $datos[0]['apellido_nombre'];

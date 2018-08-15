@@ -83,7 +83,7 @@ class ci_estudiante extends abm_ci
                   //[id_carreras] => Array ( [0] => 623 [1] => 634 ) 
 		if(!$existe){//solo se da de alta un estudiante si no existe ya en la BD con igual cuil o dni
                     $carreras = $datos['id_carreras'];
-                    	
+                    $datos['id_ua']=$ua[0]['sigla'];
                     $this->dep('datos')->tabla($this->nombre_tabla)->set($datos);
                     $this->dep('datos')->tabla($this->nombre_tabla)->sincronizar();; //actualiza datos enla BD
                     $estudiante = $this->dep('datos')->tabla('estudiante')->get_alumno_cuil($datos['cuil'],NULL);
@@ -199,7 +199,7 @@ class ci_estudiante extends abm_ci
 			//se elimina el registro del alumno de la BD vinculado a la UA del usuario loguado
                         $ua = $this->dep('datos')->tabla('estudiante')->get_ua();//obtenemos UA de usuario
                         foreach ($ua as $pos => $unidad)
-                        {   //eliminamos registros de UA del usuario en la que esté el estudiante
+                        {   //eliminamos registros de UA del usuario en la que esté el estudiante (estudainte_ua)
                             $this->dep('datos')->tabla('estudiante')->borrar_ua($datos['id_estudiante'],$unidad['sigla']);
                         }
                         $unidades_est = $this->dep('datos')->tabla('estudiante')->get_estudiante_ua($datos['id_estudiante']);

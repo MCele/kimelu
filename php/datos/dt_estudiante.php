@@ -33,7 +33,7 @@ class dt_estudiante extends kimelu_datos_tabla
 	}
 
 	function get_descripciones_apellido_nombre($id_est=NULL)
-	{ //datos de un estudiante con apellido y nombre en un sólo string
+	{ //datos de un estudiante con apellido y nombre en un sólo string PopUp
             if (is_null($id_est)) { 
                 $where = '';
             } 

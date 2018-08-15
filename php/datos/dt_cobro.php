@@ -16,6 +16,7 @@ class dt_cobro extends kimelu_datos_tabla
                 } 
             else {
                  $where = ' where ' . $where;
+                 $where = str_replace("nro_rendicion", "t_r.nro_rendicion", $where );
             }
 		$sql = "SELECT
 			t_f.concepto as id_factura_nombre,
@@ -23,17 +24,19 @@ class dt_cobro extends kimelu_datos_tabla
                         t_f.nro_factura,
 			t_c.monto_cobrado,
 			t_c.fecha_cobro,
-			t_c.nro_rendicion,
+			t_r.nro_rendicion,
+                        t_r.fecha_rendicion,
                         t_pv.id_punto_venta,
                         t_pv.nro_punto_venta,
-			t_c.id_cobro,
-                        t_c.nro_rendicion
+			t_c.id_cobro
+                        
 		FROM
 			facturacion as t_f 
                         RIGHT OUTER JOIN  cobro as t_c 
                         ON (t_c.id_factura = t_f.id_factura)
                         LEFT OUTER JOIN punto_venta as t_pv 
                         ON (t_pv.id_punto_venta = t_f.id_punto_venta)
+                        inner join rendicion as t_r on(t_c.id_rendicion=t_r.id_rendicion)
                         $where
                         ORDER BY id_cobro desc";
                 //se ven los últimos cobros cargados en el cuadro
@@ -104,6 +107,22 @@ class dt_cobro extends kimelu_datos_tabla
              $sql=toba::perfil_de_datos()->filtrar($sql);
              return toba::db('kimelu')->consultar($sql);
         }
+        //Método para PopUp de Rendición
+        function get_descripciones_nro_rendicion($id_rendicion=NULL){
+            if (is_null($id_rendicion)) { 
+                $where = '';
+            } 
+            else {  
+                $where = " WHERE id_rendicion = $id_rendicion";
+            }
+            $sql = "SELECT  nro_rendicion, fecha_rendicion, 
+                            id_rendicion, observacion
+                    FROM  rendicion
+                    $where
+                    ORDER BY nro_rendicion";
+            $sql = toba::perfil_de_datos()->filtrar($sql);
+            return toba::db('kimelu')->consultar($sql);
+      }
 }
 
 ?>

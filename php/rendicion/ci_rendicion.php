@@ -2,66 +2,40 @@
 class ci_rendicion extends abm_ci
 {
     protected $nombre_tabla='rendicion';
-    /*
-	//---- Cuadro -----------------------------------------------------------------------
-
-	function conf__cuadro(toba_ei_cuadro $cuadro)
-	{
-		$cuadro->set_datos($this->dep('datos')->tabla('rendicion')->get_listado());
+    
+    //------------------CUADRO-----------------
+    function conf__cuadro(toba_ei_cuadro $cuadro) {
+        $this->dep('datos')->resetear(); 
+        $cuadro->desactivar_modo_clave_segura();//para que no muestre la posición de la fila en el cuadro al volver del popUp
+        if (!is_null($this->s__where)) {
+            $datos = $this->dep('datos')->tabla($this->nombre_tabla)->get_listado($this->s__where);
+        } else {
+            $datos = $this->dep('datos')->tabla($this->nombre_tabla)->get_listado();
+        }
+        $cuadro->set_datos($datos);
+    }
+    
+    //--------------- PopUp ---------------
+    function evt__cuadro__seleccion($datos) {
+        $this->set_pantalla('pant_edicion');
+        $ver=$this->dep('datos')->tabla($this->nombre_tabla)->cargar($datos);
+    }
+    
+    //--------------FORMULARIO-------------
+    
+    function evt__formulario__baja(){
+        //Se verifica que no tenga cobros asociados para poder eliminarla
+        $datos = $this->dep('datos')->tabla($this->nombre_tabla)->get();
+        $cobros = $this->dep('datos')->tabla($this->nombre_tabla)->get_listado_cobros_asociados($datos['id_rendicion']);
+        if(!empty($cobros)){
+		toba::notificacion()->agregar('La rendicion no se puede eliminar porque tiene cobros asociados', 'info');
 	}
-
-	function evt__cuadro__seleccion($datos)
-	{
-		$this->dep('datos')->cargar($datos);
-		$this->set_pantalla('pant_edicion');
-	}
-
-	//---- Formulario -------------------------------------------------------------------
-
-	function conf__formulario(toba_ei_formulario $form)
-	{
-		if ($this->dep('datos')->esta_cargada()) {
-			$form->set_datos($this->dep('datos')->tabla('rendicion')->get());
-		} else {
-			$this->pantalla()->eliminar_evento('eliminar');
-		}
-	}
-
-	function evt__formulario__modificacion($datos)
-	{
-		$this->dep('datos')->tabla('rendicion')->set($datos);
-	}
-
-	function resetear()
-	{
-		$this->dep('datos')->resetear();
-		$this->set_pantalla('pant_seleccion');
-	}
-
-	//---- EVENTOS CI -------------------------------------------------------------------
-
-	function evt__agregar()
-	{
-		$this->set_pantalla('pant_edicion');
-	}
-
-	function evt__volver()
-	{
-		$this->resetear();
-	}
-
-	function evt__eliminar()
-	{
-		$this->dep('datos')->eliminar_todo();
-		$this->resetear();
-	}
-
-	function evt__guardar()
-	{
-		$this->dep('datos')->sincronizar();
-		$this->resetear();
-	}
-*/
+        else{
+           $this->dep('datos')->eliminar_todo();
+            toba::notificacion()->agregar('El registro se ha eliminado correctamente', 'info');
+            $this->resetear(); 
+        }
+    }
 }
 
 ?>

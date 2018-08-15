@@ -18,8 +18,11 @@ class ci_cobro extends abm_ci
         }
         else{
              $pv= $this->dep('datos')->tabla('cobro')->obtener_punto_venta_actual();
-             $datos=Array('id_punto_venta'=>$pv[0]['id_punto_venta']);
-             $form->set_datos($datos, false);//guardo los datos en el formulario. Pasa a estado cargado (muestra botones de modificar, cancelar)
+             if(!empty($pv)){
+                 $datos=Array('id_punto_venta'=>$pv[0]['id_punto_venta']);
+                 $form->set_datos($datos, false);//guardo los datos en el formulario. Pasa a estado cargado (muestra botones de modificar, cancelar)
+             }
+             
         }
     }
 
@@ -65,6 +68,20 @@ class ci_cobro extends abm_ci
             }
         }
     }
+    
+    //PopUp Rendición
+    function get_rendicion_nro($id_rendicion=NULL){
+        if($id_rendicion!=NULL){
+           // print_r("id_rendicion");
+            //print_r($id_rendicion);
+            $datos = $this->dep('datos')->tabla('cobro')->get_descripciones_nro_rendicion($id_rendicion);
+            //print_r("get_rendicion_nro");
+            //print_r($datos);
+            return $datos[0]['nro_rendicion'];
+        }
+        return NULL;
+    }
+    
 }
 
 ?>
