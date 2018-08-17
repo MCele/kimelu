@@ -10,13 +10,15 @@ class dt_rendicion extends kimelu_datos_tabla
             else {
                  $where = ' where ' . $where;
             }
-		$sql = "SELECT
+		$sql = "SELECT DISTINCT
 			t_r.nro_rendicion,
 			t_r.fecha_rendicion,
 			t_r.id_rendicion,
 			t_r.observacion
-		FROM
-			rendicion as t_r
+		FROM    facturacion as f
+                        inner join cobro  as c on(c.id_factura=f.id_factura)
+                        inner join rendicion as t_r on (c.id_rendicion=t_r.id_rendicion)
+                        
                 $where
 		ORDER BY nro_rendicion";
                 $sql = toba::perfil_de_datos()->filtrar($sql);
