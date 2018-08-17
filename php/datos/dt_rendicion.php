@@ -10,6 +10,8 @@ class dt_rendicion extends kimelu_datos_tabla
             else {
                  $where = ' where ' . $where;
             }
+            //consulta con join para facturacion y cobro 
+            //para poder usar filtro en usuario por u_a
 		$sql = "SELECT DISTINCT
 			t_r.nro_rendicion,
 			t_r.fecha_rendicion,

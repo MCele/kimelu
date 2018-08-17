@@ -4,7 +4,6 @@ class ci_pasantias extends abm_ci
     protected $nombre_tabla='pasantia';
     protected $s__renovar=NULL;
 
-
     //---- Cuadro -----------------------------------------------------------------------
     function conf__cuadro(toba_ei_cuadro $cuadro) 
     {       
