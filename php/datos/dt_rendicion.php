@@ -4,11 +4,14 @@ class dt_rendicion extends kimelu_datos_tabla
 	function get_listado($where=null)
 	{
             if (is_null($where)) {  
-                    $where = '';
+                    $where1 = '';
+                    $where2 = '';
                     
                 } 
             else {
-                 $where = ' where ' . $where;
+                    $where = str_replace("nro_rendicion", "t_r.nro_rendicion", $where );
+                 $where1 = ' WHERE ' . $where;
+                 $where2 = ' AND ' . $where;
             }
             //consulta con join para facturacion y cobro 
             //para poder usar filtro en usuario por u_a
@@ -21,7 +24,7 @@ class dt_rendicion extends kimelu_datos_tabla
                         inner join cobro  as c on(c.id_factura=f.id_factura)
                         inner join rendicion as t_r on (c.id_rendicion=t_r.id_rendicion)
                         
-                $where";
+                $where1";
                 $sql = toba::perfil_de_datos()->filtrar($sql);
                 $sql = "$sql "
                         . "Union
@@ -33,7 +36,7 @@ class dt_rendicion extends kimelu_datos_tabla
 		FROM    facturacion as f
                         inner join cobro  as c on(c.id_factura=f.id_factura)
                         right join rendicion as t_r on (c.id_rendicion=t_r.id_rendicion)
-		where f.id_ua isNull
+		where f.id_ua isNull $where2
 		ORDER BY nro_rendicion";
 		return toba::db('kimelu')->consultar($sql);
                 
