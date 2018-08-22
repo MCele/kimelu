@@ -21,9 +21,20 @@ class dt_rendicion extends kimelu_datos_tabla
                         inner join cobro  as c on(c.id_factura=f.id_factura)
                         inner join rendicion as t_r on (c.id_rendicion=t_r.id_rendicion)
                         
-                $where
-		ORDER BY nro_rendicion";
+                $where";
                 $sql = toba::perfil_de_datos()->filtrar($sql);
+                $sql = "$sql "
+                        . "Union
+                        SELECT DISTINCT
+			t_r.nro_rendicion,
+			t_r.fecha_rendicion,
+			t_r.id_rendicion,
+			t_r.observacion
+		FROM    facturacion as f
+                        inner join cobro  as c on(c.id_factura=f.id_factura)
+                        right join rendicion as t_r on (c.id_rendicion=t_r.id_rendicion)
+		where f.id_ua isNull
+		ORDER BY nro_rendicion";
 		return toba::db('kimelu')->consultar($sql);
                 
 	}
