@@ -1,8 +1,6 @@
 <?php
 class dt_cobro extends kimelu_datos_tabla
-{
-    //protected $u_a='FAEA'; LISTO!!!
-    
+{ 
     
     
 	function get_listado($where=null)
@@ -36,7 +34,7 @@ class dt_cobro extends kimelu_datos_tabla
                         ON (t_c.id_factura = t_f.id_factura)
                         LEFT OUTER JOIN punto_venta as t_pv 
                         ON (t_pv.id_punto_venta = t_f.id_punto_venta)
-                        inner join rendicion as t_r on(t_c.id_rendicion=t_r.id_rendicion)
+                        LEFT OUTER JOIN rendicion as t_r on(t_c.id_rendicion=t_r.id_rendicion)
                         $where
                         ORDER BY id_cobro desc";
                 //se ven los últimos cobros cargados en el cuadro
