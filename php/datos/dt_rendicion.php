@@ -26,7 +26,8 @@ class dt_rendicion extends kimelu_datos_tabla
                         
                 $where1";
                 $sql = toba::perfil_de_datos()->filtrar($sql);
-                $sql = "$sql "
+                $sql = "$sql " 
+                //permite mostrar las rendiciones que no están asociadas a ningún cobro
                         . "Union
                         SELECT DISTINCT
 			t_r.nro_rendicion,
@@ -38,6 +39,8 @@ class dt_rendicion extends kimelu_datos_tabla
                         right join rendicion as t_r on (c.id_rendicion=t_r.id_rendicion)
 		where f.id_ua isNull $where2
 		ORDER BY nro_rendicion";
+                
+                //$sql = toba::perfil_de_datos()->filtrar($sql);
 		return toba::db('kimelu')->consultar($sql);
                 
 	}

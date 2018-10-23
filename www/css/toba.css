@@ -107,6 +107,12 @@ a.nivel-0:hover, a.nivel-0:focus, a.nivel-0.rollover, a.nivel-0.rollover:visited
 	color: #000000 !important;
 }
 
+.encabezado{
+    background-color: white;
+    margin-bottom: 0;
+    padding-bottom: 1px;
+    border-bottom: 5px solid #539f91;
+}
 
 /*************************
 		Login

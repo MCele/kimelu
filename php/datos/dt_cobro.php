@@ -47,12 +47,14 @@ class dt_cobro extends kimelu_datos_tabla
             $datos = null;
             $where = "";
             if(!is_null($id_punto_venta)){
-                if(!is_null($nro_fact)){
-                    $where = " where nro_factura = $nro_fact";
+                if(!is_null($nro_fact)){//Ver si no falta and id_punto_venta = $id_punto_venta???
+                    $where = " where nro_factura = $nro_fact and id_punto_venta = $id_punto_venta ";
+                    
                 }
                 $sql = "select id_factura, nro_factura, fecha, concepto, id_punto_venta, estado, monto "
                         . "from facturacion " 
                         . $where;
+                //print_r($sql);
                 $sql = toba::perfil_de_datos()->filtrar($sql);
                 
                 $datos= toba::db('kimelu')->consultar($sql);
@@ -63,10 +65,10 @@ class dt_cobro extends kimelu_datos_tabla
         function obtener_monto_factura($id_punto_venta, $nro_factura){
             $datos = $this->obtener_facturas($id_punto_venta, $nro_factura);
             if(is_null($datos)||empty($datos)){
-                return NULL;
+                return '<p style=color:red><b>Inexistente</b></p>';
             }
             else {
-                return $datos[0]['monto'];
+                return '$ '.$datos[0]['monto'];
             
             }
         }

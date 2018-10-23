@@ -2,25 +2,25 @@
 class ci_cobro extends abm_ci
 {
 	protected $nombre_tabla='cobro';
-        //LISTO!!!
-        //Ver si se puede solucionar lo de cascada para monto_cobrado desde JS formulario.php
+       
     function conf__formulario(toba_ei_formulario $form) {        
         if ($this->dep('datos')->tabla($this->nombre_tabla)->esta_cargada()) {
             $datos = $this->dep('datos')->tabla($this->nombre_tabla)->get();
+            //print_r($datos);
             $factura = $this->dep('datos')->tabla('cobro')->obtener_datos_una_factura($datos['id_factura']);
             $datos['id_punto_venta']= $factura[0]['id_punto_venta'];
             $datos['nro_factura']= $factura[0]['nro_factura'];
             
             //$form->ef('monto_cobrado')->quitar_maestro('id_punto_venta');
             //$form->ef('monto_cobrado')->quitar_maestro('nro_factura');
-            //print_r($form->ef('monto_cobrado')->get_estado());
+            
             $form->set_datos($datos);
         }
         else{
              $pv= $this->dep('datos')->tabla('cobro')->obtener_punto_venta_actual();
              if(!empty($pv)){
                  $datos=Array('id_punto_venta'=>$pv[0]['id_punto_venta']);
-                 $form->set_datos($datos, false);//guardo los datos en el formulario. Pasa a estado cargado (muestra botones de modificar, cancelar)
+                 $form->set_datos($datos, false);//guardo los datos en el formulario. sin false: Pasa a estado cargado (muestra botones de modificar, cancelar)
              }
              
         }
