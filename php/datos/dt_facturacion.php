@@ -73,23 +73,26 @@ class dt_facturacion extends kimelu_datos_tabla
         //se listan los cobros asociados a una factura
         function get_listado_cobros($id_factura)
 	{
-		$sql = "SELECT
+		$sql =
+                    "SELECT
 			t_f.concepto as id_factura_nombre,
                         t_f.id_factura,
                         t_f.nro_factura,
 			t_c.monto_cobrado,
 			t_c.fecha_cobro,
 			t_c.nro_rendicion,
+			t_r.nro_rendicion,
                         t_pv.id_punto_venta,
                         t_pv.nro_punto_venta,
-			t_c.id_cobro,
-                        t_c.nro_rendicion
+			t_c.id_cobro
 		FROM
 			cobro as t_c	
-                        LEFT OUTER JOIN facturacion as t_f 
-                        ON (t_c.id_factura = t_f.id_factura)
-                        LEFT OUTER JOIN punto_venta as t_pv 
-                        ON (t_pv.id_punto_venta = t_f.id_punto_venta) 
+                            LEFT OUTER JOIN facturacion as t_f 
+                                ON (t_c.id_factura = t_f.id_factura)
+                            LEFT OUTER JOIN punto_venta as t_pv 
+                                ON (t_pv.id_punto_venta = t_f.id_punto_venta)
+                            LEFT OUTER JOIN rendicion as t_r 
+                                ON (t_r.id_rendicion = t_c.id_rendicion)
                         WHERE t_f.id_factura = $id_factura ";
                 //creo que no es necesaria la restricción de perfil de datos
                 $sql=toba::perfil_de_datos()->filtrar($sql);
