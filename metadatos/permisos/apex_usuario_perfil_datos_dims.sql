@@ -46,4 +46,11 @@ INSERT INTO apex_usuario_perfil_datos_dims (proyecto, usuario_perfil_datos, dime
 	'2000006', --elemento
 	'2'  --clave
 );
+INSERT INTO apex_usuario_perfil_datos_dims (proyecto, usuario_perfil_datos, dimension, elemento, clave) VALUES (
+	'kimelu', --proyecto
+	'2000004', --usuario_perfil_datos
+	'2000002', --dimension
+	'2000007', --elemento
+	'3'  --clave
+);
 --- FIN Grupo de desarrollo 2

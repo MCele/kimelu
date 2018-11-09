@@ -168,7 +168,7 @@ INSERT INTO apex_objeto_ei_cuadro_columna (objeto_cuadro_proyecto, objeto_cuadro
 	'2000144', --objeto_cuadro
 	'2000125', --objeto_cuadro_col
 	'nro_factura', --clave
-	'2', --orden
+	'3', --orden
 	'Número Comprobante', --titulo
 	'ei-cuadro-col-tit', --estilo_titulo
 	'0', --estilo
@@ -230,7 +230,7 @@ INSERT INTO apex_objeto_ei_cuadro_columna (objeto_cuadro_proyecto, objeto_cuadro
 	'2000144', --objeto_cuadro
 	'2000127', --objeto_cuadro_col
 	'concepto_factura', --clave
-	'7', --orden
+	'8', --orden
 	'Concepto Factura', --titulo
 	'ei-cuadro-col-tit', --estilo_titulo
 	'4', --estilo
@@ -261,7 +261,7 @@ INSERT INTO apex_objeto_ei_cuadro_columna (objeto_cuadro_proyecto, objeto_cuadro
 	'2000144', --objeto_cuadro
 	'2000128', --objeto_cuadro_col
 	'monto', --clave
-	'5', --orden
+	'6', --orden
 	'Importe', --titulo
 	'ei-cuadro-col-tit', --estilo_titulo
 	'1', --estilo
@@ -292,11 +292,11 @@ INSERT INTO apex_objeto_ei_cuadro_columna (objeto_cuadro_proyecto, objeto_cuadro
 	'2000144', --objeto_cuadro
 	'2000129', --objeto_cuadro_col
 	'institucion_nombre', --clave
-	'3', --orden
+	'4', --orden
 	'Cliente', --titulo
 	'ei-cuadro-col-tit', --estilo_titulo
 	'4', --estilo
-	'160', --ancho
+	'100', --ancho
 	'1', --formateo
 	NULL, --vinculo_indice
 	NULL, --no_ordenar
@@ -323,7 +323,7 @@ INSERT INTO apex_objeto_ei_cuadro_columna (objeto_cuadro_proyecto, objeto_cuadro
 	'2000144', --objeto_cuadro
 	'2000130', --objeto_cuadro_col
 	'id_actividad_nombre', --clave
-	'8', --orden
+	'9', --orden
 	'Actividad', --titulo
 	'ei-cuadro-col-tit', --estilo_titulo
 	'4', --estilo
@@ -354,7 +354,7 @@ INSERT INTO apex_objeto_ei_cuadro_columna (objeto_cuadro_proyecto, objeto_cuadro
 	'2000144', --objeto_cuadro
 	'2000133', --objeto_cuadro_col
 	'cobrado', --clave
-	'9', --orden
+	'10', --orden
 	'Cobrado', --titulo
 	'ei-cuadro-col-tit', --estilo_titulo
 	'0', --estilo
@@ -385,7 +385,7 @@ INSERT INTO apex_objeto_ei_cuadro_columna (objeto_cuadro_proyecto, objeto_cuadro
 	'2000144', --objeto_cuadro
 	'2000134', --objeto_cuadro_col
 	'saldo', --clave
-	'10', --orden
+	'11', --orden
 	'Saldo', --titulo
 	'ei-cuadro-col-tit', --estilo_titulo
 	'col-cen-s4', --estilo
@@ -416,7 +416,7 @@ INSERT INTO apex_objeto_ei_cuadro_columna (objeto_cuadro_proyecto, objeto_cuadro
 	'2000144', --objeto_cuadro
 	'2000138', --objeto_cuadro_col
 	'cuit_institucion', --clave
-	'4', --orden
+	'5', --orden
 	'Número de CUIT', --titulo
 	'ei-cuadro-col-tit', --estilo_titulo
 	'4', --estilo
@@ -447,7 +447,7 @@ INSERT INTO apex_objeto_ei_cuadro_columna (objeto_cuadro_proyecto, objeto_cuadro
 	'2000144', --objeto_cuadro
 	'2000139', --objeto_cuadro_col
 	'tipo', --clave
-	'6', --orden
+	'7', --orden
 	'Concepto del Ingreso', --titulo
 	'ei-cuadro-col-tit', --estilo_titulo
 	'4', --estilo
@@ -478,11 +478,42 @@ INSERT INTO apex_objeto_ei_cuadro_columna (objeto_cuadro_proyecto, objeto_cuadro
 	'2000144', --objeto_cuadro
 	'2000143', --objeto_cuadro_col
 	'estado', --clave
-	'11', --orden
+	'12', --orden
 	'Estado', --titulo
 	'ei-cuadro-col-tit', --estilo_titulo
 	'7', --estilo
 	'35', --ancho
+	'1', --formateo
+	NULL, --vinculo_indice
+	'0', --no_ordenar
+	NULL, --mostrar_xls
+	NULL, --mostrar_pdf
+	NULL, --pdf_propiedades
+	NULL, --desabilitado
+	'0', --total
+	NULL, --total_cc
+	'0', --usar_vinculo
+	NULL, --vinculo_carpeta
+	NULL, --vinculo_item
+	NULL, --vinculo_popup
+	NULL, --vinculo_popup_param
+	NULL, --vinculo_target
+	NULL, --vinculo_celda
+	NULL, --vinculo_servicio
+	'0', --permitir_html
+	NULL, --grupo
+	NULL  --evento_asociado
+);
+INSERT INTO apex_objeto_ei_cuadro_columna (objeto_cuadro_proyecto, objeto_cuadro, objeto_cuadro_col, clave, orden, titulo, estilo_titulo, estilo, ancho, formateo, vinculo_indice, no_ordenar, mostrar_xls, mostrar_pdf, pdf_propiedades, desabilitado, total, total_cc, usar_vinculo, vinculo_carpeta, vinculo_item, vinculo_popup, vinculo_popup_param, vinculo_target, vinculo_celda, vinculo_servicio, permitir_html, grupo, evento_asociado) VALUES (
+	'kimelu', --objeto_cuadro_proyecto
+	'2000144', --objeto_cuadro
+	'2000159', --objeto_cuadro_col
+	'pv', --clave
+	'2', --orden
+	'Punto Venta', --titulo
+	'ei-cuadro-col-tit', --estilo_titulo
+	'4', --estilo
+	'60', --ancho
 	'1', --formateo
 	NULL, --vinculo_indice
 	'0', --no_ordenar

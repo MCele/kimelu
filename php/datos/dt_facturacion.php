@@ -15,7 +15,7 @@ class dt_facturacion extends kimelu_datos_tabla
                   //$where = str_replace("institucion_nombre", "t_i.nombre", $where );
                   //$where = str_replace("actividad", "t_a.denominacion", $where );
                 $where = ' Where ' . $where; 
-                $pos = strpos($where, 'id_estado');
+                $pos = strpos($where, 'id_estado');//no se uso
                  /*// se filtra solo por facturas de estado correcto para mostrar
                   * if (empty($pos)) {
                     $where = $where . " and id_estado = '1'"; //estado de factura correcto
@@ -50,7 +50,7 @@ class dt_facturacion extends kimelu_datos_tabla
                        
                         group by 1,2,3,4,5,6,7,8,9,10,11,12
                         --(t_pv.nro_punto_venta,nro_factura,t_f.fecha,t_f.concepto,t_f.monto,t_f.id_factura,t_ta.tipo,t_i.nombre,t_i.cuil_cuit,t_a.denominacion, t_ef.descripcion...estado)
-		ORDER BY nro_factura desc ";
+		ORDER BY pv desc, nro_factura desc ";
                
 		$sql=toba::perfil_de_datos()->filtrar($sql);
                
@@ -155,7 +155,10 @@ class dt_facturacion extends kimelu_datos_tabla
             }
         }
         function obtener_punto_venta_actual (){
-             $sql = " select id_punto_venta, nro_punto_venta from punto_venta";
+            //se obtienen los puntos de venta asociados a un usuario 
+            ///se devuelven ordenados en forma descendente
+             $sql = " select id_punto_venta, nro_punto_venta from punto_venta "
+                     . "order by nro_punto_venta desc";
              $sql=toba::perfil_de_datos()->filtrar($sql);
              return toba::db('kimelu')->consultar($sql);
         }
